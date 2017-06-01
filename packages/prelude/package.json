@@ -2,7 +2,11 @@
   "name": "@motorcycle/prelude",
   "version": "0.0.0",
   "description": "Functional prelude for Motorcycle.ts",
-  "main": "lib/index.js",
+  "main": "dist/index.js",
+  "jsnext:main": "dist/index.es.js",
+  "module": "dist/index.es.js",
+  "types": "dist/index.d.ts",
+  "typings": "dist/index.d.ts",
   "scripts": {
     "test": "npm run test:lint && npm run test:unit",
     "test:lint": "../../node_modules/.bin/tslint --type-check --project ../../tsconfig.json --fix -c ../../tslint.json",
