@@ -1,0 +1,30 @@
+{
+  "name": "@motorcycle/prelude",
+  "version": "0.0.0",
+  "description": "Functional prelude for Motorcycle.ts",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "npm run test:lint && npm run test:unit",
+    "test:lint": "../../node_modules/.bin/tslint --type-check --project ../../tsconfig.json --fix -c ../../tslint.json",
+    "test:unit": "../../node_modules/.bin/typed-test -r ts-node/register 'src/*/*.test.ts' 'src/**/*.test.ts'",
+    "test:watch": "npm run test:unit -- --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/motorcyclets/motorcycle.git"
+  },
+  "keywords": [
+    "motorcycle",
+    "prelude",
+    "functional",
+    "ramda",
+    "lodash",
+    "typescript"
+  ],
+  "author": "Tylor Steinberger <tlsteinberger167@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/motorcyclets/motorcycle/issues"
+  },
+  "homepage": "https://github.com/motorcyclets/motorcycle#readme"
+}
