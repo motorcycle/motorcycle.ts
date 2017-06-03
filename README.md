@@ -7,3 +7,6 @@
 <div align='center'>
   <strong>A statically-typed, functional and reactive framework for modern browsers</strong>
 </div>
+
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/motorcyclets/motorcycle.svg)](https://greenkeeper.io/)
