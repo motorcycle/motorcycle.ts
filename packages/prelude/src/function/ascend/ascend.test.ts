@@ -2,8 +2,10 @@ import { eq } from '@briancavalier/assert'
 import { Test, describe, given, it } from '@typed/test'
 import { ascend } from './ascend'
 
-export const test: Test = describe(`ascend`,
-  given(`(a -> b) -> a -> a`,
+export const test: Test = describe(
+  `ascend`,
+  given(
+    `(a -> b) -> a -> a`,
     it(`returns an integer`, () => {
       const a = { a: 1 }
       const b = { a: 2 }

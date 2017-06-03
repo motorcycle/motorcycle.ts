@@ -9,7 +9,40 @@ export interface InvokerFn {
   <A, B, C, D, E, F, O>(arity: 5, method: keyof O, obj: O): Curry5<A, B, C, D, E, F>
   <A, B, C, D, E, F, G, O>(arity: 6, method: keyof O, obj: O): Curry6<A, B, C, D, E, F, G>
   <A, B, C, D, E, F, G, H, O>(arity: 7, method: keyof O, obj: O): Curry7<A, B, C, D, E, F, G, H>
-  <A, B, C, D, E, F, G, H, I, O>(arity: 8, method: keyof O, obj: O): Curry8<A, B, C, D, E, F, G, H, I>
-  <A, B, C, D, E, F, G, H, I, J, O>(arity: 9, method: keyof O, obj: O): Curry9<A, B, C, D, E, F, G, H, I, J>
-  <A, B, C, D, E, F, G, H, I, J, K, O>(arity: 10, method: keyof O, obj: O): Curry10<A, B, C, D, E, F, G, H, I, J, K>
+  <A, B, C, D, E, F, G, H, I, O>(arity: 8, method: keyof O, obj: O): Curry8<
+    A,
+    B,
+    C,
+    D,
+    E,
+    F,
+    G,
+    H,
+    I
+  >
+  <A, B, C, D, E, F, G, H, I, J, O>(arity: 9, method: keyof O, obj: O): Curry9<
+    A,
+    B,
+    C,
+    D,
+    E,
+    F,
+    G,
+    H,
+    I,
+    J
+  >
+  <A, B, C, D, E, F, G, H, I, J, K, O>(arity: 10, method: keyof O, obj: O): Curry10<
+    A,
+    B,
+    C,
+    D,
+    E,
+    F,
+    G,
+    H,
+    I,
+    J,
+    K
+  >
 }

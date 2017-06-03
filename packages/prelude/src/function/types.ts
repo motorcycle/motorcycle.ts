@@ -7,20 +7,100 @@ export type Arity4<A, B, C, D, E> = (a: A, b: B, c: C, d: D) => E
 export type Arity5<A, B, C, D, E, F> = (a: A, b: B, c: C, d: D, e: E) => F
 export type Arity6<A, B, C, D, E, F, G> = (a: A, b: B, c: C, d: D, e: E, f: F) => G
 export type Arity7<A, B, C, D, E, F, G, H> = (a: A, b: B, c: C, d: D, e: E, f: F, g: G) => H
-export type Arity8<A, B, C, D, E, F, G, H, I> = (a: A, b: B, c: C, d: D, e: E, f: F, g: G, h: H) => I
-export type Arity9<A, B, C, D, E, F, G, H, I, J> = (a: A, b: B, c: C, d: D, e: E, f: F, g: G, h: H, i: I) => J
-export type Arity10<A, B, C, D, E, F, G, H, I, J, K> = (a: A, b: B, c: C, d: D, e: E, f: F, g: G, h: H, i: I, j: J) => K
+export type Arity8<A, B, C, D, E, F, G, H, I> = (
+  a: A,
+  b: B,
+  c: C,
+  d: D,
+  e: E,
+  f: F,
+  g: G,
+  h: H
+) => I
+export type Arity9<A, B, C, D, E, F, G, H, I, J> = (
+  a: A,
+  b: B,
+  c: C,
+  d: D,
+  e: E,
+  f: F,
+  g: G,
+  h: H,
+  i: I
+) => J
+export type Arity10<A, B, C, D, E, F, G, H, I, J, K> = (
+  a: A,
+  b: B,
+  c: C,
+  d: D,
+  e: E,
+  f: F,
+  g: G,
+  h: H,
+  i: I,
+  j: J
+) => K
 export type ArityN<R> = (...args: Array<any>) => R
 export type Arity1N<A, R> = (a: A, ...args: Array<any>) => R
 export type Arity2N<A, B, R> = (a: A, b: B, ...args: Array<any>) => R
 export type Arity3N<A, B, C, R> = (a: A, b: B, c: C, ...args: Array<any>) => R
 export type Arity4N<A, B, C, D, R> = (a: A, b: B, c: C, d: D, ...args: Array<any>) => R
 export type Arity5N<A, B, C, D, E, R> = (a: A, b: B, c: C, d: D, e: E, ...args: Array<any>) => R
-export type Arity6N<A, B, C, D, E, F, R> = (a: A, b: B, c: C, d: D, e: E, f: F, ...args: Array<any>) => R
-export type Arity7N<A, B, C, D, E, F, G, R> = (a: A, b: B, c: C, d: D, e: E, f: F, g: G, ...args: Array<any>) => R
-export type Arity8N<A, B, C, D, E, F, G, H, R> = (a: A, b: B, c: C, d: D, e: E, f: F, g: G, h: H, ...args: Array<any>) => R
-export type Arity9N<A, B, C, D, E, F, G, H, I, R> = (a: A, b: B, c: C, d: D, e: E, f: F, g: G, h: H, i: I, ...args: Array<any>) => R
-export type Arity10N<A, B, C, D, E, F, G, H, I, J, R> = (a: A, b: B, c: C, d: D, e: E, f: F, g: G, h: H, i: I, j: J, ...args: Array<any>) => R
+export type Arity6N<A, B, C, D, E, F, R> = (
+  a: A,
+  b: B,
+  c: C,
+  d: D,
+  e: E,
+  f: F,
+  ...args: Array<any>
+) => R
+export type Arity7N<A, B, C, D, E, F, G, R> = (
+  a: A,
+  b: B,
+  c: C,
+  d: D,
+  e: E,
+  f: F,
+  g: G,
+  ...args: Array<any>
+) => R
+export type Arity8N<A, B, C, D, E, F, G, H, R> = (
+  a: A,
+  b: B,
+  c: C,
+  d: D,
+  e: E,
+  f: F,
+  g: G,
+  h: H,
+  ...args: Array<any>
+) => R
+export type Arity9N<A, B, C, D, E, F, G, H, I, R> = (
+  a: A,
+  b: B,
+  c: C,
+  d: D,
+  e: E,
+  f: F,
+  g: G,
+  h: H,
+  i: I,
+  ...args: Array<any>
+) => R
+export type Arity10N<A, B, C, D, E, F, G, H, I, J, R> = (
+  a: A,
+  b: B,
+  c: C,
+  d: D,
+  e: E,
+  f: F,
+  g: G,
+  h: H,
+  i: I,
+  j: J,
+  ...args: Array<any>
+) => R
 
 export type Predicate<A> = (a: A) => boolean
 export type Predicate2<A> = (a: A, b: A) => boolean

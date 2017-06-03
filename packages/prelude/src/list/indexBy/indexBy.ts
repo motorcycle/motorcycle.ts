@@ -7,18 +7,18 @@ import { IndexByArity2 } from './types'
  * same value for the indexing key only the last value will be included in the
  * generated object.
  */
-export const indexBy: IndexByArity2 = curry2(
-  function indexBy<A>(f: (value: A) => string, list: Array<A>): any {
-    const length = list.length
-    const obj: any = {}
+export const indexBy: IndexByArity2 = curry2(function indexBy<A>(
+  f: (value: A) => string,
+  list: Array<A>
+): any {
+  const length = list.length
+  const obj: any = {}
 
-    for (let i = 0; i < length; ++i)
-    {
-      const value = list[i]
-      const key = f(value)
-      obj[key] = value
-    }
-
-    return obj
+  for (let i = 0; i < length; ++i) {
+    const value = list[i]
+    const key = f(value)
+    obj[key] = value
   }
-)
+
+  return obj
+})

@@ -1,7 +1,6 @@
 import { Just, Maybe } from '../../maybe'
 
-export type Reducer<A, B> =
-  ((seed: B, value: A, index: number) => B)
+export type Reducer<A, B> = ((seed: B, value: A, index: number) => B)
 
 export interface ReduceArity3 {
   <A, B>(f: Reducer<A, B>, seed: B, list: Array<A>): B

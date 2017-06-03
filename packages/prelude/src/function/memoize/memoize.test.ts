@@ -4,8 +4,10 @@ import { Test, describe, given, it } from '@typed/test'
 import { curry2 } from '../curry'
 import { memoize } from './memoize'
 
-export const test: Test = describe('memoize',
-  given('a function',
+export const test: Test = describe(
+  'memoize',
+  given(
+    'a function',
     it('returns a memoized function', () => {
       let called = 0
 
@@ -23,8 +25,8 @@ export const test: Test = describe('memoize',
       eq(called, 1)
     })
   ),
-
-  given('a curried function',
+  given(
+    'a curried function',
     it('returns a curried memoized function', () => {
       let called = 0
 

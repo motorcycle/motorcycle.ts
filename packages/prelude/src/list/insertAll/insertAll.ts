@@ -7,27 +7,22 @@ export const insertAll: InsertAllArity3 = curry3(
     const length = list.length
     const valuesLength = values.length
 
-    if (index < 0)
-      return list
+    if (index < 0) return list
 
-    if (length === 0)
-      return values
+    if (length === 0) return values
 
     const newList = Array(length + valuesLength)
 
     let i = 0
     let j = 0
 
-    for (; i < index; ++i)
-      newList[i] = list[i]
+    for (; i < index; ++i) newList[i] = list[i]
 
-    for (; j < valuesLength; ++j)
-      newList[j + index] = values[j]
+    for (; j < valuesLength; ++j) newList[j + index] = values[j]
 
     i = i + j
 
-    for (; i <= length + index; ++i)
-      newList[i] = list[i - j]
+    for (; i <= length + index; ++i) newList[i] = list[i - j]
 
     return newList
   }

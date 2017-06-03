@@ -12,10 +12,14 @@ export function curry4<A, B, C, D, E>(fn: Arity4<A, B, C, D, E>): Curry4<A, B, C
   // tslint:disable-next-line:cyclomatic-complexity
   function curried(a: A, b: B, c: C, d: D): any {
     switch (arguments.length) {
-      case 1: return curry3<B, C, D, E>((b: B, c: C, d: D) => fn(a, b, c, d))
-      case 2: return curry2<C, D, E>((c: C, d: D) => fn(a, b, c, d))
-      case 3: return (d: D) => fn(a, b, c, d)
-      default: return fn(a, b, c, d)
+      case 1:
+        return curry3<B, C, D, E>((b: B, c: C, d: D) => fn(a, b, c, d))
+      case 2:
+        return curry2<C, D, E>((c: C, d: D) => fn(a, b, c, d))
+      case 3:
+        return (d: D) => fn(a, b, c, d)
+      default:
+        return fn(a, b, c, d)
     }
   }
 

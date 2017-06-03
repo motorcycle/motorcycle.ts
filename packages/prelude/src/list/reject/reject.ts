@@ -7,15 +7,14 @@ import { RejectArity2 } from './types'
  * given predicate.
  * Dispatches to the filter method of the second argument, if present.
  */
-export const reject: RejectArity2 = curry2(
-  function reject<A>(predicate: (a: A) => boolean, list: Array<A>): any {
-    const length = list.length
-    const newList = []
+export const reject: RejectArity2 = curry2(function reject<A>(
+  predicate: (a: A) => boolean,
+  list: Array<A>
+): any {
+  const length = list.length
+  const newList = []
 
-    for (let i = 0; i < length; ++i)
-      if (!predicate(list[i]))
-        newList.push(list[i])
+  for (let i = 0; i < length; ++i) if (!predicate(list[i])) newList.push(list[i])
 
-    return newList
-  }
-)
+  return newList
+})

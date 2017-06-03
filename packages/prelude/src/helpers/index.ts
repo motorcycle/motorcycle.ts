@@ -1,9 +1,7 @@
 export function type(value: any): string {
-  if (value === null)
-    return `Null`
+  if (value === null) return `Null`
 
-  if (value === void 0)
-    return `Undefined`
+  if (value === void 0) return `Undefined`
 
   return Object.prototype.toString.call(value).slice(8, -1)
 }

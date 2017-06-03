@@ -7,8 +7,10 @@ export function curry2<A, B, C>(fn: Arity2<A, B, C>): Curry2<A, B, C> {
   function curried(a: A, b: B): any {
     switch (arguments.length) {
       // tslint:disable-next-line:no-shadowed-variable
-      case 1: return (b: B) => fn(a, b)
-      default: return fn(a, b)
+      case 1:
+        return (b: B) => fn(a, b)
+      default:
+        return fn(a, b)
     }
   }
 

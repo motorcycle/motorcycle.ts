@@ -3,7 +3,8 @@ import { Test, describe, it } from '@typed/test'
 
 import { pipe } from './pipe'
 
-export const test: Test = describe('pipe',
+export const test: Test = describe(
+  'pipe',
   it('pipes functions', () => {
     const f = (x: number) => x + 1
     const g = (x: number) => x * 2
