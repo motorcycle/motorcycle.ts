@@ -6,22 +6,23 @@ import { clone } from './clone'
 
 const notEq = where(<A>(a: A, b: A) => a !== b)
 
-export const test: Test = describe('clone',
-  given('an object',
+export const test: Test = describe(
+  'clone',
+  given(
+    'an object',
     it('returns a cloned object', () => {
-      const obj =
-        {
-          a: {
-            b: {
-              c: {
-                d: 1,
-                e: {
-                  f: 2,
-                },
+      const obj = {
+        a: {
+          b: {
+            c: {
+              d: 1,
+              e: {
+                f: 2,
               },
             },
           },
-        }
+        },
+      }
 
       const clonedObj = clone(obj)
 
@@ -32,18 +33,10 @@ export const test: Test = describe('clone',
       notEq(obj.a.b.c.e, clonedObj.a.b.c.e)
     })
   ),
-
-  given('an array',
+  given(
+    'an array',
     it('returns a cloned array', () => {
-      const array = [
-        [ 1, 2 ],
-        [ 2, 3 ],
-        [
-          [
-            4, 5,
-          ],
-        ],
-      ]
+      const array = [[1, 2], [2, 3], [[4, 5]]]
 
       const clonedArray = clone(array)
 

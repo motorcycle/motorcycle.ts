@@ -12,19 +12,31 @@
     "@typed/test": "^0.8.0",
     "@types/node": "^7.0.22",
     "glob-expand": "^0.2.1",
+    "husky": "^0.13.4",
     "lerna": "^2.0.0-rc.5",
+    "lint-staged": "^3.6.0",
+    "prettier": "^1.4.2",
     "rollup": "^0.41.6",
     "rollup-plugin-node-resolve": "^3.0.0",
     "rollup-plugin-typescript": "^0.8.1",
     "ts-node": "^3.0.4",
-    "tslint": "^5.3.2",
     "typescript": "^2.3.4"
   },
+  "lint-staged": {
+    ".ts": [
+      "prettier --write --print-width 100 --tab-width 2 --no-semi --single-quote --trailing-comma es5 --parser typescript",
+      "git add"
+    ],
+    "*": [
+      "git add"
+    ]
+  },
   "scripts": {
+    "precommit": "lint-staged",
     "postinstall": "lerna bootstrap --hoist",
-    "test": "lerna run test",
+    "test": "npm run test:lint && npm run test:unit",
     "test:unit": "lerna run test:unit",
-    "test:lint": "lerna run test:lint",
+    "test:lint": "lerna exec -- ../../node_modules/.bin/prettier --write --print-width 100 --tab-width 2 --no-semi --single-quote --trailing-comma es5 --parser typescript src/**/*.ts",
     "build": "node tools/build.js",
     "release:canary": "lerna publish --canary",
     "release:beta": "lerna publish --npm-tag beta",

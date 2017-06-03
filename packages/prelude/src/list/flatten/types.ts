@@ -14,6 +14,8 @@ export interface FlattenArity1 {
   <A>(list: ReadonlyArray<ReadonlyArray<A>>): ReadonlyArray<A>
   <A>(list: ReadonlyArray<ReadonlyArray<ReadonlyArray<A>>>): ReadonlyArray<A>
   <A>(list: ReadonlyArray<ReadonlyArray<ReadonlyArray<ReadonlyArray<A>>>>): ReadonlyArray<A>
-  <A>(list: ReadonlyArray<ReadonlyArray<ReadonlyArray<ReadonlyArray<ReadonlyArray<A>>>>>): ReadonlyArray<A>
+  <A>(list: ReadonlyArray<
+    ReadonlyArray<ReadonlyArray<ReadonlyArray<ReadonlyArray<A>>>>
+  >): ReadonlyArray<A>
   <A>(list: ReadonlyArray<any>): ReadonlyArray<A>
 }

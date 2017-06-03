@@ -21,8 +21,7 @@ export const partial: PartialFn = curry2((f: any, args: Array<any>): any => {
   const length = Math.max(0, fnLength - argsLength) + placeholderAmount
 
   function partiallyApplied(...otherArgs: Array<any>) {
-    if (placeholderAmount === 0)
-      return apply(f, concat(args, otherArgs))
+    if (placeholderAmount === 0) return apply(f, concat(args, otherArgs))
 
     const combinedArgs: Array<any> = Array(fnLength)
 

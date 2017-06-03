@@ -6,14 +6,15 @@ import { AdjustArity3 } from './types'
  * new copy of the array with the element at the given index replaced with the
  * result of the function application.
  */
-export const adjust: AdjustArity3 = curry3(
-  function adjust<A>(f: (a: A) => A, index: number, list: Array<A>): Array<A> {
-    const length = list.length
-    const newList = Array(length)
+export const adjust: AdjustArity3 = curry3(function adjust<A>(
+  f: (a: A) => A,
+  index: number,
+  list: Array<A>
+): Array<A> {
+  const length = list.length
+  const newList = Array(length)
 
-    for (let i = 0; i < length; ++i)
-      newList[i] = i === index ? f(list[i]) : list[i]
+  for (let i = 0; i < length; ++i) newList[i] = i === index ? f(list[i]) : list[i]
 
-    return newList
-  }
-)
+  return newList
+})

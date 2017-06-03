@@ -4,7 +4,8 @@ import { Test, describe, it } from '@typed/test'
 
 import { compose } from './compose'
 
-export const test: Test = describe('compose',
+export const test: Test = describe(
+  'compose',
   it('composes functions', () => {
     const f = (x: number) => x + 1
     const g = (x: number) => x * 2

@@ -5,8 +5,10 @@ import { fromJust, isJust, just, nothing } from '../../maybe'
 
 import { reduce } from './reduce'
 
-export const test: Test = describe(`reduce`,
-  given(`(b -> a -> b) -> b -> Maybe a`,
+export const test: Test = describe(
+  `reduce`,
+  given(
+    `(b -> a -> b) -> b -> Maybe a`,
     it(`-> Just b`, () => {
       const maybeJust = just(1)
       const maybeNothing = nothing()

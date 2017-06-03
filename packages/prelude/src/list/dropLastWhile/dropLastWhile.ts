@@ -9,19 +9,19 @@ import { DropLastWhileArity2 } from './types'
  * function returns a falsy value. The predicate function is applied to one
  * argument: (value).
  */
-export const dropLastWhile: DropLastWhileArity2 = curry2(
-  function dropLastWhile<A>(f: (a: A) => boolean, list: Array<A>): ReadonlyArray<A> {
-    const length = list.length
+export const dropLastWhile: DropLastWhileArity2 = curry2(function dropLastWhile<A>(
+  f: (a: A) => boolean,
+  list: Array<A>
+): ReadonlyArray<A> {
+  const length = list.length
 
-    let i = length
+  let i = length
 
-    while (i > 0) {
-      if (!f(list[i - 1]))
-        return dropLast(length - i, list)
+  while (i > 0) {
+    if (!f(list[i - 1])) return dropLast(length - i, list)
 
-      i--
-    }
-
-    return dropLast(0, list)
+    i--
   }
-)
+
+  return dropLast(0, list)
+})

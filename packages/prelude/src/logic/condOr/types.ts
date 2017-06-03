@@ -1,6 +1,6 @@
 import { Arity1, Predicate } from '../../function'
 
-export type Conditional<A, B> = [ Predicate<A>, Arity1<A, B> ]
+export type Conditional<A, B> = [Predicate<A>, Arity1<A, B>]
 
 export interface CondOrArity3 {
   <A, B>(predicates: Array<Conditional<A, B>>, defaultValue: B, value: A): B

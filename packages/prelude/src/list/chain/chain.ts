@@ -11,20 +11,19 @@ import { ChainArity2 } from './types'
  * Dispatches to the chain method of the second argument, if present,
  * according to the FantasyLand Chain spec.
  */
-export const chain: ChainArity2 = curry2(
-  function chain<A, B>(f: (a: A) => Array<B>, list: any): any {
-    if (!isArrayLike(list))
-      return isJust(list) ? f(fromJust(list as Just<A>)) : list as Nothing
+export const chain: ChainArity2 = curry2(function chain<A, B>(
+  f: (a: A) => Array<B>,
+  list: any
+): any {
+  if (!isArrayLike(list)) return isJust(list) ? f(fromJust(list as Just<A>)) : list as Nothing
 
-    const length = list.length
-    const newList: Array<B> = []
+  const length = list.length
+  const newList: Array<B> = []
 
-    for (let i = 0; i < length; ++i)
-    {
-      const b = f(list[i])
-      newList.push.apply(newList, isArrayLike(b) ? b : [ b ])
-    }
-
-    return newList
+  for (let i = 0; i < length; ++i) {
+    const b = f(list[i])
+    newList.push.apply(newList, isArrayLike(b) ? b : [b])
   }
-)
+
+  return newList
+})

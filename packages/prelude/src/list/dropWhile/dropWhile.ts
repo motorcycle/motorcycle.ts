@@ -8,19 +8,19 @@ import { DropWhileArity2 } from './types'
  * predicate function, skipping elements while the predicate function returns
  * true. The predicate function is applied to one argument: (value).
  */
-export const dropWhile: DropWhileArity2 = curry2(
-  function dropWhile<A>(f: (a: A) => boolean, list: Array<A>): ReadonlyArray<A> {
-    const length = list.length
+export const dropWhile: DropWhileArity2 = curry2(function dropWhile<A>(
+  f: (a: A) => boolean,
+  list: Array<A>
+): ReadonlyArray<A> {
+  const length = list.length
 
-    let i = 0
+  let i = 0
 
-    while (i < length) {
-      if (!f(list[i]))
-        return drop(i, list)
+  while (i < length) {
+    if (!f(list[i])) return drop(i, list)
 
-      i++
-    }
-
-    return drop(0, list)
+    i++
   }
-)
+
+  return drop(0, list)
+})

@@ -4,26 +4,28 @@ import { describe, given, it } from '@typed/test'
 
 import { and } from './and'
 
-describe(`and`,
-  given(`true -> true`,
+describe(
+  `and`,
+  given(
+    `true -> true`,
     it(`-> true`, () => {
       assert(and(true, true))
     })
   ),
-
-  given(`true -> false`,
+  given(
+    `true -> false`,
     it(`-> false`, () => {
       assert(!and(true, false))
     })
   ),
-
-  given(`false -> true`,
+  given(
+    `false -> true`,
     it(`-> false`, () => {
       assert(!and(false, true))
     })
   ),
-
-  given(`false -> false`,
+  given(
+    `false -> false`,
     it(`-> false`, () => {
       assert(!and(false, false))
     })

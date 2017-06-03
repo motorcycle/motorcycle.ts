@@ -3,21 +3,23 @@ import { Test, describe, given, it } from '@typed/test'
 
 import { last } from './last'
 
-export const lastTest: Test = describe('last',
-  given('str',
+export const lastTest: Test = describe(
+  'last',
+  given(
+    'str',
     it('-> str', () => {
       eq(last('abc'), 'c')
       eq(last(''), '')
     })
   ),
-
-  given('[a]',
+  given(
+    '[a]',
     it('-> a', () => {
-      eq(last([ 1, 2, 3 ]), 3)
+      eq(last([1, 2, 3]), 3)
     })
   ),
-
-  given('[]',
+  given(
+    '[]',
     it('-> void', () => {
       eq(last([]), void 0)
     })

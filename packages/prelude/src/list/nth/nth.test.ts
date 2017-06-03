@@ -3,10 +3,12 @@ import { Test, describe, given, it } from '@typed/test'
 
 import { nth } from './nth'
 
-export const test: Test = describe('nth',
-  given('int -> [a]',
+export const test: Test = describe(
+  'nth',
+  given(
+    'int -> [a]',
     it('-> a | void', () => {
-      const list = [ 'foo', 'bar', 'baz', 'quux' ]
+      const list = ['foo', 'bar', 'baz', 'quux']
 
       eq(nth(1, list), 'bar') // => 'bar'
       eq(nth(-1, list), 'quux') // => 'quux'

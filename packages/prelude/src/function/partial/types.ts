@@ -1,10 +1,9 @@
 // tslint:disable:max-file-line-count
 import { Arity0, Arity1, Arity2, Arity3, Arity4, Curry2, Curry3, Curry4 } from '../types'
 
-export type PlaceHolder =
-  {
-    readonly ['@@placeholder']: true,
-  }
+export type PlaceHolder = {
+  readonly ['@@placeholder']: true
+}
 
 export interface PartialFn {
   <A>(f: Arity0<A>, args: Array<any>): Arity0<A>
@@ -35,7 +34,12 @@ export interface PartialFn {
   <A, B, C, D>(f: Arity3<A, B, C, D>, args: [A, PlaceHolder, C]): Arity1<B, D>
   <A, B, C, D>(f: Arity3<A, B, C, D>, args: [A, PlaceHolder, PlaceHolder]): Curry2<B, C, D>
   <A, B, C, D>(f: Arity3<A, B, C, D>, args: [A, B, PlaceHolder]): Arity1<C, D>
-  <A, B, C, D>(f: Arity3<A, B, C, D>, args: [PlaceHolder, PlaceHolder, PlaceHolder]): Curry3<A, B, C, D>
+  <A, B, C, D>(f: Arity3<A, B, C, D>, args: [PlaceHolder, PlaceHolder, PlaceHolder]): Curry3<
+    A,
+    B,
+    C,
+    D
+  >
 
   // Arity 4
   <A, B, C, D, E>(f: Arity4<A, B, C, D, E>, args: [A, B, C, D]): Arity0<E>
@@ -53,11 +57,36 @@ export interface PartialFn {
   <A, B, C, D, E>(f: Arity4<A, B, C, D, E>, args: [A, B, PlaceHolder, D]): Arity1<C, E>
   <A, B, C, D, E>(f: Arity4<A, B, C, D, E>, args: [A, B, PlaceHolder, PlaceHolder]): Curry2<C, D, E>
   <A, B, C, D, E>(f: Arity4<A, B, C, D, E>, args: [A, B, C, PlaceHolder]): Arity1<D, E>
-  <A, B, C, D, E>(f: Arity4<A, B, C, D, E>, args: [PlaceHolder, PlaceHolder, PlaceHolder, PlaceHolder]): Curry4<A, B, C, D, E>
-  <A, B, C, D, E>(f: Arity4<A, B, C, D, E>, args: [PlaceHolder, PlaceHolder, PlaceHolder, D]): Curry3<A, B, C, E>
-  <A, B, C, D, E>(f: Arity4<A, B, C, D, E>, args: [PlaceHolder, PlaceHolder, C, PlaceHolder]): Curry3<A, B, D, E>
-  <A, B, C, D, E>(f: Arity4<A, B, C, D, E>, args: [PlaceHolder, B, PlaceHolder, PlaceHolder]): Curry3<A, C, D, E>
-  <A, B, C, D, E>(f: Arity4<A, B, C, D, E>, args: [A, PlaceHolder, PlaceHolder, PlaceHolder]): Curry3<B, C, D, E>
+  <A, B, C, D, E>(f: Arity4<A, B, C, D, E>, args: [
+    PlaceHolder,
+    PlaceHolder,
+    PlaceHolder,
+    PlaceHolder
+  ]): Curry4<A, B, C, D, E>
+  <A, B, C, D, E>(f: Arity4<A, B, C, D, E>, args: [
+    PlaceHolder,
+    PlaceHolder,
+    PlaceHolder,
+    D
+  ]): Curry3<A, B, C, E>
+  <A, B, C, D, E>(f: Arity4<A, B, C, D, E>, args: [
+    PlaceHolder,
+    PlaceHolder,
+    C,
+    PlaceHolder
+  ]): Curry3<A, B, D, E>
+  <A, B, C, D, E>(f: Arity4<A, B, C, D, E>, args: [
+    PlaceHolder,
+    B,
+    PlaceHolder,
+    PlaceHolder
+  ]): Curry3<A, C, D, E>
+  <A, B, C, D, E>(f: Arity4<A, B, C, D, E>, args: [
+    A,
+    PlaceHolder,
+    PlaceHolder,
+    PlaceHolder
+  ]): Curry3<B, C, D, E>
 
   // curried variants
   <A>(f: Arity0<A>): Arity0Partial<A>

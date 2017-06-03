@@ -21,7 +21,9 @@ export interface ApertureArity2 {
   <A>(n: 6, list: ReadonlyArray<A>): ReadonlyArray<[A, A, A, A, A, A]> | ReadonlyArray<never>
   <A>(n: 7, list: ReadonlyArray<A>): ReadonlyArray<[A, A, A, A, A, A, A]> | ReadonlyArray<never>
   <A>(n: 8, list: ReadonlyArray<A>): ReadonlyArray<[A, A, A, A, A, A, A, A]> | ReadonlyArray<never>
-  <A>(n: 9, list: ReadonlyArray<A>): ReadonlyArray<[A, A, A, A, A, A, A, A, A]> | ReadonlyArray<never>
+  <A>(n: 9, list: ReadonlyArray<A>):
+    | ReadonlyArray<[A, A, A, A, A, A, A, A, A]>
+    | ReadonlyArray<never>
   <A>(n: number, list: ReadonlyArray<A>): ReadonlyArray<ReadonlyArray<A>>
 
   (n: number): ApertureArity1
