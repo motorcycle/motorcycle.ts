@@ -1,7 +1,9 @@
 # How to Rebase from an Internal Branch
 
 In this scenario, we have a bunch of commits in 'dev' that are ahead 
-of 'master', and we want to add some documentation bypassing our usual habit of placing things in 'dev' first. Assume that the commit ancestry graph at the beginning looks like this:
+of 'master', and we want to add some documentation bypassing our usual habit of 
+placing things in 'dev' first. Assume that the commit ancestry graph at the 
+beginning looks like this:
 
 ```
                          *'dev' head
@@ -130,4 +132,4 @@ Again, `git prune` would discard the disused commits `#1`-`#3` and you continue
 on starting from the new 'master' head, which is the `#1'` commit.
 
 [1]: https://git-scm.com/docs/git-rebase
-[1]: https://git-scm.com/docs/git-send-email
+[2]: https://git-scm.com/docs/git-send-email
