@@ -8,19 +8,13 @@
   "author": "Tylor Steinberger <tlsteinberger167@gmail.com>",
   "license": "MIT",
   "devDependencies": {
-    "@briancavalier/assert": "^3.4.0",
     "@typed/test": "^0.8.0",
-    "@types/node": "^7.0.22",
     "glob-expand": "^0.2.1",
     "husky": "^0.13.4",
     "lerna": "^2.0.0-rc.5",
-    "lint-staged": "^3.6.0",
-    "prettier": "^1.4.2",
-    "rollup": "^0.41.6",
-    "rollup-plugin-node-resolve": "^3.0.0",
-    "rollup-plugin-typescript": "^0.8.1",
-    "ts-node": "^3.0.4",
-    "typescript": "^2.3.4"
+    "lint-staged": "^3.6.1",
+    "prettier": "^1.4.4",
+    "typescript": "^2.4.0"
   },
   "lint-staged": {
     ".ts": [
@@ -33,13 +27,14 @@
   },
   "scripts": {
     "precommit": "lint-staged",
-    "postinstall": "lerna bootstrap --hoist",
+    "postinstall": "lerna exec npm install && lerna bootstrap --hoist",
     "test": "npm run test:lint && npm run test:unit",
     "test:unit": "lerna run test:unit",
     "test:lint": "lerna exec -- ../../node_modules/.bin/prettier --write --print-width 100 --tab-width 2 --no-semi --single-quote --trailing-comma es5 --parser typescript src/**/*.ts",
     "build": "node tools/build.js",
-    "release:canary": "lerna publish --canary",
-    "release:beta": "lerna publish --npm-tag beta",
-    "release": "lerna publish"
+    "prerelease": "npm test && npm run build",
+    "release:canary": "npm run prerelease && lerna publish --canary",
+    "release:beta": "npm run prerelease && lerna publish --npm-tag beta",
+    "release": "npm run prerelease && lerna publish"
   }
 }
