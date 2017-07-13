@@ -29,6 +29,6 @@
   },
   "homepage": "https://github.com/motorcyclets/motorcycle#readme",
   "dependencies": {
-    "@most/types": "^0.9.1"
+    "@most/types": "^0.10.0"
   }
 }
