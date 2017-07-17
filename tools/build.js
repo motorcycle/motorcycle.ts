@@ -6,7 +6,8 @@ const { buildPackage } = require('./build/tsc')
 const ROOT_DIRECTORY = join(__dirname, '..')
 const PACKAGES_DIRECTORY = join(ROOT_DIRECTORY, 'packages')
 
-let allPackages = readdirSync(PACKAGES_DIRECTORY)
+let allPackages = 
+  Array.from(new Set([ 'types', ...readdirSync(PACKAGES_DIRECTORY) ]))
 
 console.log() // used to add separation between commands
 
@@ -23,8 +24,8 @@ if (onlyIndex > -1) {
 }
 
 let promise = Promise.resolve()
-for (const package of allPackages) {
-  const packageDirectory = join(PACKAGES_DIRECTORY, package)
+for (const pkg of allPackages) {
+  const packageDirectory = join(PACKAGES_DIRECTORY, pkg)
 
   promise = promise.then(() => buildPackage(packageDirectory))
 }
