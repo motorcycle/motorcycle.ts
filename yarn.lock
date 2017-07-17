@@ -2,23 +2,34 @@
 # yarn lockfile v1
 
 
-"167@^0.29.0":
-  version "0.29.0"
-  resolved "https://registry.yarnpkg.com/167/-/167-0.29.0.tgz#f2b0c4a332467ba68cfc2bb875aaa803013d20f7"
+"167@0.35.0", "167@^0.35.0":
+  version "0.35.0"
+  resolved "https://registry.yarnpkg.com/167/-/167-0.35.0.tgz#b82c89a4732505c920b4b041a2fdc9da62b1a07d"
 
-"@typed/test@1.5.0":
-  version "1.5.0"
-  resolved "https://registry.yarnpkg.com/@typed/test/-/test-1.5.0.tgz#319c0c7658f36e351a5d82b9b2319cb1a38c26eb"
+"167@^0.30.0":
+  version "0.30.0"
+  resolved "https://registry.yarnpkg.com/167/-/167-0.30.0.tgz#8e571e64851bebe8dced5723b48a07ab297b5b9b"
+
+"@typed/assertions@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@typed/assertions/-/assertions-1.0.0.tgz#6f8e2af176af596d62d5b4e7dd05c6d224c7f03b"
   dependencies:
-    "167" "^0.29.0"
-    diff "^3.2.0"
-    gaze "^1.1.2"
-    glob-expand "^0.2.1"
-    rimraf "^2.6.1"
+    "167" "^0.35.0"
+    assertion-error-diff "^1.0.0"
+
+"@typed/test@2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@typed/test/-/test-2.0.0.tgz#6c9a909986902a59acc483a3a344d15b88295ef4"
+  dependencies:
+    "167" "0.35.0"
+    "@typed/assertions" "^1.0.0"
+    assertion-error-diff "1.0.0"
+    glob-expand "0.2.1"
+    rimraf "2.6.1"
     tmp "0.0.31"
-    typed-colors "^1.0.0"
-    typed-figures "^1.0.0"
-    yargs "^8.0.1"
+    typed-colors "1.0.0"
+    typed-figures "1.0.0"
+    yargs "8.0.2"
 
 JSONStream@^1.0.4:
   version "1.3.1"
@@ -107,6 +118,14 @@ array-union@^1.0.1:
 array-uniq@^1.0.1:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/array-uniq/-/array-uniq-1.0.3.tgz#af6ac877a25cc7f74e058894753858dfdb24fdb6"
+
+assertion-error-diff@1.0.0, assertion-error-diff@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/assertion-error-diff/-/assertion-error-diff-1.0.0.tgz#5462fe1ff70849bfec25d108aecee5d95b86d8e5"
+  dependencies:
+    "167" "^0.30.0"
+    typed-colors "^1.0.0"
+    typed-figures "^1.0.0"
 
 async@^1.4.0, async@^1.5.0:
   version "1.5.2"
@@ -244,8 +263,8 @@ color-convert@^1.0.0:
     color-name "^1.1.1"
 
 color-name@^1.1.1:
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/color-name/-/color-name-1.1.2.tgz#5c8ab72b64bd2215d617ae9559ebb148475cf98d"
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/color-name/-/color-name-1.1.3.tgz#a7d0558bd89c42f795dd42328f740831ca53bc25"
 
 columnify@^1.5.4:
   version "1.5.4"
@@ -508,10 +527,6 @@ detect-indent@^5.0.0:
   version "5.0.0"
   resolved "https://registry.yarnpkg.com/detect-indent/-/detect-indent-5.0.0.tgz#3871cc0a6a002e8c3e5b3cf7f336264675f06b9d"
 
-diff@^3.2.0:
-  version "3.3.0"
-  resolved "https://registry.yarnpkg.com/diff/-/diff-3.3.0.tgz#056695150d7aa93237ca7e378ac3b1682b7963b9"
-
 dot-prop@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/dot-prop/-/dot-prop-3.0.0.tgz#1b708af094a49c9a0e7dbcad790aba539dac1177"
@@ -639,12 +654,6 @@ gauge@~2.7.3:
     strip-ansi "^3.0.1"
     wide-align "^1.1.0"
 
-gaze@^1.1.2:
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/gaze/-/gaze-1.1.2.tgz#847224677adb8870d679257ed3388fdb61e40105"
-  dependencies:
-    globule "^1.0.0"
-
 get-caller-file@^1.0.1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/get-caller-file/-/get-caller-file-1.0.2.tgz#f702e63127e7e231c160a80c1554acb70d5047e5"
@@ -712,14 +721,14 @@ github-url-from-git@^1.4.0:
   version "1.5.0"
   resolved "https://registry.yarnpkg.com/github-url-from-git/-/github-url-from-git-1.5.0.tgz#f985fedcc0a9aa579dc88d7aff068d55cc6251a0"
 
-glob-expand@0.2.1, glob-expand@^0.2.1:
+glob-expand@0.2.1:
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/glob-expand/-/glob-expand-0.2.1.tgz#1b088ac272b57158870b76816111da4618a66a0f"
   dependencies:
     glob "~4.5.x"
     lodash "~4.13.x"
 
-glob@^7.0.3, glob@^7.0.5, glob@^7.1.2, glob@~7.1.1:
+glob@^7.0.3, glob@^7.0.5, glob@^7.1.2:
   version "7.1.2"
   resolved "https://registry.yarnpkg.com/glob/-/glob-7.1.2.tgz#c19c9df9a028702d678612384a6552404c636d15"
   dependencies:
@@ -748,14 +757,6 @@ globby@^6.1.0:
     object-assign "^4.0.1"
     pify "^2.0.0"
     pinkie-promise "^2.0.0"
-
-globule@^1.0.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/globule/-/globule-1.2.0.tgz#1dc49c6822dd9e8a2fa00ba2a295006e8664bd09"
-  dependencies:
-    glob "~7.1.1"
-    lodash "~4.17.4"
-    minimatch "~3.0.2"
 
 graceful-fs@^4.1.11, graceful-fs@^4.1.2, graceful-fs@^4.1.6:
   version "4.1.11"
@@ -935,8 +936,8 @@ js-yaml@^3.4.3:
     esprima "^4.0.0"
 
 jschardet@^1.4.2:
-  version "1.4.2"
-  resolved "https://registry.yarnpkg.com/jschardet/-/jschardet-1.4.2.tgz#2aa107f142af4121d145659d44f50830961e699a"
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/jschardet/-/jschardet-1.5.0.tgz#a61f310306a5a71188e1b1acd08add3cfbb08b1e"
 
 json-stringify-safe@^5.0.1:
   version "5.0.1"
@@ -968,7 +969,7 @@ lcid@^1.0.0:
   dependencies:
     invert-kv "^1.0.0"
 
-lerna@^2.0.0:
+lerna@2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/lerna/-/lerna-2.0.0.tgz#49a72fe70e06aebfd7ea23efb2ab41abe60ebeea"
   dependencies:
@@ -1116,7 +1117,7 @@ lodash.templatesettings@^4.0.0:
   dependencies:
     lodash._reinterpolate "~3.0.0"
 
-lodash@^4.0.0, lodash@^4.1.0, lodash@^4.17.4, lodash@^4.2.1, lodash@^4.3.0, lodash@~4.17.4:
+lodash@^4.0.0, lodash@^4.1.0, lodash@^4.17.4, lodash@^4.2.1, lodash@^4.3.0:
   version "4.17.4"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
 
@@ -1196,7 +1197,7 @@ minimatch@^2.0.1:
   dependencies:
     brace-expansion "^1.0.0"
 
-minimatch@^3.0.0, minimatch@^3.0.4, minimatch@~3.0.2:
+minimatch@^3.0.0, minimatch@^3.0.4:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/minimatch/-/minimatch-3.0.4.tgz#5166e286457f03306064be5497e8dbb0c3d32083"
   dependencies:
@@ -1408,7 +1409,7 @@ pinkie@^2.0.0:
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/pinkie/-/pinkie-2.0.4.tgz#72556b80cfa0d48a974e80e77248e80ed4f7f870"
 
-prettier@^1.5.2:
+prettier@1.5.2:
   version "1.5.2"
   resolved "https://registry.yarnpkg.com/prettier/-/prettier-1.5.2.tgz#7ea0751da27b93bfb6cecfcec509994f52d83bb3"
 
@@ -1521,7 +1522,7 @@ right-align@^0.1.1:
   dependencies:
     align-text "^0.1.1"
 
-rimraf@^2.6.1:
+rimraf@2.6.1, rimraf@^2.6.1:
   version "2.6.1"
   resolved "https://registry.yarnpkg.com/rimraf/-/rimraf-2.6.1.tgz#c2338ec643df7a1b7fe5c54fa86f57428a55f33d"
   dependencies:
@@ -1775,11 +1776,11 @@ trim-off-newlines@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/trim-off-newlines/-/trim-off-newlines-1.0.1.tgz#9f9ba9d9efa8764c387698bcbfeb2c848f11adb3"
 
-typed-colors@^1.0.0:
+typed-colors@1.0.0, typed-colors@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/typed-colors/-/typed-colors-1.0.0.tgz#a86fb57183ea8d955d811aec0e100f565e48bbb9"
 
-typed-figures@^1.0.0:
+typed-figures@1.0.0, typed-figures@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/typed-figures/-/typed-figures-1.0.0.tgz#898932b2797b59532cfdf03f23ec2e2dc136126a"
 
@@ -1916,7 +1917,7 @@ yargs-parser@^7.0.0:
   dependencies:
     camelcase "^4.1.0"
 
-yargs@^8.0.1:
+yargs@8.0.2, yargs@^8.0.1:
   version "8.0.2"
   resolved "https://registry.yarnpkg.com/yargs/-/yargs-8.0.2.tgz#6299a9055b1cefc969ff7e79c1d918dceb22c360"
   dependencies:
