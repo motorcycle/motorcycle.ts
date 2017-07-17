@@ -1,0 +1,43 @@
+{
+  "name": "@motorcycle/stream",
+  "version": "0.0.0",
+  "description": "Functional and reactive event streams for Motorcycle.ts",
+  "main": "lib/index.js",
+  "module": "lib.es2015/index.js",
+  "jsnext:main": "lib.es2015/index.js",
+  "typings": "lib/index.d.ts",
+  "types": "lib/index.d.ts",
+  "scripts": {
+    "build": "cd ../../ && node ./tools/build.js --only stream",
+    "test": "yarn test:lint && yarn test:unit",
+    "test:unit": "../../node_modules/.bin/typed-test 'src/*.test.ts' 'src/**/*.test.ts'",
+    "test:lint": "../../node_modules/.bin/prettier --write --print-width 100 --tab-width 2 --no-semi --single-quote --trailing-comma es5 --parser typescript src/**/*.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/motorcyclets/motorcycle.git"
+  },
+  "keywords": [
+    "functional",
+    "reactive",
+    "event",
+    "stream",
+    "observable",
+    "most",
+    "mostjs",
+    "motorcycle"
+  ],
+  "author": "Tylor Steinberger <tlsteinberger167@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/motorcyclets/motorcycle/issues"
+  },
+  "homepage": "https://github.com/motorcyclets/motorcycle#readme",
+  "dependencies": {
+    "@most/core": "0.11.2",
+    "@most/disposable": "0.11.0",
+    "@most/scheduler": "0.11.0",
+    "@motorcycle/types": "0.0.0",
+    "167": "0.35.0"
+  }
+}
