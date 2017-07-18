@@ -1,3 +1,4 @@
+export * from './createProxy'
 export * from './at'
 export * from './empty'
 export * from './fromPromise'
