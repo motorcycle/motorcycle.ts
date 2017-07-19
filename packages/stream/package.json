@@ -1,6 +1,6 @@
 {
   "name": "@motorcycle/stream",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Functional and reactive event streams for Motorcycle.ts",
   "main": "lib/index.js",
   "module": "lib.es2015/index.js",
@@ -34,10 +34,10 @@
   },
   "homepage": "https://github.com/motorcyclets/motorcycle#readme",
   "dependencies": {
+    "167": "0.36.0",
     "@most/core": "0.11.2",
     "@most/disposable": "0.11.0",
     "@most/scheduler": "0.11.0",
-    "@motorcycle/types": "0.0.0",
-    "167": "0.36.0"
+    "@motorcycle/types": "1.0.0"
   }
 }
