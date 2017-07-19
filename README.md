@@ -15,3 +15,8 @@
 [![Build Status](https://travis-ci.org/motorcyclets/motorcycle.svg?branch=master)](https://travis-ci.org/motorcyclets/motorcycle)
 
 </div>
+
+## Packages
+
+- [@motorcycle/types](./packages/types) -- A shared-kernel of types for Motorcycle
+- [@motorcycle/stream](./packages/stream) -- Functional and reactive event streams for Motorcycle.ts
