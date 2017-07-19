@@ -30,8 +30,10 @@
     "test:unit": "lerna run test:unit",
     "test:lint": "lerna exec -- ../../node_modules/.bin/prettier --write --print-width 100 --tab-width 2 --no-semi --single-quote --trailing-comma es5 --parser typescript src/**/*.ts",
     "build": "node tools/build.js",
-    "prerelease": "yarn test && yarn build",
-    "release:next": "yarn prerelease && lerna publish --exact --canary=next --npm-tag=next",
-    "release": "yarn prerelease && lerna publish --exact"
+    "docs": "node tools/docs.js && git add **/README.md && git commit -m 'docs(README): rebuild documentation' && git push",
+    "release:pre": "yarn test && yarn build",
+    "release:post": "yarn docs",
+    "release:next": "yarn release:pre && lerna publish --exact --canary=next --npm-tag=next && yarn release:post",
+    "release": "yarn release:pre && lerna publish --exact && yarn release:post"
   }
 }
