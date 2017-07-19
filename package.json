@@ -8,7 +8,7 @@
   "author": "Tylor Steinberger <tlsteinberger167@gmail.com>",
   "license": "MIT",
   "devDependencies": {
-    "@typed/test": "2.1.0",
+    "@typed/test": "^2.2.0",
     "glob-expand": "0.2.1",
     "husky": "0.14.3",
     "lerna": "2.0.0",
