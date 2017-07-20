@@ -21,3 +21,4 @@
 - [@motorcycle/types](./packages/types) -- A shared-kernel of types for Motorcycle
 - [@motorcycle/stream](./packages/stream) -- Functional and reactive event streams for Motorcycle.ts
 - [@motorcycle/run](./packages/run) -- A statically-typed, functional and reactive framework for modern browsers
+- [@motorcycle/test](./packages/test) -- Testing functions for Motorcycle.ts
