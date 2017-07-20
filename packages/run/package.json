@@ -1,0 +1,42 @@
+{
+  "name": "@motorcycle/run",
+  "version": "2.1.0",
+  "description": "A statically-typed, functional and reactive framework for modern browsers",
+  "main": "lib/index.js",
+  "module": "lib.es2015/index.js",
+  "jsnext:main": "lib.es2015/index.js",
+  "typings": "lib/index.d.ts",
+  "types": "lib/index.d.ts",
+  "scripts": {
+    "build": "cd ../../ && node ./tools/build.js --only run",
+    "test": "yarn test:lint && yarn test:unit",
+    "test:unit": "../../node_modules/.bin/typed-test 'src/*.test.ts' 'src/**/*.test.ts'",
+    "test:lint": "../../node_modules/.bin/prettier --write --print-width 100 --tab-width 2 --no-semi --single-quote --trailing-comma es5 --parser typescript src/**/*.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/motorcyclets/motorcycle.git"
+  },
+  "keywords": [
+    "motorcycle",
+    "motorcyclets",
+    "motorcyclejs",
+    "most",
+    "mostjs",
+    "functional",
+    "reactive",
+    "typescript",
+    "modern",
+    "architecture"
+  ],
+  "author": "Tylor Steinberger <tlsteinberger167@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/motorcyclets/motorcycle/issues"
+  },
+  "homepage": "https://github.com/motorcyclets/motorcycle#readme",
+  "dependencies": {
+    "@motorcycle/types": "1.0.0",
+    "@motorcycle/stream": "1.0.0"
+  }
+}
