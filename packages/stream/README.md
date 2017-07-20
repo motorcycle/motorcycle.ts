@@ -1,4 +1,4 @@
-# @motorcycle/stream -- 1.0.0
+# @motorcycle/stream -- 1.1.0
 
 Functional and reactive event streams for Motorcycle.ts
 
