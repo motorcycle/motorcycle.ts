@@ -1,6 +1,6 @@
 {
   "name": "@motorcycle/test",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Testing functions for Motorcycle.ts",
   "main": "lib/index.js",
   "module": "lib.es2015/index.js",
