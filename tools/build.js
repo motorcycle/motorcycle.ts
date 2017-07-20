@@ -7,7 +7,7 @@ const ROOT_DIRECTORY = join(__dirname, '..')
 const PACKAGES_DIRECTORY = join(ROOT_DIRECTORY, 'packages')
 
 let allPackages = 
-  Array.from(new Set([ 'types', ...readdirSync(PACKAGES_DIRECTORY) ]))
+  Array.from(new Set([ 'types', 'stream', ...readdirSync(PACKAGES_DIRECTORY) ]))
 
 console.log() // used to add separation between commands
 
