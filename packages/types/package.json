@@ -10,6 +10,7 @@
   "scripts": {
     "build": "cd ../../ && node ./tools/build.js --only types",
     "test": "yarn test:lint && yarn test:unit",
+    "test:browser": "yarn test:unit -- --browser",
     "test:unit": "../../node_modules/.bin/typed-test src/*.test.ts",
     "test:lint": "../../node_modules/.bin/prettier --write --print-width 100 --tab-width 2 --no-semi --single-quote --trailing-comma es5 --parser typescript src/**/*.ts"
   },
