@@ -36,3 +36,9 @@
 "@most/types@^0.10.0":
   version "0.10.0"
   resolved "https://registry.yarnpkg.com/@most/types/-/types-0.10.0.tgz#5a60b581915349b210a13fed1563e9d06cba287f"
+
+"@motorcycle/types@1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@motorcycle/types/-/types-1.1.0.tgz#fa69b8876276b26f3adbe88793e5ff942e0aed2f"
+  dependencies:
+    "@most/types" "^0.10.0"
