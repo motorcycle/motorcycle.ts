@@ -1,8 +1,9 @@
-import { CssSelector, DomSource } from '../'
+import { CssSelector, DomSource, StandardEvents } from '../'
 import { append, copy, equals, gt, join, length, pipe, prepend } from '167'
-import { empty, filter, map } from '@motorcycle/stream'
+import { empty, filter, map, multicast, switchLatest } from '@motorcycle/stream'
 
 import { Stream } from '@motorcycle/types'
+import { makeEventStream } from './makeEventStream'
 
 const ROOT_CSS_SELECTOR: CssSelector = `:root`
 
@@ -11,11 +12,14 @@ const CSS_SELECTOR_JOINT = ` `
 export class EventDelegationDomSource implements DomSource {
   private _cssSelectors: ReadonlyArray<CssSelector>
 
-  private _element$: Stream<Element>
+  private element$: Stream<Element>
+
+  private eventMap: Map<StandardEvents, Stream<Event>>
 
   constructor(element$: Stream<Element>, cssSelectors: ReadonlyArray<CssSelector>) {
-    this._element$ = element$
+    this.element$ = element$
     this._cssSelectors = cssSelectors
+    this.eventMap = new Map()
   }
 
   public query(cssSelector: CssSelector): DomSource {
@@ -27,16 +31,33 @@ export class EventDelegationDomSource implements DomSource {
   public elements<El extends Element = Element>(): Stream<ReadonlyArray<El>> {
     const cssSelectors = this._cssSelectors
 
-    if (equals(0, length(cssSelectors))) return map(Array, this._element$)
+    if (equals(0, length(cssSelectors))) return map(Array, this.element$)
 
     const hasElements = pipe(length, gt(0))
     const cssSelector = join(CSS_SELECTOR_JOINT, cssSelectors)
 
-    return filter(hasElements, map(findMatchingElements(cssSelector), this._element$))
+    return filter(hasElements, map(findMatchingElements(cssSelector), this.element$))
   }
 
-  public events<Ev extends Event = Event>(): Stream<Ev> {
-    return empty()
+  public events<Ev extends Event = Event>(
+    eventType: StandardEvents,
+    options?: EventListenerOptions
+  ): Stream<Ev> {
+    const { eventMap, _cssSelectors, element$ } = this
+
+    if (eventMap.has(eventType)) return eventMap.get(eventType) as Stream<Ev>
+
+    const cssSelector = join(CSS_SELECTOR_JOINT, _cssSelectors)
+    const createEventStream = pipe(
+      map(makeEventStream<Ev>(cssSelector, eventType, options)),
+      switchLatest,
+      multicast
+    )
+    const event$ = createEventStream(element$)
+
+    eventMap.set(eventType, event$)
+
+    return event$
   }
 
   public cssSelectors(): ReadonlyArray<CssSelector> {
