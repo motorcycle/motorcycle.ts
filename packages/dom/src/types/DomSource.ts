@@ -10,7 +10,7 @@ import { Stream } from '@motorcycle/types'
  * interface DomSource {
  *   query(cssSelector: CssSelector): DomSource
  *   elements<El extends Element = Element>(): Stream<ReadonlyArray<El>>
- *   events<Ev extends Event = Event>(eventType: StandardEvents, options?: AddEventListenerOptions): Stream<Ev>
+ *   events<Ev extends Event = Event>(eventType: StandardEvents, options?: EventListenerOptions): Stream<Ev>
  *   cssSelectors(): ReadonlyArray<CssSelector>
  * }
  *
@@ -40,10 +40,33 @@ export interface DomSource {
    */
   elements<El extends Element = Element>(): Stream<ReadonlyArray<El>>
 
+  /**
+   * Retrieves a stream of events from elements matching previous queries.
+   * 
+   * `DomSource.events` optionally takes a second parameter of `EventListernerOptions`,
+   * which specifies whether event listeners will listen to events during the 
+   * capturing phase. If not provided, all event listeners will use bubbling phase.
+   * 
+   * @name DomSource.events<Ev extends Event = Event>(eventType: StandardEvents, options?: EventListenerOptions): Stream<Ev>
+   * @example
+   * const queriedDomSource = domSource.query(`.myCssSelector`)
+   * const clickEvent$: Stream<MouseEvent> = queriedDomSource.events<MouseEvent>('click')
+   */
   events<Ev extends Event = Event>(
     eventType: StandardEvents,
-    options?: AddEventListenerOptions
+    options?: EventListenerOptions
   ): Stream<Ev>
+
+  /**
+   * Retrieves a list of all previously queried CSS selectors.
+   * 
+   * @name DomSource.cssSelectors(): ReadonlyArray<CssSelector>
+   * @example
+   * const queriedDomSource = domSource.query(`.myCssSelector`)
+   * const cssSelectors = queriedDomSource.cssSelectors()
+   * 
+   * console.log(cssSelectors[0]) // .myCssSelector
+   */
   cssSelectors(): ReadonlyArray<CssSelector>
 }
 
