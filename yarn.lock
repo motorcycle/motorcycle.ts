@@ -17,9 +17,9 @@
     "167" "0.36.0"
     assertion-error-diff "^1.0.0"
 
-"@typed/test@2.3.0":
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/@typed/test/-/test-2.3.0.tgz#89b8276fea8c36b5dc7a26f1f64ea7a9cf77a130"
+"@typed/test@2.4.0":
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/@typed/test/-/test-2.4.0.tgz#cbd151e4e4987774066a5c94be451fe10a3912df"
   dependencies:
     "167" "0.36.0"
     "@typed/assertions" "1.1.0"
@@ -1255,8 +1255,8 @@ inline-source-map@~0.6.0:
     source-map "~0.5.3"
 
 inquirer@^3.0.6:
-  version "3.2.0"
-  resolved "https://registry.yarnpkg.com/inquirer/-/inquirer-3.2.0.tgz#45b44c2160c729d7578c54060b3eed94487bb42b"
+  version "3.2.1"
+  resolved "https://registry.yarnpkg.com/inquirer/-/inquirer-3.2.1.tgz#06ceb0f540f45ca548c17d6840959878265fa175"
   dependencies:
     ansi-escapes "^2.0.0"
     chalk "^2.0.0"
@@ -2250,8 +2250,8 @@ safe-buffer@^5.0.1, safe-buffer@^5.1.0, safe-buffer@~5.1.0, safe-buffer@~5.1.1:
   resolved "https://registry.yarnpkg.com/safe-buffer/-/safe-buffer-5.1.1.tgz#893312af69b2123def71f57889001671eeb2c853"
 
 "semver@2 || 3 || 4 || 5", semver@^5.0.1, semver@^5.1.0:
-  version "5.3.0"
-  resolved "https://registry.yarnpkg.com/semver/-/semver-5.3.0.tgz#9b2ce5d3de02d17c6012ad326aa6b4d0cf54f94f"
+  version "5.4.1"
+  resolved "https://registry.yarnpkg.com/semver/-/semver-5.4.1.tgz#e059c09d8571f0540823733433505d3a2f00b18e"
 
 set-blocking@^2.0.0, set-blocking@~2.0.0:
   version "2.0.0"
