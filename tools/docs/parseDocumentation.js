@@ -1,41 +1,37 @@
 const path = require('path')
 const fs = require('fs')
 const dox = require('dox')
-const { ascend } = require('167')
+const { ascend, flatten } = require('167')
 
 exports.parseDocumentation = parseDocumentation
 
 const readSource = file => fs.readFileSync(file).toString()
 
 function parseDocumentation(files) {
-  return files
-    .map(file => { 
-      const parsedComments = parseComments(readSource(file))
-
-      if (!parsedComments) return null
-
-      const { description: { full }, tags, code } = parsedComments
-      const [ { string: name }, { string: example } = { string: '' }, type ] = tags
-
-      return {
-        file: path.relative(process.cwd(), file),
-        description: full,
-        name,
-        example,
-        code,
-        type: !!type
-      }
-    })
+  return flatten(files.map(file => parseComments(readSource(file)).map(foo(file))))
     .filter(Boolean)
     .sort(ascend(({ name }) => name))
 }
 
+function foo(file) {
+  return function(parsedComments) {
+    const { description: { full }, tags, code, ignore } = parsedComments
+
+    if (!tags || tags.length === 0 || ignore) return null
+
+    const [{ string: name }, { string: example } = { string: '' }, type] = tags
+
+    return {
+      file: path.relative(process.cwd(), file),
+      description: full,
+      name,
+      example,
+      code,
+      type: !!type,
+    }
+  }
+}
+
 function parseComments(source) {
-  const parsedDocs = dox.parseComments(source, { raw: true, skipSignleStar: true })[0]
-
-  const { tags, ignore } = parsedDocs
-
-  if (!tags || tags.length === 0 || ignore) return null
-
-  return parsedDocs
+  return dox.parseComments(source, { raw: true, skipSingleStar: true })
 }
