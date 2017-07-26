@@ -34,5 +34,10 @@
   "bugs": {
     "url": "https://github.com/motorcyclets/motorcycle/issues"
   },
-  "homepage": "https://github.com/motorcyclets/motorcycle#readme"
+  "homepage": "https://github.com/motorcyclets/motorcycle#readme",
+  "dependencies": {
+    "@motorcycle/stream": "^1.1.0",
+    "@motorcycle/types": "^1.1.0",
+    "mostly-dom": "^3.5.0"
+  }
 }
