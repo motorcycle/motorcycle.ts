@@ -7,7 +7,7 @@ import { makeEventStream } from './makeEventStream'
 
 const ROOT_CSS_SELECTOR: CssSelector = `:root`
 
-const CSS_SELECTOR_JOINT = ` `
+const CSS_SELECTOR_SEPARATOR = ` `
 
 export class EventDelegationDomSource implements DomSource {
   private _cssSelectors: ReadonlyArray<CssSelector>
@@ -30,13 +30,15 @@ export class EventDelegationDomSource implements DomSource {
 
   public elements<El extends Element = Element>(): Stream<ReadonlyArray<El>> {
     const cssSelectors = this._cssSelectors
+    const hasNoCssSelectors = equals(0, length(cssSelectors))
 
-    if (equals(0, length(cssSelectors))) return map(Array, this.element$)
+    if (hasNoCssSelectors) return map(Array, this.element$)
 
+    const cssSelector = join(CSS_SELECTOR_SEPARATOR, cssSelectors)
+    const elements$ = map(findMatchingElements(cssSelector), this.element$)
     const hasElements = pipe(length, gt(0))
-    const cssSelector = join(CSS_SELECTOR_JOINT, cssSelectors)
 
-    return filter(hasElements, map(findMatchingElements(cssSelector), this.element$))
+    return filter(hasElements, elements$)
   }
 
   public events<Ev extends Event = Event>(
@@ -47,7 +49,7 @@ export class EventDelegationDomSource implements DomSource {
 
     if (eventMap.has(eventType)) return eventMap.get(eventType) as Stream<Ev>
 
-    const cssSelector = join(CSS_SELECTOR_JOINT, _cssSelectors)
+    const cssSelector = join(CSS_SELECTOR_SEPARATOR, _cssSelectors)
     const createEventStream = pipe(
       map(makeEventStream<Ev>(cssSelector, eventType, options)),
       switchLatest,
