@@ -5,11 +5,6 @@ import { VNode } from 'mostly-dom'
 import { join } from '167'
 import { tap } from '@motorcycle/stream'
 
-const KEY_PREFIX = `$$isolation$$-`
-const EMPTY_CLASS_NAME = ``
-const CLASS_NAME_SEPARATOR = ` `
-const RE_TWO_OR_MORE_SPACES = /\s{2,}/g
-
 export function isolate<
   Sources extends { readonly dom: DomSource },
   Sinks extends { readonly view$: Stream<VNode> }
@@ -28,6 +23,8 @@ export function isolate<
   return isolatedComponent
 }
 
+const KEY_PREFIX = `$$isolation$$-`
+
 function isolateView(view$: Stream<VNode>, key: string) {
   const {} = view$
   const prefixedKey = KEY_PREFIX + key
@@ -39,12 +36,18 @@ function isolateView(view$: Stream<VNode>, key: string) {
     } = vNode
     const needsIsolation = propsClassName.indexOf(prefixedKey) === -1
 
-    if (needsIsolation) {
-      const removeSuperfluousSpaces = (str: string) =>
-        str.replace(RE_TWO_OR_MORE_SPACES, CLASS_NAME_SEPARATOR)
+    if (needsIsolation)
       vNode.props.className = removeSuperfluousSpaces(
         join(CLASS_NAME_SEPARATOR, [className, propsClassName, prefixedKey])
       )
-    }
   }, view$)
 }
+
+const EMPTY_CLASS_NAME = ``
+const CLASS_NAME_SEPARATOR = ` `
+
+function removeSuperfluousSpaces(str: string): string {
+  return str.replace(RE_TWO_OR_MORE_SPACES, CLASS_NAME_SEPARATOR)
+}
+
+const RE_TWO_OR_MORE_SPACES = /\s{2,}/g
