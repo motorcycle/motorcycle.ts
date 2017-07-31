@@ -25,9 +25,9 @@ export const test: Test = describe(`isolate`, [
       equal(`function`, typeof sut)
 
       return collectEventsFor(1, view$).then(view => {
-        const { className: parentClassName } = view[0]
+        const { props: { className } } = view[0]
 
-        equal(`bar $$isolation$$-foo`, parentClassName)
+        equal(`bar $$isolation$$-foo`, className)
       })
     }),
   ]),
