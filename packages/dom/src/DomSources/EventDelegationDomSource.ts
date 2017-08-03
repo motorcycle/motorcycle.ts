@@ -1,6 +1,6 @@
 import { CssSelector, DomSource, StandardEvents } from '../'
 import { append, copy, equals, gt, join, length, pipe, prepend } from '167'
-import { empty, filter, map, multicast, switchLatest } from '@motorcycle/stream'
+import { filter, map, multicast, switchLatest } from '@motorcycle/stream'
 
 import { Stream } from '@motorcycle/types'
 import { makeEventStream } from './makeEventStream'
@@ -25,7 +25,7 @@ export class EventDelegationDomSource implements DomSource {
   public query(cssSelector: CssSelector): DomSource {
     if (equals(cssSelector, ROOT_CSS_SELECTOR)) return this
 
-    return new EventDelegationDomSource(empty(), append(cssSelector, this._cssSelectors))
+    return new EventDelegationDomSource(this.element$, append(cssSelector, this._cssSelectors))
   }
 
   public elements<El extends Element = Element>(): Stream<ReadonlyArray<El>> {

@@ -1,10 +1,10 @@
 import { CssSelector, DomSource, StandardEvents } from '../'
 import { Test, describe, given, it } from '@typed/test'
-import { drain, empty, mergeArray, now, take } from '@motorcycle/stream'
+import { drain, empty, mergeArray, now, observe, take } from '@motorcycle/stream'
+import { length, pipe } from '167'
 
 import { EventDelegationDomSource } from './'
 import { collectEventsFor } from '@motorcycle/test'
-import { length } from '167'
 
 export const test: Test = describe(`EventDelegationDomSource`, [
   given(`a stream of element and a CSS selectors`, [
@@ -178,7 +178,41 @@ export const methodsTest: Test = describe(`EventDelegationDomSource methods`, [
         return drain(take(1, sut.events(eventType))).then(() => equal(1, called))
       }),
 
-      it(`returns stream of events from multiple elements`, ({ equal }, done) => {
+      it(`does not emit events to incorrect listener`, ({ ok }, done) => {
+        const rootEl = document.createElement('div')
+        const firstChildEl = document.createElement('div')
+        const secondChildEl = document.createElement('div')
+
+        const className = 'foo'
+
+        firstChildEl.className = className
+
+        rootEl.appendChild(firstChildEl)
+        rootEl.appendChild(secondChildEl)
+
+        const sut: DomSource = new EventDelegationDomSource(now(rootEl), [])
+        const eventType = 'click'
+
+        const event$ = sut.query(`.${className}`).events(eventType)
+        const wrongEvent$ = sut.query(`:root`).events(eventType)
+
+        observe(() => done(new Error('should not be called')), wrongEvent$)
+
+        observe((ev: Event) => {
+          ok((ev.target as HTMLDivElement).matches(`.${className}`))
+          setTimeout(() => done())
+        }, event$)
+
+        setTimeout(() => {
+          const event = new Event(eventType, { bubbles: true })
+
+          firstChildEl.dispatchEvent(event)
+        })
+      }),
+    ]),
+
+    given(`an event type and event options`, [
+      it(`returns stream of events from multiple elements with capture true`, ({ equal }, done) => {
         const rootEl = document.createElement('div')
         const firstChildEl = document.createElement('div')
         const secondChildEl = document.createElement('div')
@@ -188,13 +222,10 @@ export const methodsTest: Test = describe(`EventDelegationDomSource methods`, [
 
         const sut: DomSource = new EventDelegationDomSource(now(rootEl), [])
         const eventType = 'click'
-        const event$ = sut.events(eventType)
-        const event = new Event(eventType, { bubbles: true })
+        const event$ = sut.events(eventType, { capture: true })
+        const event = new Event(eventType)
 
-        collectEventsFor(1, event$)
-          .then(equal([event, event, event]))
-          .then(() => done())
-          .catch(done)
+        collectEventsFor(1, event$).then(pipe(length, equal(3))).then(() => done()).catch(done)
 
         setTimeout(() => {
           rootEl.dispatchEvent(event)
@@ -202,9 +233,7 @@ export const methodsTest: Test = describe(`EventDelegationDomSource methods`, [
           secondChildEl.dispatchEvent(event)
         })
       }),
-    ]),
 
-    given(`an event type and event options`, [
       it(`calls element.addEventListener with event options`, ({ equal }, done) => {
         const rootEl: Element = document.createElement('div')
         const eventOptions: EventListenerOptions = { capture: true }
@@ -258,7 +287,7 @@ export const methodsTest: Test = describe(`EventDelegationDomSource methods`, [
 
         const eventType = 'reset'
 
-        collectEventsFor(1, sut.events(eventType, { capture: true }))
+        collectEventsFor<Event>(1, sut.events(eventType, { capture: true }))
           .then(([event]) => {
             equal(form, event.currentTarget)
             done()
