@@ -22,3 +22,4 @@
 - [@motorcycle/stream](./packages/stream) -- Functional and reactive event streams for Motorcycle.ts
 - [@motorcycle/run](./packages/run) -- A statically-typed, functional and reactive framework for modern browsers
 - [@motorcycle/test](./packages/test) -- Testing functions for Motorcycle.ts
+- [@motorcycle/dom](./packages/dom) -- Declarative, functional, reactive abstractions for the DOM
