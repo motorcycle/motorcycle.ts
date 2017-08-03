@@ -25,7 +25,7 @@
   },
   "scripts": {
     "precommit": "lint-staged",
-    "postinstall": "lerna bootstrap --hoist && yarn build",
+    "postinstall": "lerna bootstrap --hoist -- --pure-lockfile && yarn build",
     "test": "yarn test:lint && yarn test:unit",
     "test:unit": "lerna run test:unit",
     "test:lint": "lerna exec -- ../../node_modules/.bin/prettier --write --print-width 100 --tab-width 2 --no-semi --single-quote --trailing-comma es5 --parser typescript src/**/*.ts",
