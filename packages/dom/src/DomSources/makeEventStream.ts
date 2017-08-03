@@ -10,7 +10,7 @@ export function makeEventStream<Ev extends Event = Event>(
   options: EventListenerOptions = {}
 ) {
   return function(element: Element): Stream<Ev> {
-    const event$ = new EventStream<Ev>(eventType, element, options)
+    const event$ = new EventStream<Ev>(cssSelector, eventType, element, options)
 
     if (options.capture) return map(findCurrentTarget(cssSelector, element), event$)
 
@@ -48,20 +48,28 @@ function cloneEvent(event: Event, currentTarget: Element): Event {
 }
 
 class EventStream<Ev extends Event> implements Stream<Ev> {
+  private cssSelector: CssSelector
   private eventType: StandardEvents
   private element: Element
   private options: EventListenerOptions
 
-  constructor(eventType: StandardEvents, element: Element, options: EventListenerOptions) {
+  constructor(
+    cssSelector: string,
+    eventType: StandardEvents,
+    element: Element,
+    options: EventListenerOptions
+  ) {
+    this.cssSelector = cssSelector
     this.eventType = eventType
     this.element = element
     this.options = options
   }
 
   public run(sink: Sink<Ev>, scheduler: Scheduler): Disposable {
-    const { eventType, element, options: { capture } } = this
+    const { cssSelector, eventType, element, options: { capture } } = this
 
-    const listener = (event: Ev) => sink.event(scheduler.now(), event)
+    const listener = (event: Ev) =>
+      ensureMatches(cssSelector, element, event, capture) && sink.event(scheduler.now(), event)
 
     const dispose = () => element.removeEventListener(eventType, listener, capture)
 
@@ -69,4 +77,20 @@ class EventStream<Ev extends Event> implements Stream<Ev> {
 
     return { dispose }
   }
+}
+
+function ensureMatches(
+  cssSelector: CssSelector,
+  element: Element,
+  ev: Event,
+  capture: boolean = false
+): boolean {
+  let target = ev.target as Element
+
+  if (!cssSelector) return (capture && element.contains(target)) || target === element
+
+  for (; target && target !== element; target = target.parentElement as Element)
+    if (target.matches(cssSelector)) return true
+
+  return element.matches(cssSelector)
 }
