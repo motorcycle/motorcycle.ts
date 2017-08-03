@@ -242,6 +242,188 @@ export type PointerEvents =
 
 // the events that are in the var browser specifications
 // all browsers should have these implemented the same
+/**
+ * Standard event types defined by MDN. All browser should have these 
+ * implemented the same.
+ * 
+ * @name StandardEvents
+ * @example
+ * export type StandardEvents =
+ * // name -    Event Types
+ *  | 'abort' // UIEvent, ProgressEvent, Event
+ *  | 'afterprint' // Event;
+ *  | 'animationend' // AnimationEvent
+ *  | 'animationiteration' // AnimationEvent
+ *  | 'animationstart' // AnimationEvent
+ *  | 'audioprocess' // AudioProcessingEvent
+ *  | 'audioend' // Event
+ *  | 'audiostart' // Event
+ *  | 'beforprint' // Event
+ *  | 'beforeunload' // BeforeUnloadEvent
+ *  | 'beginEvent' // TimeEvent
+ *  | 'blocked' // Event
+ *  | 'blur' // FocusEvent
+ *  | 'boundary' // SpeechsynthesisEvent
+ *  | 'cached' // Event
+ *  | 'canplay' // Event
+ *  | 'canplaythrough' // Event
+ *  | 'change' // Event
+ *  | 'chargingchange' // Event
+ *  | 'chargingtimechange' // Event
+ *  | 'checking' // Event
+ *  | 'click' // MouseEvent
+ *  | 'close' // Event
+ *  | 'complete' // Event, OfflineAudioCompletionEvent
+ *  | 'compositionend' // CompositionEvent
+ *  | 'compositionstart' // CompositionEvent
+ *  | 'compositionupdate' // CompositionEvent
+ *  | 'contextmenu' // MoustEvent
+ *  | 'copy' // ClipboardEvent
+ *  | 'cut' // ClipboardEvent
+ *  | 'dblclick' // MouseEvent
+ *  | 'devicechange' // Event
+ *  | 'devicelight' // DeviceLightEvent
+ *  | 'devicemotion' // DeviceMotionEvent
+ *  | 'deviceorientation' // DeviceOrientationEvent
+ *  | 'deviceproximity' // DeviceProximityEvent
+ *  | 'dischargingtimechange' // Event
+ *  | 'DOMActivate' // UIEvent
+ *  | 'DOMAttributeNameChanged' // MutationNameEvent
+ *  | 'DOMAttrModified' // Mutationevent
+ *  | 'DOMCharacterDataModified' // MutationEvent
+ *  | 'DOMContentLoaded' // Event
+ *  | 'DOMElementNamedChanged' // MutationNameEvent
+ *  | 'DOMNodeInserted' // MutationEvent
+ *  | 'DOMNodeInsertedIntoDocument' // MutationEvent
+ *  | 'DOMNodeRemoved' // MutationEvent
+ *  | 'DOMNodeRemovedFromDocument' // MutationEvent
+ *  | 'DOMSubtreeModified' // MutationEvent
+ *  | 'downloaded' // Event
+ *  | 'drag' // DragEvent
+ *  | 'dragend' // DragEvent
+ *  | 'dragenter' // DragEvent
+ *  | 'dragleave' // DragEvent
+ *  | 'dragover' // DragEvent
+ *  | 'dragstart' // DragEvent
+ *  | 'drop' // DragEvent
+ *  | 'durationchange' // Event
+ *  | 'emptied' // Event
+ *  | 'end' // Event, SpeechSynthesisEvent
+ *  | 'ended' // Event
+ *  | 'endEvent' // TimeEvent
+ *  | 'error' // UIEvent | ProgressEvent | Event
+ *  | 'focus' // FocusEvent
+ *  | 'fullscreenchange' // Event
+ *  | 'fullscreenerror' // Event
+ *  | 'gamepadconnected' // GamepadEvent
+ *  | 'gamepaddisconnected' // GamepadEvent
+ *  | 'gotpointercapture' // PointerEvent
+ *  | 'hashchange' // HashChangEvent
+ *  | 'lostpointercapture' // PointerEvent
+ *  | 'input' // event
+ *  | 'invalid' // Event
+ *  | 'keydown' // KeyboardEvent
+ *  | 'keypress' // KeyboardEvent
+ *  | 'keyup' // KeyboardEvent
+ *  | 'languagechange' // Event
+ *  | 'levelchange' // Event
+ *  | 'load' // UIEvent, ProgressEvent
+ *  | 'loadeddata' // Event
+ *  | 'loadedmetadata' // Event
+ *  | 'loadend' // ProgressEvent
+ *  | 'loadstart' // ProgressEvent
+ *  | 'mark' // SpeechSynthesisEvent
+ *  | 'message' // MessageEvent, ServiceWorkerMessageEvent, ExtendableMessageEvent
+ *  | 'mousedown' // MouseEvent
+ *  | 'mouseenter' // MouseEvent
+ *  | 'mouseleave' // MouseEvent
+ *  | 'mousemove' // MouseEvent
+ *  | 'mouseout' // MouseEvent
+ *  | 'mouseover' // Mouseevent
+ *  | 'nomatch' // SpeechRecognitionEvent
+ *  | 'notificationclick' // NotificationEvent
+ *  | 'noupdate' // event
+ *  | 'obsolete' // Event
+ *  | 'offline' // event
+ *  | 'online' // Event
+ *  | 'open' // event
+ *  | 'orientationchange' // Event
+ *  | 'pagehide' // PageTransitionEvent
+ *  | 'pageshow' // PageTransitionEvent
+ *  | 'paste' // ClipboardEvent
+ *  | 'pause' // Event, SpeechSynthesisEvent
+ *  | 'pointercancel' // PointerEvent
+ *  | 'pointerdown' // PointerEvent
+ *  | 'pointerenter' // PointerEvent
+ *  | 'pointerleave' // PointerEvent
+ *  | 'pointerlockchange' // Event
+ *  | 'pointerlockerror' // Event
+ *  | 'pointermove' // PointerEvent
+ *  | 'pointerout' // PointerEvent
+ *  | 'pointerover' // PointerEvent
+ *  | 'pointerup' // PointerEvent
+ *  | 'play' // Event
+ *  | 'playing' // Event
+ *  | 'popstate' // PopStateEvent
+ *  | 'progress' // ProgressEvent
+ *  | 'push' // PushEvent
+ *  | 'pushsubscriptionchange' // PushEvent
+ *  | 'ratechange' // Event
+ *  | 'readystatechange' // Event
+ *  | 'repeatEvent' // TimeEvent
+ *  | 'reset' // Event
+ *  | 'resize' // UIEvent
+ *  | 'resourcetimingbufferfull' // Performance
+ *  | 'result' // SpeechRecognitionEvent
+ *  | 'resume' // SpeechSynthesisEvent
+ *  | 'scroll' // UIEvent
+ *  | 'seeked' // Event
+ *  | 'seeking' // Event
+ *  | 'select' // UIEvent
+ *  | 'selectstart' // UIEvent
+ *  | 'selectionchange' // Event
+ *  | 'show' // MouseEvent
+ *  | 'soundend' // Event
+ *  | 'soundstart' // Event
+ *  | 'speechend' // Event
+ *  | 'speechstart' // Event
+ *  | 'stalled' // Event
+ *  | 'start' // SpeechSynthesisEvent
+ *  | 'storage' // StorageEvent
+ *  | 'submit' // Event
+ *  | 'success' // Event
+ *  | 'suspend' // Event
+ *  | 'SVGAbort' // SvgEvent
+ *  | 'SVGError' // SvgEvent
+ *  | 'SVGLoad' // SvgEvent
+ *  | 'SVGResize' // SvgEvent
+ *  | 'SVGScroll' // SvgEvent
+ *  | 'SVGUnload' // SvgEvent
+ *  | 'SVGZoom' // SvgEvent
+ *  | 'timeout' // ProgressEvent
+ *  | 'timeupdate' // Event
+ *  | 'touchcancel' // TouchEvent
+ *  | 'touchend' // TouchEvent
+ *  | 'touchenter' // TouchEvent
+ *  | 'touchleave' // TouchEvent
+ *  | 'touchmove' // TouchEvent
+ *  | 'touchstart' // TouchEvent ;
+ *  | 'transitionend' // Transitionevent
+ *  | 'unload' // UIEvent
+ *  | 'updateready' // Event
+ *  | 'upgradeneeded' // Event
+ *  | 'userproximity' // UserProximityEvent
+ *  | 'voiceschanged' // Event
+ *  | 'versionchange' // Event
+ *  | 'visibilitychange' // Event
+ *  | 'volumechange' // Event
+ *  | 'vrdisplayconnected' // Event
+ *  | 'vrdisplaydisconnected' // Event
+ *  | 'vrdisplaypresentchange' // Event
+ *  | 'waiting' // Event
+ *  | 'wheel' // WheelEvent
+ * @type
+ */
 export type StandardEvents =
   // name -    Event Types
   | 'abort' // UIEvent, ProgressEvent, Event

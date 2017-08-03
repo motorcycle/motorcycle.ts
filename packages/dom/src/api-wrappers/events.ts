@@ -3,6 +3,15 @@ import { DomSource, StandardEvents } from '../types'
 import { Stream } from '@motorcycle/types'
 import { curry2 } from '167'
 
+/**
+ * Takes an event type and a DomSource and returns a stream of events.
+ * 
+ * @name event<Ev extends Event>(type: StandardEvents, dom: DomSource): Stream<Ev>
+ * @example
+ * import { events } from '@motorcycle/dom'
+ * 
+ * const click$ = events('click', dom)
+ */
 export const events: Events = curry2(function<Ev extends Event>(
   eventType: StandardEvents,
   dom: DomSource
