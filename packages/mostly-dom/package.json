@@ -1,0 +1,40 @@
+{
+  "name": "@motorcycle/mostly-dom",
+  "version": "0.0.0",
+  "description": "Motorcycle.ts adapter for mostly-dom. Built on @motorcycle/dom.",
+  "main": "lib/index.js",
+  "module": "lib.es2015/index.js",
+  "jsnext:main": "lib.es2015/index.js",
+  "typings": "lib/index.d.ts",
+  "types": "lib/index.d.ts",
+  "scripts": {
+    "build": "cd ../../ && node ./tools/build.js --only mostly-dom",
+    "test": "yarn test:lint && yarn test:unit",
+    "test:unit": "../../node_modules/.bin/typed-test --browser 'src/*.test.ts' 'src/**/*.test.ts'",
+    "test:lint": "../../node_modules/.bin/prettier --write --print-width 100 --tab-width 2 --no-semi --single-quote --trailing-comma es5 --parser typescript src/**/*.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/motorcyclets/motorcycle.git"
+  },
+  "keywords": [
+    "motorcycle",
+    "virtual-dom",
+    "mostly-dom",
+    "typescript"
+  ],
+  "author": "Tylor Steinberger <tslteinberger167@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/motorcyclets/motorcycle/issues"
+  },
+  "homepage": "https://github.com/motorcyclets/motorcycle#readme",
+  "dependencies": {
+    "167": "0.36.0",
+    "@motorcycle/dom": "12.0.0",
+    "mostly-dom": "3.5.0"
+  },
+  "devDependencies": {
+    "@motorcycle/test": "1.1.0"
+  }
+}
