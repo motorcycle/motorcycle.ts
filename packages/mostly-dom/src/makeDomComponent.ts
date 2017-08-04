@@ -1,0 +1,88 @@
+import { DomSource, createDomSource as createElementDomSource } from '@motorcycle/dom'
+import { ElementVNode, VNode, elementToVNode, init } from 'mostly-dom'
+import { drain, hold, map, scan } from '@motorcycle/stream'
+
+import { Stream } from '@motorcycle/types'
+import { prop } from '167'
+import { vNodeWrapper } from './vNodeWrapper'
+
+/**
+ * Sources type expected by a Dom component.
+ * @name DomSources
+ * @example
+ * export type DomSources = { dom: DomSource }
+ * @type
+ */
+export type DomSources = { dom: DomSource }
+
+/**
+ * Sinks type returns by a DOM component.
+ * @name DomSinks
+ * @example
+ * export type DomSinks = { view$: Stream<VNode> }
+ * @type
+ */
+export type DomSinks = { view$: Stream<VNode> }
+
+const toElement = map(prop<ElementVNode>('element'))
+
+/**
+ * Takes an element and returns a DOM component function.
+ * 
+ * @name makeDomComponent(element: Element): (sinks: DomSinks) => DomSources
+ * @example
+ * import { 
+ *   makeDomComponent, 
+ *   DomSources, 
+ *   DomSinks, 
+ *   VNode,
+ *   events, 
+ *   query, 
+ *   div, 
+ *   h1, 
+ *   button 
+ * } from '@motorcycle/mostly-dom'
+ * import { run } from '@motorcycle/run'
+ * 
+ * const element = document.querySelector('#app')
+ * 
+ * if (!element) throw new Error('unable to find element')
+ * 
+ * run(UI, makeDomComponent(element))
+ * 
+ * function UI(sources: DomSources): DomSinks {
+ *   const { dom } = sources
+ * 
+ *   const click$: Stream<Event> = events('click', query('button'))
+ * 
+ *   const amount$: Stream<number> = scan(x => x + 1, 0, click$)
+ * 
+ *   const view$: Stream<VNode> = map(view, amount$)
+ * 
+ *   return { view$ }
+ * }
+ * 
+ * function view(amount: number) {
+ *   return div([
+ *     h1(`Clicked ${amount} times`),
+ *     button(`Click me`)
+ *   ])
+ * }
+ */
+export function makeDomComponent(element: Element) {
+  const rootVNode = elementToVNode(element)
+  const wrapVNode = map(vNodeWrapper(element))
+  const patch = scan(init([]), rootVNode)
+
+  return function Dom(sinks: DomSinks): DomSources {
+    const { view$ } = sinks
+
+    const elementVNode$ = patch(wrapVNode(view$))
+    const element$ = hold(toElement(elementVNode$))
+    const dom = createElementDomSource(element$)
+
+    drain(element$)
+
+    return { dom }
+  }
+}
