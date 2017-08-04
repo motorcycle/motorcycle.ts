@@ -1,4 +1,4 @@
-# @motorcycle/dom -- 11.0.0
+# @motorcycle/dom -- 12.0.0
 
 Declarative, functional, reactive abstractions for the DOM
 

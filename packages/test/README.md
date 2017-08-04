@@ -1,4 +1,4 @@
-# @motorcycle/test -- 1.0.0
+# @motorcycle/test -- 1.1.0
 
 Testing functions for Motorcycle.ts
 
@@ -12,6 +12,25 @@ npm install --save @motorcycle/test
 ## API Documentation
 
 All functions are curried!
+
+#### TestScheduler
+
+<p>
+
+TestScheduler
+
+</p>
+
+
+```typescript
+
+export type TestScheduler = {
+  readonly tick: (delay: Delay) => Promise<void>
+  readonly scheduler: Scheduler
+}
+
+```
+
 
 #### VirtualTimer
 
