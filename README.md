@@ -23,3 +23,4 @@
 - [@motorcycle/run](./packages/run) -- A statically-typed, functional and reactive framework for modern browsers
 - [@motorcycle/test](./packages/test) -- Testing functions for Motorcycle.ts
 - [@motorcycle/dom](./packages/dom) -- Declarative, functional, reactive abstractions for the DOM
+- [@motorcycle/mostly-dom](./packages/mostly-dom) -- Motorcycle.ts adapter for [mostly-dom](https://github.com/TylorS167/mostly-dom)
