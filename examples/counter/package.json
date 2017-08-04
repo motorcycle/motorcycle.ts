@@ -1,0 +1,36 @@
+{
+  "private": true,
+  "name": "@motorcycle/counter",
+  "version": "1.0.0",
+  "description": "Counter example application",
+  "main": "lib/index.js",
+  "scripts": {
+    "start": "webpack-dev-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/motorcyclets/motorcycle.git"
+  },
+  "keywords": [
+    "motorcycle",
+    "counter"
+  ],
+  "author": "Tylor Steinberger <tlsteinberger167@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/motorcyclets/motorcycle/issues"
+  },
+  "homepage": "https://github.com/motorcyclets/motorcycle#readme",
+  "dependencies": {
+    "@motorcycle/dom": "12.0.0",
+    "@motorcycle/mostly-dom": "1.0.0",
+    "@motorcycle/run": "3.1.0",
+    "@motorcycle/stream": "1.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "8.0.19",
+    "ts-loader": "2.3.2",
+    "webpack": "3.4.1",
+    "webpack-dev-server": "2.6.1"
+  }
+}
