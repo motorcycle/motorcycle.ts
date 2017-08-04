@@ -1,6 +1,6 @@
 {
   "name": "@motorcycle/mostly-dom",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Motorcycle.ts adapter for mostly-dom. Built on @motorcycle/dom.",
   "main": "lib/index.js",
   "module": "lib.es2015/index.js",
