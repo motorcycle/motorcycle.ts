@@ -37,18 +37,18 @@
   version "0.10.0"
   resolved "https://registry.yarnpkg.com/@most/types/-/types-0.10.0.tgz#5a60b581915349b210a13fed1563e9d06cba287f"
 
-"@motorcycle/stream@1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@motorcycle/stream/-/stream-1.1.0.tgz#ff2535f76b8c57716bc5c2c6d7d857210b0dfd78"
+"@motorcycle/stream@1.3.0":
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/@motorcycle/stream/-/stream-1.3.0.tgz#8ac30b3f411901448011f8353b6b844163e50cc5"
   dependencies:
     "167" "0.36.0"
     "@most/core" "0.11.2"
     "@most/disposable" "0.11.0"
     "@most/scheduler" "0.11.0"
-    "@motorcycle/types" "1.1.0"
+    "@motorcycle/types" "1.3.0"
 
-"@motorcycle/types@1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@motorcycle/types/-/types-1.1.0.tgz#fa69b8876276b26f3adbe88793e5ff942e0aed2f"
+"@motorcycle/types@1.3.0":
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/@motorcycle/types/-/types-1.3.0.tgz#3a895f6dd601171ea3310211328b8045badae22b"
   dependencies:
     "@most/types" "^0.10.0"

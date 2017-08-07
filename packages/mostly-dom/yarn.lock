@@ -37,35 +37,35 @@
   version "0.10.0"
   resolved "https://registry.yarnpkg.com/@most/types/-/types-0.10.0.tgz#5a60b581915349b210a13fed1563e9d06cba287f"
 
-"@motorcycle/dom@12.0.0":
-  version "12.0.0"
-  resolved "https://registry.yarnpkg.com/@motorcycle/dom/-/dom-12.0.0.tgz#34870ebd8cc67c102335cf023753bdaca4848fc9"
+"@motorcycle/dom@12.1.0":
+  version "12.1.0"
+  resolved "https://registry.yarnpkg.com/@motorcycle/dom/-/dom-12.1.0.tgz#7e2b2b34f742a6af583d5536a7116dd94b8b4674"
   dependencies:
     "167" "0.36.0"
-    "@motorcycle/stream" "1.2.0"
-    "@motorcycle/types" "1.2.0"
+    "@motorcycle/stream" "1.3.0"
+    "@motorcycle/types" "1.3.0"
 
-"@motorcycle/stream@1.2.0":
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/@motorcycle/stream/-/stream-1.2.0.tgz#bd305c0402ef2b3dda51e872c460b1c5ce42ca9b"
+"@motorcycle/stream@1.3.0":
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/@motorcycle/stream/-/stream-1.3.0.tgz#8ac30b3f411901448011f8353b6b844163e50cc5"
   dependencies:
     "167" "0.36.0"
     "@most/core" "0.11.2"
     "@most/disposable" "0.11.0"
     "@most/scheduler" "0.11.0"
-    "@motorcycle/types" "1.2.0"
+    "@motorcycle/types" "1.3.0"
 
-"@motorcycle/test@1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@motorcycle/test/-/test-1.1.0.tgz#a76977e3d7fdb811f69c6c1a40f2b7c43e432dc7"
+"@motorcycle/test@1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@motorcycle/test/-/test-1.2.0.tgz#42637611f192851c88cad38cc2318b40f7c6bbd0"
   dependencies:
     "@most/scheduler" "0.11.0"
-    "@motorcycle/stream" "1.2.0"
-    "@motorcycle/types" "1.2.0"
+    "@motorcycle/stream" "1.3.0"
+    "@motorcycle/types" "1.3.0"
 
-"@motorcycle/types@1.2.0":
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/@motorcycle/types/-/types-1.2.0.tgz#3b428e29a3dc4a522e11d476fd5881adfa3a5b35"
+"@motorcycle/types@1.3.0":
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/@motorcycle/types/-/types-1.3.0.tgz#3a895f6dd601171ea3310211328b8045badae22b"
   dependencies:
     "@most/types" "^0.10.0"
 
