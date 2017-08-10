@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "lib": [
+      "dom",
+      "es5",
+      "es2015"
+    ],
+    "target": "es5",
+    "moduleResolution": "node",
+    "module": "commonjs",
+    "declaration": true,
+    "noImplicitAny": true,
+    "sourceMap": true,
+    "noUnusedParameters": true,
+    "noUnusedLocals": true,
+    "strictNullChecks": true,
+    "baseUrl": "./src",
+    "paths": {
+      "@base/*": [
+        "*"
+      ]
+    }
+  },
+  "include": [
+    "src/**/*.ts"
+  ]
+}

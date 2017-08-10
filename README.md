@@ -28,3 +28,4 @@
 ## Examples
 
 - [Counter](./examples/counter)
+- [Traffic Light](./examples/traffic-light)
