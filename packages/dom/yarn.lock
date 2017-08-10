@@ -2,7 +2,7 @@
 # yarn lockfile v1
 
 
-"167@0.36.0", "167@^0.36.0":
+"167@0.36.0":
   version "0.36.0"
   resolved "https://registry.yarnpkg.com/167/-/167-0.36.0.tgz#040850b3b60fda4fe1b6305676bd42dc0ffe3dae"
 
@@ -22,7 +22,7 @@
     "@most/prelude" "^1.6.2"
     "@most/types" "^0.10.0"
 
-"@most/prelude@^1.6.0", "@most/prelude@^1.6.2":
+"@most/prelude@^1.6.2":
   version "1.6.2"
   resolved "https://registry.yarnpkg.com/@most/prelude/-/prelude-1.6.2.tgz#e022db0a3522ea45a427f739570b99f6a6b49162"
 
@@ -37,32 +37,26 @@
   version "0.10.0"
   resolved "https://registry.yarnpkg.com/@most/types/-/types-0.10.0.tgz#5a60b581915349b210a13fed1563e9d06cba287f"
 
-"@motorcycle/stream@1.1.0", "@motorcycle/stream@^1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@motorcycle/stream/-/stream-1.1.0.tgz#ff2535f76b8c57716bc5c2c6d7d857210b0dfd78"
+"@motorcycle/stream@1.3.0":
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/@motorcycle/stream/-/stream-1.3.0.tgz#8ac30b3f411901448011f8353b6b844163e50cc5"
   dependencies:
     "167" "0.36.0"
     "@most/core" "0.11.2"
     "@most/disposable" "0.11.0"
     "@most/scheduler" "0.11.0"
-    "@motorcycle/types" "1.1.0"
+    "@motorcycle/types" "1.3.0"
 
-"@motorcycle/test@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@motorcycle/test/-/test-1.0.0.tgz#06b12f84f7a4cd9812a1061271f0e280ca65268b"
+"@motorcycle/test@1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@motorcycle/test/-/test-1.2.0.tgz#42637611f192851c88cad38cc2318b40f7c6bbd0"
   dependencies:
     "@most/scheduler" "0.11.0"
-    "@motorcycle/stream" "1.1.0"
-    "@motorcycle/types" "1.1.0"
+    "@motorcycle/stream" "1.3.0"
+    "@motorcycle/types" "1.3.0"
 
-"@motorcycle/types@1.1.0", "@motorcycle/types@^1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@motorcycle/types/-/types-1.1.0.tgz#fa69b8876276b26f3adbe88793e5ff942e0aed2f"
+"@motorcycle/types@1.3.0":
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/@motorcycle/types/-/types-1.3.0.tgz#3a895f6dd601171ea3310211328b8045badae22b"
   dependencies:
     "@most/types" "^0.10.0"
-
-mostly-dom@^3.5.0:
-  version "3.5.0"
-  resolved "https://registry.yarnpkg.com/mostly-dom/-/mostly-dom-3.5.0.tgz#a74a7e5c3d0ec38986d32a941efff3883fa09433"
-  dependencies:
-    "@most/prelude" "^1.6.0"
