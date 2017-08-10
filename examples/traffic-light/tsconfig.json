@@ -13,7 +13,13 @@
     "sourceMap": true,
     "noUnusedParameters": true,
     "noUnusedLocals": true,
-    "strictNullChecks": true
+    "strictNullChecks": true,
+    "baseUrl": "./src",
+    "paths": {
+      "@base/*": [
+        "*"
+      ]
+    }
   },
   "include": [
     "src/**/*.ts"
