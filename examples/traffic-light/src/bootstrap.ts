@@ -1,7 +1,7 @@
-import { DomSinks, makeDomComponent } from '@motorcycle/mostly-dom'
-import { UI, UISources } from '@base/UI'
+import { TrafficLight, TrafficLightSinks, TrafficLightSources } from '@base/ui'
 
 import { Application } from '@base/application'
+import { makeDomComponent } from '@motorcycle/mostly-dom'
 import { run } from '@motorcycle/run'
 
 const rootCssSelector = `#app`
@@ -11,4 +11,7 @@ if (!element) throw new Error(`Unable to find element '${rootCssSelector}'`)
 
 const Dom = makeDomComponent(element)
 
-run<UISources, DomSinks>(UI, sinks => ({ ...Dom(sinks), ...Application() }))
+run<TrafficLightSources, TrafficLightSinks>(TrafficLight, sinks => ({
+  ...Dom(sinks),
+  ...Application(),
+}))
