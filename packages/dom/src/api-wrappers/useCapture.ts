@@ -30,7 +30,20 @@ function isDocumentDomSource(dom: DomSource | DocumentDomSource): dom is Documen
 }
 
 function useCaptureDocument(documentDomSource: DocumentDomSource) {
-  return new DocumentDomSource(documentDomSource.document$, { useCapture: true })
+  return {
+    document$: documentDomSource.document$,
+
+    elements(): Stream<ReadonlyArray<Document>> {
+      return documentDomSource.elements()
+    },
+
+    events<Ev extends Event = Event>(
+      eventType: StandardEvents,
+      options: EventListenerOptions = { capture: true }
+    ): Stream<Ev> {
+      return documentDomSource.events(eventType, options)
+    },
+  }
 }
 
 function useCaptureDomSource(dom: DomSource): DomSource {

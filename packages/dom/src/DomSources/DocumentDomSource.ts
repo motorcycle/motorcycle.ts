@@ -17,11 +17,9 @@ import { Stream } from '@motorcycle/types'
  */
 export class DocumentDomSource {
   public document$: Stream<Document>
-  private defaultOptions: EventListenerOptions
 
-  constructor(document$: Stream<Document>, options = {}) {
+  constructor(document$: Stream<Document>) {
     this.document$ = document$
-    this.defaultOptions = options
   }
 
   public elements(): Stream<ReadonlyArray<Document>> {
@@ -30,14 +28,11 @@ export class DocumentDomSource {
 
   public events<Ev extends Event = Event>(
     eventType: StandardEvents,
-    options?: EventListenerOptions
+    options: EventListenerOptions = {}
   ): Stream<Ev> {
     const { document$ } = this
 
-    const event$$ = map(
-      document => new EventStream(eventType, document, options || this.defaultOptions),
-      document$
-    )
+    const event$$ = map(document => new EventStream(eventType, document, options), document$)
 
     return multicast(switchLatest(event$$))
   }
