@@ -15,7 +15,7 @@ export const test: Test = describe(`elements`, [
       const element = document.createElement('div')
       const dom = new EventDelegationDomSource(now(element), [])
 
-      const elements$ = elements(dom)
+      const elements$ = elements<Element, Event>(dom)
 
       return collectEventsFor(1, elements$).then(equal([[element]]))
     }),
