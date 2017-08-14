@@ -5,6 +5,22 @@ import { Stream } from '@motorcycle/types'
 export function useCapture(dom: DomSource): DomSource
 export function useCapture(dom: DocumentDomSource): DocumentDomSource
 
+/**
+ * Creates a new DomSource or DocumentDomSource that will default to using 
+ * capture when using `events()`.
+ * 
+ * @name useCapture(dom: DomSource | DocumentDomSource): DomSource | DocumentDomSource
+ * @example 
+ * import { useCapture, events } from '@motorcycle/dom'
+ * 
+ * export function Component(sources) {
+ *   const { dom } = sources
+ * 
+ *   const click$ = events('click', useCapture(dom))
+ * 
+ *   ...
+ * }
+ */
 export function useCapture(dom: DomSource | DocumentDomSource) {
   return isDocumentDomSource(dom) ? useCaptureDocument(dom) : useCaptureDomSource(dom)
 }
