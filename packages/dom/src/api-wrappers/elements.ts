@@ -1,4 +1,5 @@
-import { DomSource } from '../types'
+import { DocumentDomSource, DomSource } from '../'
+
 import { Stream } from '@motorcycle/types'
 
 /**
@@ -19,6 +20,9 @@ import { Stream } from '@motorcycle/types'
  *   ...
  * }
  */
-export function elements<El extends Element>(dom: DomSource): Stream<ReadonlyArray<El>> {
-  return dom.elements<El>()
+export function elements(dom: DocumentDomSource): Stream<ReadonlyArray<Document>>
+export function elements<El extends Element>(dom: DomSource): Stream<ReadonlyArray<El>>
+
+export function elements(dom: any) {
+  return dom.elements()
 }

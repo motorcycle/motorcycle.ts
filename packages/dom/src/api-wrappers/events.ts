@@ -1,4 +1,4 @@
-import { DomSource, StandardEvents } from '../types'
+import { DocumentDomSource, DomSource, StandardEvents } from '../'
 
 import { Stream } from '@motorcycle/types'
 import { curry2 } from '167'
@@ -23,4 +23,8 @@ export interface Events {
   <Ev extends Event = Event>(eventType: StandardEvents, dom: DomSource): Stream<Ev>
   <Ev extends Event = Event>(eventType: StandardEvents): (dom: DomSource) => Stream<Ev>
   (eventType: StandardEvents): <Ev extends Event = Event>(dom: DomSource) => Stream<Ev>
+
+  <Ev extends Event = Event>(eventType: StandardEvents, dom: DocumentDomSource): Stream<Ev>
+  <Ev extends Event = Event>(eventType: StandardEvents): (dom: DocumentDomSource) => Stream<Ev>
+  (eventType: StandardEvents): <Ev extends Event = Event>(dom: DocumentDomSource) => Stream<Ev>
 }

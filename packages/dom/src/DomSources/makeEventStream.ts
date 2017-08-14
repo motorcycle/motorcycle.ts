@@ -1,8 +1,9 @@
 import { CssSelector, StandardEvents } from '../'
-import { Disposable, Scheduler, Sink, Stream } from '@motorcycle/types'
 import { equals, length, not } from '167'
+import { filter, map } from '@motorcycle/stream'
 
-import { map } from '@motorcycle/stream'
+import { EventStream } from './EventStream'
+import { Stream } from '@motorcycle/types'
 
 export function makeEventStream<Ev extends Event = Event>(
   cssSelector: CssSelector,
@@ -10,7 +11,13 @@ export function makeEventStream<Ev extends Event = Event>(
   options: EventListenerOptions = {}
 ) {
   return function(element: Element): Stream<Ev> {
-    const event$ = new EventStream<Ev>(cssSelector, eventType, element, options)
+    const { capture } = options
+
+    const ensureEventMatches = filter((event: Event) =>
+      ensureMatches(cssSelector, element, event, capture)
+    )
+
+    const event$ = ensureEventMatches(new EventStream<Ev>(eventType, element, options))
 
     if (options.capture) return map(findCurrentTarget(cssSelector, element), event$)
 
@@ -45,38 +52,6 @@ function cloneEvent(event: Event, currentTarget: Element): Event {
       return equals(property, EVENT_PROPERTY_TO_REPLACE) ? currentTarget : target[property]
     },
   })
-}
-
-class EventStream<Ev extends Event> implements Stream<Ev> {
-  private cssSelector: CssSelector
-  private eventType: StandardEvents
-  private element: Element
-  private options: EventListenerOptions
-
-  constructor(
-    cssSelector: string,
-    eventType: StandardEvents,
-    element: Element,
-    options: EventListenerOptions
-  ) {
-    this.cssSelector = cssSelector
-    this.eventType = eventType
-    this.element = element
-    this.options = options
-  }
-
-  public run(sink: Sink<Ev>, scheduler: Scheduler): Disposable {
-    const { cssSelector, eventType, element, options: { capture } } = this
-
-    const listener = (event: Ev) =>
-      ensureMatches(cssSelector, element, event, capture) && sink.event(scheduler.now(), event)
-
-    const dispose = () => element.removeEventListener(eventType, listener, capture)
-
-    element.addEventListener(eventType, listener, capture)
-
-    return { dispose }
-  }
 }
 
 function ensureMatches(

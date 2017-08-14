@@ -1,8 +1,23 @@
-import { CssSelector, DomSource, StandardEvents } from '../types'
+import { CssSelector, DocumentDomSource, DomSource, StandardEvents } from '../'
 
 import { Stream } from '@motorcycle/types'
 
-export function useCapture(dom: DomSource): DomSource {
+export function useCapture(dom: DomSource): DomSource
+export function useCapture(dom: DocumentDomSource): DocumentDomSource
+
+export function useCapture(dom: DomSource | DocumentDomSource) {
+  return isDocumentDomSource(dom) ? useCaptureDocument(dom) : useCaptureDomSource(dom)
+}
+
+function isDocumentDomSource(dom: DomSource | DocumentDomSource): dom is DocumentDomSource {
+  return dom.hasOwnProperty('document$')
+}
+
+function useCaptureDocument(documentDomSource: DocumentDomSource) {
+  return new DocumentDomSource(documentDomSource.document$, { useCapture: true })
+}
+
+function useCaptureDomSource(dom: DomSource): DomSource {
   const useCaptureDomSource: DomSource = {
     query(cssSelector: CssSelector): DomSource {
       return dom.query(cssSelector)
