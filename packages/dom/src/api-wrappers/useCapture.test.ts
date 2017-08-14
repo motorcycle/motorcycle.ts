@@ -37,37 +37,4 @@ export const test: Test = describe(`useCapture`, [
       ]),
     ]),
   ]),
-
-  given(`DocumentDomSource`, [
-    it(`returns a new DocumentSource`, ({ equal }) => {
-      const element: Element = document.createElement(`div`)
-      const domSource: DomSource = new EventDelegationDomSource(now(element), [])
-      const dom: DomSource = useCapture(domSource)
-
-      equal('function', typeof dom.events)
-      equal('function', typeof dom.elements)
-      equal('function', typeof dom.cssSelectors)
-      equal('function', typeof dom.query)
-    }),
-
-    describe(`DocumentDomSource`, [
-      describe(`events`, [
-        it(`calls DocumentSource with useCapture true`, ({ ok, equal }, done) => {
-          const eventType = 'click'
-          const domSource = {
-            document$: now(document),
-            events(type: string, options: EventListenerOptions) {
-              equal(eventType, type)
-              ok(!!options.capture)
-              done()
-            },
-          } as DocumentDomSource
-
-          const dom = useCapture(domSource)
-
-          dom.events(eventType)
-        }),
-      ]),
-    ]),
-  ]),
 ])

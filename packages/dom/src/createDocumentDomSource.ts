@@ -1,4 +1,5 @@
 import { DocumentDomSource } from './DomSources'
+import { DomSource } from './types'
 import { Stream } from '@motorcycle/types'
 
 /**
@@ -30,6 +31,6 @@ import { Stream } from '@motorcycle/types'
  *   }
  * }
  */
-export function createDocumentDomSource(document$: Stream<Document>): DocumentDomSource {
+export function createDocumentDomSource(document$: Stream<Document>): DomSource<Document, Event> {
   return new DocumentDomSource(document$)
 }

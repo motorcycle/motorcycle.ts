@@ -1,9 +1,6 @@
-import { CssSelector, DocumentDomSource, DomSource, StandardEvents } from '../'
+import { CssSelector, DomSource, StandardEvents } from '../'
 
 import { Stream } from '@motorcycle/types'
-
-export function useCapture(dom: DomSource): DomSource
-export function useCapture(dom: DocumentDomSource): DocumentDomSource
 
 /**
  * Creates a new DomSource or DocumentDomSource that will default to using 
@@ -21,42 +18,17 @@ export function useCapture(dom: DocumentDomSource): DocumentDomSource
  *   ...
  * }
  */
-export function useCapture(dom: DomSource | DocumentDomSource) {
-  return isDocumentDomSource(dom) ? useCaptureDocument(dom) : useCaptureDomSource(dom)
-}
-
-function isDocumentDomSource(dom: DomSource | DocumentDomSource): dom is DocumentDomSource {
-  return dom.hasOwnProperty('document$')
-}
-
-function useCaptureDocument(documentDomSource: DocumentDomSource) {
-  return {
-    document$: documentDomSource.document$,
-
-    elements(): Stream<ReadonlyArray<Document>> {
-      return documentDomSource.elements()
-    },
-
-    events<Ev extends Event = Event>(
-      eventType: StandardEvents,
-      options: EventListenerOptions = { capture: true }
-    ): Stream<Ev> {
-      return documentDomSource.events(eventType, options)
-    },
-  }
-}
-
-function useCaptureDomSource(dom: DomSource): DomSource {
-  const useCaptureDomSource: DomSource = {
-    query(cssSelector: CssSelector): DomSource {
+export function useCapture<A = Element, B = Event>(dom: DomSource<A, B>): DomSource<A, B> {
+  const useCaptureDomSource: DomSource<A, B> = {
+    query(cssSelector: CssSelector): DomSource<A, B> {
       return dom.query(cssSelector)
     },
 
-    elements<El extends Element = Element>(): Stream<ReadonlyArray<El>> {
+    elements<El extends A = A>(): Stream<ReadonlyArray<El>> {
       return dom.elements()
     },
 
-    events<Ev extends Event = Event>(
+    events<Ev extends B = B>(
       eventType: StandardEvents,
       options: EventListenerOptions = { capture: true }
     ): Stream<Ev> {

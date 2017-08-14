@@ -1,4 +1,4 @@
-import { DocumentDomSource, DomSource, StandardEvents } from '../'
+import { DomSource, StandardEvents } from '../'
 
 import { Stream } from '@motorcycle/types'
 import { curry2 } from '167'
@@ -12,19 +12,15 @@ import { curry2 } from '167'
  * 
  * const click$ = events('click', dom)
  */
-export const events: Events = curry2(function<Ev extends Event>(
+export const events: Events = curry2(function<A = Element, B = Event>(
   eventType: StandardEvents,
-  dom: DomSource
-): Stream<Ev> {
-  return dom.events(eventType)
+  dom: DomSource<A, B>
+): Stream<B> {
+  return dom.events<B>(eventType)
 })
 
 export interface Events {
-  <Ev extends Event = Event>(eventType: StandardEvents, dom: DomSource): Stream<Ev>
-  <Ev extends Event = Event>(eventType: StandardEvents): (dom: DomSource) => Stream<Ev>
-  (eventType: StandardEvents): <Ev extends Event = Event>(dom: DomSource) => Stream<Ev>
-
-  <Ev extends Event = Event>(eventType: StandardEvents, dom: DocumentDomSource): Stream<Ev>
-  <Ev extends Event = Event>(eventType: StandardEvents): (dom: DocumentDomSource) => Stream<Ev>
-  (eventType: StandardEvents): <Ev extends Event = Event>(dom: DocumentDomSource) => Stream<Ev>
+  <A = Element, B = Event>(eventType: StandardEvents, dom: DomSource<A, B>): Stream<B>
+  <A = Element, B = Event>(eventType: StandardEvents): (dom: DomSource<A, B>) => Stream<B>
+  (eventType: StandardEvents): <A = Element, B = Event>(dom: DomSource<A, B>) => Stream<B>
 }

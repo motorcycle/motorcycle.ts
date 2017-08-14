@@ -28,6 +28,14 @@ export const query: Query = curry2(function queryWrapper(
 })
 
 export interface Query {
-  (cssSelector: CssSelector, domSource: DomSource): DomSource
-  (cssSelector: CssSelector): (domSource: DomSource) => DomSource
+  <A = Element, B = Event, C = Element>(
+    cssSelector: CssSelector,
+    domSource: DomSource<A, B>
+  ): DomSource<C, B>
+  <A = Element, B = Event, C = Element>(cssSelector: CssSelector): (
+    domSource: DomSource<A, B>
+  ) => DomSource<C, B>
+  (cssSelector: CssSelector): <A = Element, B = Event, C = Element>(
+    domSource: DomSource<A, B>
+  ) => DomSource<C, B>
 }

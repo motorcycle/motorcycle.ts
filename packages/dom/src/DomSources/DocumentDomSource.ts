@@ -1,25 +1,20 @@
+import { CssSelector, DomSource, StandardEvents } from '../'
 import { map, multicast, switchLatest } from '@motorcycle/stream'
 
 import { EventStream } from './EventStream'
-import { StandardEvents } from '../'
 import { Stream } from '@motorcycle/types'
 
-/**
- * Partial DomSource implementation
- * @name DocumentDomSource
- * @example
- * export class DocumentDomSource {
- *   constructor(document$: Stream<Document>, options?: EventListenerOptions)
- *   elements(): Stream<ReadonlyArray<Document>> // Always an Array with Document at index 0
- *   events<Ev extends Event>(type: StandardEvents, options?: EventListenerOptions): Stream<Ev>
- * }
- * @type
- */
-export class DocumentDomSource {
+const DOCUMENT_CSS_SELECTORS: ReadonlyArray<CssSelector> = []
+
+export class DocumentDomSource implements DomSource<Document, Event> {
   public document$: Stream<Document>
 
   constructor(document$: Stream<Document>) {
     this.document$ = document$
+  }
+
+  public query(): DocumentDomSource {
+    return this
   }
 
   public elements(): Stream<ReadonlyArray<Document>> {
@@ -35,5 +30,9 @@ export class DocumentDomSource {
     const event$$ = map(document => new EventStream(eventType, document, options), document$)
 
     return multicast(switchLatest(event$$))
+  }
+
+  public cssSelectors(): ReadonlyArray<CssSelector> {
+    return DOCUMENT_CSS_SELECTORS
   }
 }
