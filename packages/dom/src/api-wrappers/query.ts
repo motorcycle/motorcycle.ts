@@ -25,7 +25,7 @@ export const query: Query = curry2(function queryWrapper(
   domSource: DomSource
 ) {
   return domSource.query(cssSelector)
-})
+}) as Query
 
 export interface Query {
   <A = Element, B = Event, C = Element>(

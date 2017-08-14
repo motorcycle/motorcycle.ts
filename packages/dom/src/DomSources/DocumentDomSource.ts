@@ -13,7 +13,7 @@ export class DocumentDomSource implements DomSource<Document, Event> {
     this.document$ = document$
   }
 
-  public query(): DocumentDomSource {
+  public query(): DomSource<Document, Event> {
     return this
   }
 

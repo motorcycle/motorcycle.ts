@@ -24,7 +24,7 @@ export function useCapture<A = Element, B = Event>(dom: DomSource<A, B>): DomSou
       return dom.query(cssSelector)
     },
 
-    elements<El extends A = A>(): Stream<ReadonlyArray<El>> {
+    elements(): Stream<ReadonlyArray<A>> {
       return dom.elements()
     },
 
