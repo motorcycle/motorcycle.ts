@@ -6,7 +6,7 @@ import { curry2 } from '167'
 /**
  * Takes an event type and a DomSource and returns a stream of events.
  * 
- * @name event<Ev extends Event>(type: StandardEvents, dom: DomSource): Stream<Ev>
+ * @name event<A = Element, B = Event>>(type: StandardEvents, dom: DomSource<A, B>): Stream<B>
  * @example
  * import { events } from '@motorcycle/dom'
  * 

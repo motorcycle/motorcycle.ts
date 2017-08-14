@@ -3,10 +3,9 @@ import { Stream } from '@motorcycle/types'
 
 /**
  * Takes a DomSource and returns a stream of Array of elements matches 
- * previous queries. Also accepts `DocumentDomSource` and will return a strean
- * containing Document at index 0.
+ * previous queries.
  * 
- * @name elements<El extends Element>(dom: DomSource): Stream<ReadonlyArray<El>>
+ * @name elements<A = Element, B = Event>>(dom: DomSource<A, B>): Stream<ReadonlyArray<A>>
  * @example
  * import { DomSource, elements } from '@motorcycle/dom'
  * 

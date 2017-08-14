@@ -25,7 +25,7 @@ export interface DomSource<A = Element, B = Event> {
    * @example
    * const queriedDomSource = domSource.query(`.myCssSelector`)
    */
-  query(cssSelector: CssSelector): DomSource<A, B>
+  query<C extends A = A>(cssSelector: CssSelector): DomSource<C, B>
 
   /**
    * Retrieves a stream of a list of elements matching previous queries.
