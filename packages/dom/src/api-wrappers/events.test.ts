@@ -15,7 +15,7 @@ export const test: Test = describe(`events`, [
       const dom = new EventDelegationDomSource(now(element), [])
       const eventType = 'click'
 
-      const event$ = events(eventType, dom)
+      const event$ = events<Element, Event>(eventType, dom)
 
       setTimeout(function() {
         element.dispatchEvent(new Event(eventType, { bubbles: true }))

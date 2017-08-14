@@ -9,26 +9,26 @@ const ROOT_CSS_SELECTOR: CssSelector = `:root`
 
 const CSS_SELECTOR_SEPARATOR = ` `
 
-export class EventDelegationDomSource implements DomSource {
+export class EventDelegationDomSource<A extends Element = Element> implements DomSource<A, Event> {
   private _cssSelectors: ReadonlyArray<CssSelector>
 
-  private element$: Stream<Element>
+  private element$: Stream<A>
 
   private eventMap: Map<StandardEvents, Stream<Event>>
 
-  constructor(element$: Stream<Element>, cssSelectors: ReadonlyArray<CssSelector>) {
+  constructor(element$: Stream<A>, cssSelectors: ReadonlyArray<CssSelector>) {
     this.element$ = element$
     this._cssSelectors = cssSelectors
     this.eventMap = new Map()
   }
 
-  public query(cssSelector: CssSelector): DomSource {
+  public query<El extends Element = A>(cssSelector: CssSelector): DomSource<El, Event> {
     if (equals(cssSelector, ROOT_CSS_SELECTOR)) return this
 
     return new EventDelegationDomSource(this.element$, append(cssSelector, this._cssSelectors))
   }
 
-  public elements<El extends Element = Element>(): Stream<ReadonlyArray<El>> {
+  public elements<El extends Element = A>(): Stream<ReadonlyArray<El>> {
     const cssSelectors = this._cssSelectors
     const hasNoCssSelectors = equals(0, length(cssSelectors))
 

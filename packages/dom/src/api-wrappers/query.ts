@@ -5,7 +5,7 @@ import { curry2 } from '167'
 /**
  * A curried function for building more specific queries for elements.
  * 
- * @name query(cssSelector: CssSelector, domSource: DomSource): DomSource
+ * @name query<A, B, C>(cssSelector: CssSelector, domSource: DomSource<A, B>): DomSource<C, B>
  * @example 
  * import { DomSource, query, events } from '@motorcycle/dom'
  * 
@@ -20,14 +20,22 @@ import { curry2 } from '167'
  *   ...
  * }
  */
-export const query: Query = curry2(function queryWrapper(
+export const query: Query = curry2(function queryWrapper<A = Element, B = Event, C extends A = A>(
   cssSelector: CssSelector,
-  domSource: DomSource
-) {
-  return domSource.query(cssSelector)
+  domSource: DomSource<A, B>
+): DomSource<C, B> {
+  return domSource.query<C>(cssSelector)
 })
 
 export interface Query {
-  (cssSelector: CssSelector, domSource: DomSource): DomSource
-  (cssSelector: CssSelector): (domSource: DomSource) => DomSource
+  <A = Element, B = Event, C = Element>(
+    cssSelector: CssSelector,
+    domSource: DomSource<A, B>
+  ): DomSource<C, B>
+  <A = Element, B = Event, C = Element>(cssSelector: CssSelector): (
+    domSource: DomSource<A, B>
+  ) => DomSource<C, B>
+  (cssSelector: CssSelector): <A = Element, B = Event, C = Element>(
+    domSource: DomSource<A, B>
+  ) => DomSource<C, B>
 }

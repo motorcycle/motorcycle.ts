@@ -1,6 +1,6 @@
 import { Test, describe, given, it } from '@typed/test'
 
-import { DomSource } from '../types'
+import { DomSource } from '../'
 import { EventDelegationDomSource } from '../DomSources'
 import { now } from '@motorcycle/stream'
 import { useCapture } from './useCapture'

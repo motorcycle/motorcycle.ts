@@ -1,11 +1,11 @@
-import { DomSource } from '../types'
+import { DomSource } from '../'
 import { Stream } from '@motorcycle/types'
 
 /**
  * Takes a DomSource and returns a stream of Array of elements matches 
  * previous queries.
  * 
- * @name elements<El extends Element>(dom: DomSource): Stream<ReadonlyArray<El>>
+ * @name elements<A = Element, B = Event>>(dom: DomSource<A, B>): Stream<ReadonlyArray<A>>
  * @example
  * import { DomSource, elements } from '@motorcycle/dom'
  * 
@@ -19,6 +19,6 @@ import { Stream } from '@motorcycle/types'
  *   ...
  * }
  */
-export function elements<El extends Element>(dom: DomSource): Stream<ReadonlyArray<El>> {
-  return dom.elements<El>()
+export function elements<A = Element, B = Event>(dom: DomSource<A, B>): Stream<ReadonlyArray<A>> {
+  return dom.elements()
 }

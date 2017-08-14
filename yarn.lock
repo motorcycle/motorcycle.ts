@@ -199,8 +199,23 @@ base64-js@^1.0.2:
   resolved "https://registry.yarnpkg.com/base64-js/-/base64-js-1.2.1.tgz#a91947da1f4a516ea38e5b4ec0ec3773675e0886"
 
 bn.js@^4.0.0, bn.js@^4.1.0, bn.js@^4.1.1, bn.js@^4.4.0:
-  version "4.11.7"
-  resolved "https://registry.yarnpkg.com/bn.js/-/bn.js-4.11.7.tgz#ddb048e50d9482790094c13eb3fcfc833ce7ab46"
+  version "4.11.8"
+  resolved "https://registry.yarnpkg.com/bn.js/-/bn.js-4.11.8.tgz#2cde09eb5ee341f484746bb0309b3253b1b1442f"
+
+body-parser@1.17.2:
+  version "1.17.2"
+  resolved "https://registry.yarnpkg.com/body-parser/-/body-parser-1.17.2.tgz#f8892abc8f9e627d42aedafbca66bf5ab99104ee"
+  dependencies:
+    bytes "2.4.0"
+    content-type "~1.0.2"
+    debug "2.6.7"
+    depd "~1.1.0"
+    http-errors "~1.6.1"
+    iconv-lite "0.4.15"
+    on-finished "~2.3.0"
+    qs "6.4.0"
+    raw-body "~2.2.0"
+    type-is "~1.6.15"
 
 body-parser@1.17.2:
   version "1.17.2"
@@ -2467,8 +2482,8 @@ rx-lite@*, rx-lite@^4.0.8:
   resolved "https://registry.yarnpkg.com/rx-lite/-/rx-lite-4.0.8.tgz#0b1e11af8bc44836f04a6407e92da42467b79444"
 
 rxjs@^5.0.0-beta.11:
-  version "5.4.2"
-  resolved "https://registry.yarnpkg.com/rxjs/-/rxjs-5.4.2.tgz#2a3236fcbf03df57bae06fd6972fd99e5c08fcf7"
+  version "5.4.3"
+  resolved "https://registry.yarnpkg.com/rxjs/-/rxjs-5.4.3.tgz#0758cddee6033d68e0fd53676f0f3596ce3d483f"
   dependencies:
     symbol-observable "^1.0.1"
 
