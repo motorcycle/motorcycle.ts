@@ -25,7 +25,7 @@ export interface DomSource<A = Element, B = Event> {
    * @example
    * const queriedDomSource = domSource.query(`.myCssSelector`)
    */
-  query<El extends A = A>(cssSelector: CssSelector): DomSource<El, B>
+  query<El = A>(cssSelector: CssSelector): DomSource<El, B>
 
   /**
    * Retrieves a stream of a list of elements matching previous queries.
@@ -38,7 +38,7 @@ export interface DomSource<A = Element, B = Event> {
    * const queriedDomSource = domSource.query(`.myCssSelector`)
    * const elements$ = queriedDomSource.elements()
    */
-  elements<El extends A = A>(): Stream<ReadonlyArray<El>>
+  elements<El = A>(): Stream<ReadonlyArray<El>>
 
   /**
    * Retrieves a stream of events from elements matching previous queries.
@@ -52,7 +52,7 @@ export interface DomSource<A = Element, B = Event> {
    * const queriedDomSource = domSource.query(`.myCssSelector`)
    * const clickEvent$: Stream<MouseEvent> = queriedDomSource.events<MouseEvent>('click')
    */
-  events<Ev extends B = B>(eventType: StandardEvents, options?: EventListenerOptions): Stream<Ev>
+  events<Ev = B>(eventType: StandardEvents, options?: EventListenerOptions): Stream<Ev>
 
   /**
    * Retrieves a list of all previously queried CSS selectors.
