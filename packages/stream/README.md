@@ -1,4 +1,4 @@
-# @motorcycle/stream -- 1.2.0
+# @motorcycle/stream -- 1.4.0
 
 Functional and reactive event streams for Motorcycle.ts
 
@@ -255,6 +255,55 @@ observe(console.log, stream)
 ```typescript
 
 export { combineArray } from '@most/core'
+
+```
+
+</details>
+
+<hr />
+
+
+#### combineObj\<Obj extends object\>(obj: { [K in keyof Obj]: Stream\<Obj[K]\> }): Stream\<Obj\>
+
+<p>
+
+Takes an object of streams and returns a Stream of an object.
+
+</p>
+
+
+<details>
+  <summary>See an example</summary>
+  
+```typescript
+import { combineObj, now } from '@motorcycle/stream'
+
+const obj = { a: now(1), b: now(2), c: now(3) }
+
+const stream: Stream<{ a: number, b: number, c: number }> = combineObj(obj)
+```
+
+</details>
+
+<details>
+  <summary>See the code</summary>
+
+```typescript
+
+export function combineObj<Obj extends object>(
+  object: { readonly [K in keyof Obj]: Stream<Obj[K]> }
+): Stream<Obj> {
+  const objectKeys = keys(object)
+  const sources = values(object) as Array<Stream<Obj[keyof Obj]>>
+
+  return combineArray((...values: Array<Obj[keyof Obj]>) => {
+    const valuesMap = {} as Obj
+
+    for (let i = 0; i < length(values); ++i) valuesMap[objectKeys[i]] = values[i]
+
+    return valuesMap
+  }, sources)
+}
 
 ```
 

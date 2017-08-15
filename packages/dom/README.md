@@ -1,4 +1,4 @@
-# @motorcycle/dom -- 12.0.0
+# @motorcycle/dom -- 13.0.0
 
 Declarative, functional, reactive abstractions for the DOM
 
@@ -98,7 +98,7 @@ const elements$ = queriedDomSource.elements()
 
 ```typescript
 
-elements<El extends Element = Element>(): Stream<ReadonlyArray<El>>
+elements(): Stream<ReadonlyArray<A>>
 
 ```
 
@@ -135,10 +135,7 @@ const clickEvent$: Stream<MouseEvent> = queriedDomSource.events<MouseEvent>('cli
 
 ```typescript
 
-events<Ev extends Event = Event>(
-  eventType: StandardEvents,
-  options?: EventListenerOptions
-): Stream<Ev>
+events<Ev extends B = B>(eventType: StandardEvents, options?: EventListenerOptions): Stream<Ev>
 
 ```
 
@@ -170,7 +167,7 @@ const queriedDomSource = domSource.query(`.myCssSelector`)
 
 ```typescript
 
-query(cssSelector: CssSelector): DomSource
+query<C extends A = A>(cssSelector: CssSelector): DomSource<C, B>
 
 ```
 
@@ -369,6 +366,62 @@ export type StandardEvents =
 ```
 
 
+#### createDocumentDomSource(document$: Stream\<Document\>): DocumentDomSource
+
+<p>
+
+Takes in `Stream\<Document\>` and produces a DocumentDomSource.
+`Stream\<Document\>` is required and allows for the developer to decide which
+events cause the stream to emit.
+
+</p>
+
+
+<details>
+  <summary>See an example</summary>
+  
+```typescript
+import { createDocumentDomSource } from '@motorcycle/dom'
+import { makeDomComponent } from '@motorcycle/mostly-dom'
+import { constant } from '@motorcycle/stream'
+import { UI } from './UI'
+
+const element = document.querySelector('#app-container') as Element
+
+const Dom = makeDomComponent(element)
+
+function Effects(sinks) {
+  const { view$ } = sinks
+  
+  const document$ = constant(document, view$)
+
+  const { dom } = Dom({ view$ })
+  
+  return {
+    dom,
+    document: createDocumentDomSource(document$)
+  }
+}
+```
+
+</details>
+
+<details>
+  <summary>See the code</summary>
+
+```typescript
+
+export function createDocumentDomSource(document$: Stream<Document>): DomSource<Document, Event> {
+  return new DocumentDomSource(document$)
+}
+
+```
+
+</details>
+
+<hr />
+
+
 #### createDomSource(element$: Stream\<Element\>): DomSource
 
 <p>
@@ -406,7 +459,7 @@ export function createDomSource(element$: Stream<Element>): DomSource {
 <hr />
 
 
-#### elements\<El extends Element\>(dom: DomSource): Stream\<ReadonlyArray\<El\>\>
+#### elements\<A = Element, B = Event\>\>(dom: DomSource\<A, B\>): Stream\<ReadonlyArray\<A\>\>
 
 <p>
 
@@ -440,8 +493,8 @@ function Component(sources: Sources) {
 
 ```typescript
 
-export function elements<El extends Element>(dom: DomSource): Stream<ReadonlyArray<El>> {
-  return dom.elements<El>()
+export function elements<A = Element, B = Event>(dom: DomSource<A, B>): Stream<ReadonlyArray<A>> {
+  return dom.elements()
 }
 
 ```
@@ -451,7 +504,7 @@ export function elements<El extends Element>(dom: DomSource): Stream<ReadonlyArr
 <hr />
 
 
-#### event\<Ev extends Event\>(type: StandardEvents, dom: DomSource): Stream\<Ev\>
+#### event\<A = Element, B = Event\>\>(type: StandardEvents, dom: DomSource\<A, B\>): Stream\<B\>
 
 <p>
 
@@ -476,17 +529,17 @@ const click$ = events('click', dom)
 
 ```typescript
 
-export const events: Events = curry2(function<Ev extends Event>(
+export const events: Events = curry2(function<A = Element, B = Event>(
   eventType: StandardEvents,
-  dom: DomSource
-): Stream<Ev> {
-  return dom.events(eventType)
+  dom: DomSource<A, B>
+): Stream<B> {
+  return dom.events<B>(eventType)
 })
 
 export interface Events {
-  <Ev extends Event = Event>(eventType: StandardEvents, dom: DomSource): Stream<Ev>
-  <Ev extends Event = Event>(eventType: StandardEvents): (dom: DomSource) => Stream<Ev>
-  (eventType: StandardEvents): <Ev extends Event = Event>(dom: DomSource) => Stream<Ev>
+  <A = Element, B = Event>(eventType: StandardEvents, dom: DomSource<A, B>): Stream<B>
+  <A = Element, B = Event>(eventType: StandardEvents): (dom: DomSource<A, B>) => Stream<B>
+  (eventType: StandardEvents): <A = Element, B = Event>(dom: DomSource<A, B>) => Stream<B>
 }
 
 ```
@@ -496,7 +549,7 @@ export interface Events {
 <hr />
 
 
-#### query(cssSelector: CssSelector, domSource: DomSource): DomSource
+#### query\<A, B, C\>(cssSelector: CssSelector, domSource: DomSource\<A, B\>): DomSource\<C, B\>
 
 <p>
 
@@ -530,16 +583,88 @@ function Component(sources: Sources) {
 
 ```typescript
 
-export const query: Query = curry2(function queryWrapper(
+export const query: Query = curry2(function queryWrapper<A = Element, B = Event, C extends A = A>(
   cssSelector: CssSelector,
-  domSource: DomSource
-) {
-  return domSource.query(cssSelector)
+  domSource: DomSource<A, B>
+): DomSource<C, B> {
+  return domSource.query<C>(cssSelector)
 })
 
 export interface Query {
-  (cssSelector: CssSelector, domSource: DomSource): DomSource
-  (cssSelector: CssSelector): (domSource: DomSource) => DomSource
+  <A = Element, B = Event, C = Element>(
+    cssSelector: CssSelector,
+    domSource: DomSource<A, B>
+  ): DomSource<C, B>
+  <A = Element, B = Event, C = Element>(cssSelector: CssSelector): (
+    domSource: DomSource<A, B>
+  ) => DomSource<C, B>
+  (cssSelector: CssSelector): <A = Element, B = Event, C = Element>(
+    domSource: DomSource<A, B>
+  ) => DomSource<C, B>
+}
+
+```
+
+</details>
+
+<hr />
+
+
+#### useCapture\<A = Element, B = Event\>(dom: DomSource\<A, B\>): DomSource\<A, B\>
+
+<p>
+
+Creates a new DomSource that will default to using 
+capture when using `events()`.
+
+</p>
+
+
+<details>
+  <summary>See an example</summary>
+  
+```typescript
+import { useCapture, events } from '@motorcycle/dom'
+
+export function Component(sources) {
+  const { dom } = sources
+
+  const click$ = events('click', useCapture(dom))
+
+  ...
+}
+```
+
+</details>
+
+<details>
+  <summary>See the code</summary>
+
+```typescript
+
+export function useCapture<A = Element, B = Event>(dom: DomSource<A, B>): DomSource<A, B> {
+  const useCaptureDomSource: DomSource<A, B> = {
+    query(cssSelector: CssSelector): DomSource<A, B> {
+      return dom.query(cssSelector)
+    },
+
+    elements(): Stream<ReadonlyArray<A>> {
+      return dom.elements()
+    },
+
+    events<Ev extends B = B>(
+      eventType: StandardEvents,
+      options: EventListenerOptions = { capture: true }
+    ): Stream<Ev> {
+      return dom.events(eventType, options)
+    },
+
+    cssSelectors(): ReadonlyArray<CssSelector> {
+      return dom.cssSelectors()
+    },
+  }
+
+  return useCaptureDomSource
 }
 
 ```
