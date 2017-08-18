@@ -96,9 +96,9 @@
   dependencies:
     "@most/types" "^0.10.0"
 
-"@types/node@8.0.20":
-  version "8.0.20"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-8.0.20.tgz#65c7375255c24b184c215a5d0b63247c32f01c91"
+"@types/node@8.0.24":
+  version "8.0.24"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-8.0.24.tgz#06c580084d9add1fb40c1510ef0b448961246fb1"
 
 abbrev@1:
   version "1.1.0"
