@@ -1,4 +1,4 @@
-import { DomSource, createDomSource as createElementDomSource } from '@motorcycle/dom'
+import { DomSource, createDomSource } from '@motorcycle/dom'
 import { ElementVNode, VNode, elementToVNode, init } from 'mostly-dom'
 import { drain, hold, map, scan } from '@motorcycle/stream'
 
@@ -72,14 +72,14 @@ const toElement = map(prop<ElementVNode>('element'))
 export function makeDomComponent(element: Element) {
   const rootVNode = elementToVNode(element)
   const wrapVNode = map(vNodeWrapper(element))
-  const patch = scan(init([]), rootVNode)
+  const patch = scan(init(), rootVNode)
 
   return function Dom(sinks: DomSinks): DomSources {
     const { view$ } = sinks
 
     const elementVNode$ = patch(wrapVNode(view$))
     const element$ = hold(toElement(elementVNode$))
-    const dom = createElementDomSource(element$)
+    const dom = createDomSource(element$)
 
     drain(element$)
 

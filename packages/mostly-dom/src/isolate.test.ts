@@ -13,7 +13,7 @@ export const test: Test = describe(`isolate`, [
         const {} = sources
 
         return {
-          view$: now(div(`.bar`)),
+          view$: now(div({ className: `bar` })),
         }
       }
 

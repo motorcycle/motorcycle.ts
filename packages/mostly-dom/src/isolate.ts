@@ -44,15 +44,12 @@ function isolateView(view$: Stream<VNode>, key: string) {
   const prefixedKey = KEY_PREFIX + key
 
   return tap(vNode => {
-    const {
-      className = EMPTY_CLASS_NAME,
-      props: { className: propsClassName = EMPTY_CLASS_NAME },
-    } = vNode
-    const needsIsolation = propsClassName.indexOf(prefixedKey) === -1
+    const { props: { className: className = EMPTY_CLASS_NAME } } = vNode
+    const needsIsolation = className.indexOf(prefixedKey) === -1
 
     if (needsIsolation)
       vNode.props.className = removeSuperfluousSpaces(
-        join(CLASS_NAME_SEPARATOR, [className, propsClassName, prefixedKey])
+        join(CLASS_NAME_SEPARATOR, [className, prefixedKey])
       )
   }, view$)
 }
