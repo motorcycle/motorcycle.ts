@@ -10,16 +10,16 @@ import { vNodeWrapper } from './vNodeWrapper'
  * Sources type expected by a Dom component.
  * @name DomSources
  * @example
- * export type DomSources = { dom: DomSource }
+ * export type DomSources<A = Element, B = Event> = { readonly dom: DomSource<A, B> }
  * @type
  */
-export type DomSources = { readonly dom: DomSource }
+export type DomSources<A = Element, B = Event> = { readonly dom: DomSource<A, B> }
 
 /**
  * Sinks type returns by a DOM component.
  * @name DomSinks
  * @example
- * export type DomSinks = { view$: Stream<VNode> }
+ * export type DomSinks = { readonly view$: Stream<VNode> }
  * @type
  */
 export type DomSinks = { readonly view$: Stream<VNode> }
