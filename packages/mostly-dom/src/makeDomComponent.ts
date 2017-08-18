@@ -1,8 +1,8 @@
 import { DomSource, createDomSource } from '@motorcycle/dom'
+import { EffectfulComponent, Stream } from '@motorcycle/types'
 import { ElementVNode, VNode, elementToVNode, init } from 'mostly-dom'
 import { drain, hold, map, scan } from '@motorcycle/stream'
 
-import { Stream } from '@motorcycle/types'
 import { prop } from '167'
 import { vNodeWrapper } from './vNodeWrapper'
 
@@ -13,7 +13,7 @@ import { vNodeWrapper } from './vNodeWrapper'
  * export type DomSources = { dom: DomSource }
  * @type
  */
-export type DomSources = { dom: DomSource }
+export type DomSources = { readonly dom: DomSource }
 
 /**
  * Sinks type returns by a DOM component.
@@ -22,7 +22,7 @@ export type DomSources = { dom: DomSource }
  * export type DomSinks = { view$: Stream<VNode> }
  * @type
  */
-export type DomSinks = { view$: Stream<VNode> }
+export type DomSinks = { readonly view$: Stream<VNode> }
 
 const toElement = map(prop<ElementVNode>('element'))
 
@@ -69,7 +69,7 @@ const toElement = map(prop<ElementVNode>('element'))
  *   ])
  * }
  */
-export function makeDomComponent(element: Element) {
+export function makeDomComponent(element: Element): EffectfulComponent<DomSinks, DomSources> {
   const rootVNode = elementToVNode(element)
   const wrapVNode = map(vNodeWrapper(element))
   const patch = scan(init(), rootVNode)

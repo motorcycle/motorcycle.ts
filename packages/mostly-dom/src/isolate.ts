@@ -1,6 +1,6 @@
 import { Component, Stream } from '@motorcycle/types'
+import { DomSinks, DomSources } from './'
 
-import { DomSource } from '@motorcycle/dom'
 import { VNode } from 'mostly-dom'
 import { join } from '167'
 import { tap } from '@motorcycle/stream'
@@ -24,10 +24,10 @@ import { tap } from '@motorcycle/stream'
  * const MyIsolatedComponent = isolate(MyComponent, `myIsolationKey`)
  * const sinks = MyIsolatedComponent(sources)
  */
-export function isolate<
-  Sources extends { readonly dom: DomSource },
-  Sinks extends { readonly view$: Stream<VNode> }
->(component: Component<Sources, Sinks>, key: string): Component<Sources, Sinks> {
+export function isolate<Sources extends DomSources, Sinks extends DomSinks>(
+  component: Component<Sources, Sinks>,
+  key: string
+): Component<Sources, Sinks> {
   return function isolatedComponent(sources: Sources) {
     const { dom } = sources
     const isolatedDom = dom.query(KEY_PREFIX + key)
