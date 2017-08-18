@@ -6,9 +6,9 @@
   version "0.37.0"
   resolved "https://registry.yarnpkg.com/167/-/167-0.37.0.tgz#8cbe1589b2e9fa363eb7d128b3e46572c44a849b"
 
-"@most/core@0.11.2":
-  version "0.11.2"
-  resolved "https://registry.yarnpkg.com/@most/core/-/core-0.11.2.tgz#6e3615fb4fc5a6a32cd35acb10a513a0e56df150"
+"@most/core@0.11.4":
+  version "0.11.4"
+  resolved "https://registry.yarnpkg.com/@most/core/-/core-0.11.4.tgz#324147de4ac86320313a3d9240b30c5fced72d1b"
   dependencies:
     "@most/disposable" "^0.11.0"
     "@most/prelude" "^1.6.2"
