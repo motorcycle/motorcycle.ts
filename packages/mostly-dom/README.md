@@ -1,4 +1,4 @@
-# @motorcycle/mostly-dom -- 2.0.0
+# @motorcycle/mostly-dom -- 3.0.0
 
 Motorcycle.ts adapter for mostly-dom. Built on @motorcycle/dom.
 
@@ -24,7 +24,7 @@ Sinks type returns by a DOM component.
 
 ```typescript
 
-export type DomSinks = { view$: Stream<VNode> }
+export type DomSinks = { readonly view$: Stream<VNode> }
 
 ```
 
@@ -61,7 +61,7 @@ Sources type expected by a Dom component.
 
 ```typescript
 
-export type DomSources = { dom: DomSource }
+export type DomSources<A = Element, B = Event> = { readonly dom: DomSource<A, B> }
 
 ```
 
@@ -160,10 +160,10 @@ const sinks = MyIsolatedComponent(sources)
 
 ```typescript
 
-export function isolate<
-  Sources extends { readonly dom: DomSource },
-  Sinks extends { readonly view$: Stream<VNode> }
->(component: Component<Sources, Sinks>, key: string): Component<Sources, Sinks> {
+export function isolate<Sources extends DomSources, Sinks extends DomSinks>(
+  component: Component<Sources, Sinks>,
+  key: string
+): Component<Sources, Sinks> {
   return function isolatedComponent(sources: Sources) {
     const { dom } = sources
     const isolatedDom = dom.query(KEY_PREFIX + key)
@@ -180,15 +180,12 @@ function isolateView(view$: Stream<VNode>, key: string) {
   const prefixedKey = KEY_PREFIX + key
 
   return tap(vNode => {
-    const {
-      className = EMPTY_CLASS_NAME,
-      props: { className: propsClassName = EMPTY_CLASS_NAME },
-    } = vNode
-    const needsIsolation = propsClassName.indexOf(prefixedKey) === -1
+    const { props: { className: className = EMPTY_CLASS_NAME } } = vNode
+    const needsIsolation = className.indexOf(prefixedKey) === -1
 
     if (needsIsolation)
       vNode.props.className = removeSuperfluousSpaces(
-        join(CLASS_NAME_SEPARATOR, [className, propsClassName, prefixedKey])
+        join(CLASS_NAME_SEPARATOR, [className, prefixedKey])
       )
   }, view$)
 }
@@ -268,17 +265,17 @@ function view(amount: number) {
 
 ```typescript
 
-export function makeDomComponent(element: Element) {
+export function makeDomComponent(element: Element): EffectfulComponent<DomSinks, DomSources> {
   const rootVNode = elementToVNode(element)
   const wrapVNode = map(vNodeWrapper(element))
-  const patch = scan(init([]), rootVNode)
+  const patch = scan(init(), rootVNode)
 
   return function Dom(sinks: DomSinks): DomSources {
     const { view$ } = sinks
 
     const elementVNode$ = patch(wrapVNode(view$))
     const element$ = hold(toElement(elementVNode$))
-    const dom = createElementDomSource(element$)
+    const dom = createDomSource(element$)
 
     drain(element$)
 

@@ -1,4 +1,4 @@
-# @motorcycle/stream -- 1.4.0
+# @motorcycle/stream -- 1.5.0
 
 Functional and reactive event streams for Motorcycle.ts
 
@@ -1228,6 +1228,99 @@ runEffects(logStream, newDefaultScheduler())
 ```typescript
 
 export { runEffects } from '@most/core'
+
+```
+
+</details>
+
+<hr />
+
+
+#### sample\<A, B, C\>(f: (a: A, b: B) =\> C, sampler: Stream\<A\>, stream: Stream\<B\>): Stream\<C\>
+
+<p>
+
+For each event in a sampler stream, apply a function to combine it with the 
+most recent event in another stream. The resulting stream will contain the 
+same number of events as the sampler stream.
+
+</p>
+
+
+<details>
+  <summary>See an example</summary>
+  
+```typescript
+s1:                       -1--2--3--4--5->
+sampler:                  -1-----2-----3->
+sample(sum, sampler, s1): -2-----5-----8->
+
+s1:                       -1-----2-----3->
+sampler:                  -1--2--3--4--5->
+sample(sum, sampler, s1): -2--3--5--6--8->
+```
+
+</details>
+
+<details>
+  <summary>See the code</summary>
+
+```typescript
+
+export { sample } from '@most/core'
+
+```
+
+</details>
+
+<hr />
+
+
+#### sampleWith\<A\>(sampler: Stream\<any\>, stream: Stream\<A\>): Stream\<A\>
+
+<p>
+
+Given each event occurrence from a sampler stream takes the latest value from 
+the given stream. 
+
+</p>
+
+
+<details>
+  <summary>See an example</summary>
+  
+```typescript
+import { sampleWith } from '@motorcycle/stream'
+
+function submit(dom: DomSource): Stream<string> {
+  const button = query('button', dom)
+  const input = query('input', dom)
+
+  const click$ = events('click', button)
+  const value$ = map(ev => ev.target.value, events('input', input))
+
+  return sampleWith(click$, value$)
+}
+```
+
+</details>
+
+<details>
+  <summary>See the code</summary>
+
+```typescript
+
+export const sampleWith = sample(takeRight) as SampleWith
+
+export interface SampleWith {
+  <A>(sampler: Stream<any>, stream: Stream<A>): Stream<A>
+  <A>(sampler: Stream<any>): (stream: Stream<A>) => Stream<A>
+  (sampler: Stream<any>): <A>(stream: Stream<A>) => Stream<A>
+}
+
+function takeRight<A>(_: any, value: A): A {
+  return value
+}
 
 ```
 
