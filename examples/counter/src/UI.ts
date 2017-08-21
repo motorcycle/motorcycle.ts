@@ -10,8 +10,8 @@ const add = (x: number, y: number) => x + y
 
 export function UI(sources: DomSources): DomSinks {
   const { dom } = sources
-  const increment$ = constant(+1, click(query(INCREMENT_SELECTOR, dom)))
-  const decrement$ = constant(-1, click(query(DECREMENT_SELECTOR, dom)))
+  const increment$ = constant(+1, click(query<Element>(INCREMENT_SELECTOR, dom)))
+  const decrement$ = constant(-1, click(query<Element>(DECREMENT_SELECTOR, dom)))
   const amount$ = scan(add, 0, merge(increment$, decrement$))
   const view$ = map(view, amount$)
 
