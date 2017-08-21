@@ -6,7 +6,7 @@ import { length } from '167'
 import { makeDomComponent } from './makeDomComponent'
 import { now } from '@motorcycle/stream'
 
-export const test: Test = describe(`createDomSource`, [
+export const test: Test = describe(`makeDomComponent`, [
   given(`an Element and Stream<VNode>`, [
     it(`returns a DomSource`, ({ equal }) => {
       const element = document.createElement('div')
@@ -26,13 +26,13 @@ export const test: Test = describe(`createDomSource`, [
 
     it(`patches the dom`, ({ equal }) => {
       const element = document.createElement('div')
-      const view$ = now(div('.foo'))
+      const view$ = now(div({ className: 'foo' }))
 
       const Dom = makeDomComponent(element)
 
       const { dom } = Dom({ view$ })
 
-      return collectEventsFor(1, dom.elements()).then(([[element]]) => {
+      return collectEventsFor(Infinity, dom.elements()).then(([[element]]) => {
         equal(1, length(element.querySelectorAll('.foo')))
       })
     }),

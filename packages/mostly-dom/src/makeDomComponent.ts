@@ -1,8 +1,8 @@
-import { DomSource, createDomSource as createElementDomSource } from '@motorcycle/dom'
+import { DomSource, createDomSource } from '@motorcycle/dom'
+import { EffectfulComponent, Stream } from '@motorcycle/types'
 import { ElementVNode, VNode, elementToVNode, init } from 'mostly-dom'
 import { drain, hold, map, scan } from '@motorcycle/stream'
 
-import { Stream } from '@motorcycle/types'
 import { prop } from '167'
 import { vNodeWrapper } from './vNodeWrapper'
 
@@ -10,19 +10,19 @@ import { vNodeWrapper } from './vNodeWrapper'
  * Sources type expected by a Dom component.
  * @name DomSources
  * @example
- * export type DomSources = { dom: DomSource }
+ * export type DomSources<A = Element, B = Event> = { readonly dom: DomSource<A, B> }
  * @type
  */
-export type DomSources = { dom: DomSource }
+export type DomSources<A = Element, B = Event> = { readonly dom: DomSource<A, B> }
 
 /**
  * Sinks type returns by a DOM component.
  * @name DomSinks
  * @example
- * export type DomSinks = { view$: Stream<VNode> }
+ * export type DomSinks = { readonly view$: Stream<VNode> }
  * @type
  */
-export type DomSinks = { view$: Stream<VNode> }
+export type DomSinks = { readonly view$: Stream<VNode> }
 
 const toElement = map(prop<ElementVNode>('element'))
 
@@ -69,17 +69,17 @@ const toElement = map(prop<ElementVNode>('element'))
  *   ])
  * }
  */
-export function makeDomComponent(element: Element) {
+export function makeDomComponent(element: Element): EffectfulComponent<DomSinks, DomSources> {
   const rootVNode = elementToVNode(element)
   const wrapVNode = map(vNodeWrapper(element))
-  const patch = scan(init([]), rootVNode)
+  const patch = scan(init(), rootVNode)
 
   return function Dom(sinks: DomSinks): DomSources {
     const { view$ } = sinks
 
     const elementVNode$ = patch(wrapVNode(view$))
     const element$ = hold(toElement(elementVNode$))
-    const dom = createElementDomSource(element$)
+    const dom = createDomSource(element$)
 
     drain(element$)
 
