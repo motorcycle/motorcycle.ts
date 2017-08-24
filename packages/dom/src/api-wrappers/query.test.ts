@@ -20,7 +20,7 @@ export const test: Test = describe(`query`, [
       const sut: DomSource = query(querySelector, domSource)
       const queriedDomSource = domSource.query(querySelector)
 
-      equal(queriedDomSource, sut)
+      equal(queriedDomSource.cssSelectors(), sut.cssSelectors())
     }),
   ]),
 
@@ -31,6 +31,6 @@ export const test: Test = describe(`query`, [
     const sut: DomSource = query(querySelector)(domSource)
     const queriedDomSource = domSource.query(querySelector)
 
-    equal(queriedDomSource, sut)
+    equal(queriedDomSource.cssSelectors(), sut.cssSelectors())
   }),
 ])

@@ -209,6 +209,24 @@ export const methodsTest: Test = describe(`EventDelegationDomSource methods`, [
           firstChildEl.dispatchEvent(event)
         })
       }),
+
+      it(`listens to the correct elements`, ({ equal }, done) => {
+        const root: Element = document.createElement('div')
+        const child: Element = document.createElement('div')
+
+        child.className = 'foo bar'
+        root.appendChild(child)
+
+        const sut: DomSource = new EventDelegationDomSource(now(root), ['.foo', '.bar'])
+
+        const event$ = sut.events('click')
+
+        observe(event => equal('click', event.type), take(1, event$)).then(() => done()).catch(done)
+
+        setTimeout(() => {
+          child.dispatchEvent(new Event('click', { bubbles: true }))
+        })
+      }),
     ]),
 
     given(`an event type and event options`, [
