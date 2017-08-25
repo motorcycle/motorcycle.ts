@@ -33,7 +33,7 @@ function drawTile(tile: Tile, index: Integer, movePlayerToIndex: Integer): VNode
 
 const { rect, circle, g } = svg
 
-const wall = (key: string | number) =>
+const wall = (key: Integer) =>
   svg(
     {
       attrs: { height: 40, width: 40 },
@@ -46,7 +46,7 @@ const wall = (key: string | number) =>
     ]
   )
 
-const ground = (addPerson: VNode, key: string | number) =>
+const ground = (addPerson: VNode, key: string | Integer) =>
   svg(
     {
       attrs: { height: 40, width: 40 },
@@ -60,7 +60,7 @@ const ground = (addPerson: VNode, key: string | number) =>
     ]
   )
 
-const storage = (addPerson: VNode, key: string | number) =>
+const storage = (addPerson: VNode, key: Integer) =>
   svg(
     {
       attrs: { height: 40, width: 40 },
@@ -75,7 +75,7 @@ const storage = (addPerson: VNode, key: string | number) =>
     ]
   )
 
-const box = (key: string | number) =>
+const box = (key: Integer) =>
   svg(
     {
       attrs: { height: 40, width: 40 },
@@ -88,10 +88,9 @@ const box = (key: string | number) =>
     ]
   )
 
-const blank = (key: string | number) =>
-  svg({ attrs: { height: 40, width: 40 }, key: `blank${key}` })
+const blank = (key: Integer) => svg({ attrs: { height: 40, width: 40 }, key: `blank${key}` })
 
-const player = (key: string | number) =>
+const player = (key: Integer) =>
   svg(
     {
       attrs: { height: 40, width: 40 },
