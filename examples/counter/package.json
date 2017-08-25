@@ -28,7 +28,7 @@
     "@motorcycle/stream": "1.4.0"
   },
   "devDependencies": {
-    "@types/node": "8.0.24",
+    "@types/node": "8.0.25",
     "ts-loader": "2.3.2",
     "webpack": "3.5.5",
     "webpack-dev-server": "2.6.1"
