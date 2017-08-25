@@ -210,7 +210,7 @@ export const methodsTest: Test = describe(`EventDelegationDomSource methods`, [
         })
       }),
 
-      it(`listens to the correct elements`, ({ equal }, done) => {
+      it(`matches a single element with two classes`, ({ equal }, done) => {
         const root: Element = document.createElement('div')
         const child: Element = document.createElement('div')
 
