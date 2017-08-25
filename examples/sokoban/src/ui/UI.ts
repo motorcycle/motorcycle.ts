@@ -1,11 +1,9 @@
 import { Direction, Down, Left, Right, Up } from '@base/domain/model'
 import { DomSource, createDocumentDomSource, events } from '@motorcycle/dom'
 import { UISinks, UISources, drawMaze, view } from './'
-import { combineObj, constant, filter, hold, map, mergeArray } from '@motorcycle/stream'
+import { combineObj, constant, filter, hold, map, mergeArray, sampleWith } from '@motorcycle/stream'
 
 import { Stream } from '@motorcycle/types'
-// Missing sample and sampleWith in @motorcycle/stream
-import { sample } from '@most/core'
 
 export function UI(sources: UISources): UISinks {
   const { maze$, toCoordinate$ } = sources
@@ -16,7 +14,7 @@ export function UI(sources: UISources): UISinks {
   const document$ = constant(document, view$)
   const documentDom = createDocumentDomSource(document$)
   const direction$ = direction(documentDom)
-  const fromCoordinate$ = sample((_, movePlayerTo) => movePlayerTo, direction$, movePlayerTo$)
+  const fromCoordinate$ = sampleWith(direction$, movePlayerTo$)
 
   return { view$, direction$, fromCoordinate$ }
 }
