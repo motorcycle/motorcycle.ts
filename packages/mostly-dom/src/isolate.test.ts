@@ -27,8 +27,27 @@ export const test: Test = describe(`isolate`, [
       return collectEventsFor(1, view$).then(view => {
         const { props: { className } } = view[0]
 
-        equal(`bar $$isolation$$-foo`, className)
+        equal(`bar __isolation__foo`, className)
       })
+    }),
+
+    it(`appends isolation key to DomSource cssSelectors`, ({ equal }, done) => {
+      const component = function(sources: Readonly<Record<string, any>>) {
+        const { dom } = sources
+
+        equal(['.__isolation__foo'], dom.cssSelectors())
+        done()
+
+        return {
+          view$: now(div({ className: `bar` })),
+        }
+      }
+
+      const isolationKey = `foo`
+      const sut = isolate(component, isolationKey)
+      const dom = createDomSource(empty())
+
+      sut({ dom })
     }),
   ]),
 ])

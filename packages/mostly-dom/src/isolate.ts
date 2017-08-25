@@ -30,7 +30,7 @@ export function isolate<Sources extends DomSources, Sinks extends DomSinks>(
 ): Component<Sources, Sinks> {
   return function isolatedComponent(sources: Sources) {
     const { dom } = sources
-    const isolatedDom = dom.query(KEY_PREFIX + key)
+    const isolatedDom = dom.query(`.${KEY_PREFIX}${key}`)
     const sinks = component(Object.assign({}, sources, { dom: isolatedDom }))
     const isolatedSinks = Object.assign({}, sinks, { view$: isolateView(sinks.view$, key) })
 
@@ -38,7 +38,7 @@ export function isolate<Sources extends DomSources, Sinks extends DomSinks>(
   }
 }
 
-const KEY_PREFIX = `$$isolation$$-`
+const KEY_PREFIX = `__isolation__`
 
 function isolateView(view$: Stream<VNode>, key: string) {
   const prefixedKey = KEY_PREFIX + key
