@@ -1,20 +1,26 @@
 import { CssSelector, StandardEvents } from '../'
-import { equals, length, not } from '167'
+import { either, equals, length, not } from '167'
 import { filter, map } from '@motorcycle/stream'
 
 import { EventStream } from './EventStream'
 import { Stream } from '@motorcycle/types'
 
 export function makeEventStream<Ev extends Event = Event>(
-  cssSelector: CssSelector,
+  cssSelectors: ReadonlyArray<CssSelector>,
   eventType: StandardEvents,
   options: EventListenerOptions = {}
 ) {
   return function(element: Element): Stream<Ev> {
     const { capture } = options
 
-    const ensureEventMatches = filter((event: Event) =>
-      ensureMatches(cssSelector, element, event, capture)
+    const cssSelector = cssSelectors.join(' ')
+    const lastTwoCssSelectors = cssSelectors.slice(-2).join('')
+
+    const ensureEventMatches = filter(
+      either(
+        (event: Event) => ensureMatches(cssSelector, element, event, capture),
+        (event: Event) => ensureMatches(lastTwoCssSelectors, element, event, capture)
+      )
     )
 
     const event$ = ensureEventMatches(new EventStream<Ev>(eventType, element, options))

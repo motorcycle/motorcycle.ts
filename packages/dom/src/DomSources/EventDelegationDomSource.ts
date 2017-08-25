@@ -1,5 +1,5 @@
 import { CssSelector, DomSource, StandardEvents } from '../'
-import { append, copy, equals, gt, join, length, pipe, prepend } from '167'
+import { append, copy, dropLast, equals, gt, join, length, pipe, prepend } from '167'
 import { filter, map, multicast, switchLatest } from '@motorcycle/stream'
 
 import { Stream } from '@motorcycle/types'
@@ -25,7 +25,12 @@ export class EventDelegationDomSource<A extends Element = Element> implements Do
   public query<El extends Element = A>(cssSelector: CssSelector): DomSource<El, Event> {
     if (equals(cssSelector, ROOT_CSS_SELECTOR)) return this
 
-    return new EventDelegationDomSource(this.element$, append(cssSelector, this._cssSelectors))
+    const { _cssSelectors, element$ } = this
+
+    return new EventDelegationDomSource(
+      map(findMostSpecificElement(_cssSelectors), element$),
+      append(cssSelector, this._cssSelectors)
+    )
   }
 
   public elements<El extends Element = A>(): Stream<ReadonlyArray<El>> {
@@ -34,8 +39,7 @@ export class EventDelegationDomSource<A extends Element = Element> implements Do
 
     if (hasNoCssSelectors) return map(Array, this.element$)
 
-    const cssSelector = join(CSS_SELECTOR_SEPARATOR, cssSelectors)
-    const elements$ = map(findMatchingElements(cssSelector), this.element$)
+    const elements$ = map(findMatchingElements(cssSelectors), this.element$)
     const hasElements = pipe(length, gt(0))
 
     return filter(hasElements, elements$)
@@ -49,9 +53,8 @@ export class EventDelegationDomSource<A extends Element = Element> implements Do
 
     if (eventMap.has(eventType)) return eventMap.get(eventType) as Stream<Ev>
 
-    const cssSelector = join(CSS_SELECTOR_SEPARATOR, _cssSelectors)
     const createEventStream = pipe(
-      map(makeEventStream<Ev>(cssSelector, eventType, options)),
+      map(makeEventStream<Ev>(_cssSelectors, eventType, options)),
       switchLatest,
       multicast
     )
@@ -67,7 +70,23 @@ export class EventDelegationDomSource<A extends Element = Element> implements Do
   }
 }
 
-function findMatchingElements<El extends Element = Element>(cssSelector: CssSelector) {
+function findMostSpecificElement(cssSelectors: ReadonlyArray<CssSelector>) {
+  return function(element: Element): Element {
+    for (let i = 0; i < cssSelectors.length; ++i) {
+      const cssSelector = join(CSS_SELECTOR_SEPARATOR, dropLast(i, cssSelectors))
+      const node = element.querySelector(cssSelector)
+
+      if (node) return node
+    }
+
+    return element
+  }
+}
+
+function findMatchingElements<El extends Element = Element>(
+  cssSelectors: ReadonlyArray<CssSelector>
+) {
+  const cssSelector = join(CSS_SELECTOR_SEPARATOR, cssSelectors)
   return function(element: El): ReadonlyArray<El> {
     const nodes = copy(element.querySelectorAll(cssSelector) as NodeListOf<El>)
 
