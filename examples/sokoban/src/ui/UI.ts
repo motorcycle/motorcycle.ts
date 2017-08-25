@@ -11,8 +11,11 @@ export function UI(sources: UISources): UISinks {
   const drawMaze$ = combineObj({ maze: maze$, movePlayerTo: movePlayerTo$ })
   const pictureOfMaze$ = map(drawMaze, drawMaze$)
   const view$ = map(view, pictureOfMaze$)
+
+  // TODO: move to bootstrap
   const document$ = constant(document, view$)
   const documentDom = createDocumentDomSource(document$)
+
   const direction$ = direction(documentDom)
   const fromCoordinate$ = sampleWith(direction$, movePlayerTo$)
 
