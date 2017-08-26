@@ -1,7 +1,7 @@
 import { ApplicationSinks, ApplicationSources } from './'
 import { Coordinate, Direction, canMoveTo, maze } from '@base/domain/model'
 import { decrement, increment } from '167'
-import { hold, map, sample, startWith, tap } from '@motorcycle/stream'
+import { hold, map, sample, startWith } from '@motorcycle/stream'
 
 import { buildMaze } from '@base/domain/services'
 
@@ -14,7 +14,7 @@ export function Application(sinks: ApplicationSinks): ApplicationSources {
   const { direction$, movePlayerFrom$ } = sinks
   const playerDirection$ = hold(startWith(START_DIRECTION, direction$))
   const movePlayerTo$ = hold(
-    startWith(START_COORDINATE, sample(goTo, tap(console.log, playerDirection$), movePlayerFrom$))
+    startWith(START_COORDINATE, sample(goTo, playerDirection$, movePlayerFrom$))
   )
   const maze$ = map(() => buildMaze(), movePlayerTo$)
 
