@@ -14,11 +14,11 @@ export function UI(sources: UISources): UISinks {
   })
   const pictureOfMaze$ = map(drawMaze, drawMaze$)
   const view$ = map(view, pictureOfMaze$)
+  const movePlayerInDirection$ = direction(document)
+  const movePlayerFrom$ = sampleWith(movePlayerInDirection$, movePlayerTo$)
 
-  const direction$ = direction(document)
-  const movePlayerFrom$ = sampleWith(direction$, movePlayerTo$)
-
-  return { view$, movePlayerFrom$, direction$ }
+  // The order of the returned sinks are important here because of interdependency.
+  return { view$, movePlayerFrom$, movePlayerInDirection$ }
 }
 
 function direction(documentDom: DomSource<Document, Event>): Stream<Direction> {

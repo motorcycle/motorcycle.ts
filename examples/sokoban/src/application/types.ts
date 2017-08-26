@@ -9,6 +9,6 @@ export type ApplicationSources = {
 }
 
 export type ApplicationSinks = {
-  direction$: Stream<Direction>
+  movePlayerInDirection$: Stream<Direction>
   movePlayerFrom$: Stream<Coordinate>
 }

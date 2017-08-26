@@ -11,8 +11,8 @@ const START_COORDINATE: Coordinate = { x: START_X_COORDINATE, y: START_Y_COORDIN
 const START_DIRECTION: Direction = 'right'
 
 export function Application(sinks: ApplicationSinks): ApplicationSources {
-  const { direction$, movePlayerFrom$ } = sinks
-  const playerDirection$ = hold(startWith(START_DIRECTION, direction$))
+  const { movePlayerInDirection$, movePlayerFrom$ } = sinks
+  const playerDirection$ = hold(startWith(START_DIRECTION, movePlayerInDirection$))
   const movePlayerTo$ = hold(
     startWith(START_COORDINATE, sample(goTo, playerDirection$, movePlayerFrom$))
   )
