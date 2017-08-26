@@ -4,10 +4,11 @@ import { Stream } from '@motorcycle/types'
 
 export type ApplicationSources = {
   maze$: Stream<Maze>
-  toCoordinate$: Stream<Coordinate>
+  movePlayerTo$: Stream<Coordinate>
+  playerDirection$: Stream<Direction>
 }
 
 export type ApplicationSinks = {
   direction$: Stream<Direction>
-  fromCoordinate$: Stream<Coordinate>
+  movePlayerFrom$: Stream<Coordinate>
 }
