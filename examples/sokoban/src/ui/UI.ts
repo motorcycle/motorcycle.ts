@@ -16,13 +16,14 @@ export function UI(sources: UISources): UISinks {
   const view$ = map(view, pictureOfMaze$)
   const movePlayerInDirection$ = direction(document)
   const movePlayerFrom$ = sampleWith(movePlayerInDirection$, movePlayerTo$)
+  const reset$ = reset(document)
 
   // The order of the returned sinks are important here because of interdependency.
-  return { view$, movePlayerFrom$, movePlayerInDirection$ }
+  return { view$, reset$, movePlayerFrom$, movePlayerInDirection$ }
 }
 
-function direction(documentDom: DomSource<Document, Event>): Stream<Direction> {
-  const keyDown$ = events('keydown', documentDom)
+function direction(document: DomSource<Document, Event>): Stream<Direction> {
+  const keyDown$ = events('keydown', document)
   const upArrow$: Stream<Up> = constant('up', filter(isUpArrow, keyDown$))
   const rightArrow$: Stream<Right> = constant('right', filter(isRightArrow, keyDown$))
   const downArrow$: Stream<Down> = constant('down', filter(isDownArrow, keyDown$))
@@ -36,3 +37,11 @@ const isUpArrow = (event: KeyboardEvent) => event.key === `ArrowUp`
 const isRightArrow = (event: KeyboardEvent) => event.key === `ArrowRight`
 const isDownArrow = (event: KeyboardEvent) => event.key === `ArrowDown`
 const isLeftArrow = (event: KeyboardEvent) => event.key === `ArrowLeft`
+
+function reset(document: DomSource<Document, Event>): Stream<true> {
+  const keyDown$ = events('keydown', document)
+
+  return constant(true, filter(isEscape, keyDown$))
+}
+
+const isEscape = (event: KeyboardEvent) => event.key === `Escape`

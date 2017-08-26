@@ -11,4 +11,5 @@ export type ApplicationSources = {
 export type ApplicationSinks = {
   movePlayerInDirection$: Stream<Direction>
   movePlayerFrom$: Stream<Coordinate>
+  reset$: Stream<true>
 }
