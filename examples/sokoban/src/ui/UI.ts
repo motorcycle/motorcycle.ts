@@ -14,16 +14,18 @@ export function UI(sources: UISources): UISinks {
   })
   const pictureOfMaze$ = map(drawMaze, drawMaze$)
   const view$ = map(view, pictureOfMaze$)
-  const movePlayerInDirection$ = direction(document)
+  const keyDown$ = keyDown(document)
+  const movePlayerInDirection$ = direction(keyDown$)
   const movePlayerFrom$ = sampleWith(movePlayerInDirection$, movePlayerTo$)
-  const reset$ = reset(document)
+  const reset$ = reset(keyDown$)
 
   // The order of the returned sinks are important here because of interdependency.
   return { view$, reset$, movePlayerFrom$, movePlayerInDirection$ }
 }
 
-function direction(document: DomSource<Document, Event>): Stream<Direction> {
-  const keyDown$ = events('keydown', document)
+const keyDown = (document: DomSource<Document, Event>) => events('keydown', document)
+
+function direction(keyDown$: Stream<KeyboardEvent>): Stream<Direction> {
   const upArrow$: Stream<Up> = constant('up', filter(isUpArrow, keyDown$))
   const rightArrow$: Stream<Right> = constant('right', filter(isRightArrow, keyDown$))
   const downArrow$: Stream<Down> = constant('down', filter(isDownArrow, keyDown$))
@@ -33,15 +35,12 @@ function direction(document: DomSource<Document, Event>): Stream<Direction> {
   return direction$
 }
 
-const isUpArrow = (event: KeyboardEvent) => event.key === `ArrowUp`
-const isRightArrow = (event: KeyboardEvent) => event.key === `ArrowRight`
-const isDownArrow = (event: KeyboardEvent) => event.key === `ArrowDown`
-const isLeftArrow = (event: KeyboardEvent) => event.key === `ArrowLeft`
+const isUpArrow = ({ key }: { key: string }) => key === `ArrowUp`
+const isRightArrow = ({ key }: { key: string }) => key === `ArrowRight`
+const isDownArrow = ({ key }: { key: string }) => key === `ArrowDown`
+const isLeftArrow = ({ key }: { key: string }) => key === `ArrowLeft`
 
-function reset(document: DomSource<Document, Event>): Stream<true> {
-  const keyDown$ = events('keydown', document)
+const reset = (keyDown$: Stream<KeyboardEvent>) =>
+  constant(true, filter(isEscape, keyDown$)) as Stream<true>
 
-  return constant(true, filter(isEscape, keyDown$))
-}
-
-const isEscape = (event: KeyboardEvent) => event.key === `Escape`
+const isEscape = ({ key }: { key: string }) => key === `Escape`
