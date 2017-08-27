@@ -1,3 +1,3 @@
-export * from './canMoveTo'
-export * from './maze'
+export * from './mazes'
+export * from './playerCanMoveTo'
 export * from './types'

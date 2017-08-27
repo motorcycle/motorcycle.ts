@@ -1,30 +1,15 @@
-import { Integer } from '@base/common/types'
+import { Matrix2D } from '@base/common/types'
 
-export type Maze = Tiles
+export type Maze = Matrix2D<Tile>
 
-export type Tiles = ReadonlyArray<Tile>
+export type Tile = Wall | Ground | Storage | Box | Blank
 
-export type Tile = Wall | Ground | Storage | Box
+export type Wall = 'W'
 
-export type Wall = 'wall'
+export type Ground = 'G'
 
-export type Ground = 'ground'
+export type Storage = 'S'
 
-export type Storage = 'storage'
+export type Box = 'B'
 
-export type Box = 'box'
-
-export type Direction = Up | Right | Down | Left
-
-export type Up = 'up'
-
-export type Right = 'right'
-
-export type Down = 'down'
-
-export type Left = 'left'
-
-export type Coordinate = {
-  x: Integer
-  y: Integer
-}
+export type Blank = '_'

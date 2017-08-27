@@ -1,32 +1,28 @@
 import { ApplicationSinks, ApplicationSources } from './'
-import { Coordinate, Direction, canMoveTo, maze } from '@base/domain/model'
-import { constant, map, merge, sample, startWith } from '@motorcycle/stream'
+import { Coordinate, Direction } from './types'
 import { decrement, increment } from '167'
+import { maze1, playerCanMoveTo } from '@base/domain/model'
+import { now, sample, startWith } from '@motorcycle/stream'
 
-import { buildMaze } from '@base/domain/services'
-
-const START_X_COORDINATE = 4
-const START_Y_COORDINATE = 3
-const START_COORDINATE: Coordinate = { x: START_X_COORDINATE, y: START_Y_COORDINATE }
-const START_DIRECTION: Direction = 'right'
+const START_PLAYER_COORDINATE: Coordinate = { x: 4, y: 3 }
+const START_PLAYER_DIRECTION: Direction = 'right'
 
 export function Application(sinks: ApplicationSinks): ApplicationSources {
-  const { movePlayerInDirection$, movePlayerFrom$, reset$ } = sinks
-  const direction$ = startWith(START_DIRECTION, movePlayerInDirection$)
-  const movePlayerTo$ = merge(
-    constant(START_COORDINATE, reset$),
-    startWith(START_COORDINATE, sample(goTo, direction$, movePlayerFrom$))
+  const { movePlayerInDirection$, movePlayerFrom$ } = sinks
+  const maze$ = now(maze1)
+  const playerDirection$ = startWith(START_PLAYER_DIRECTION, movePlayerInDirection$)
+  const movePlayerTo$ = startWith(
+    START_PLAYER_COORDINATE,
+    sample(movePlayer, playerDirection$, movePlayerFrom$)
   )
-  const maze$ = map(() => buildMaze(), movePlayerTo$)
-  const playerDirection$ = merge(constant(START_DIRECTION, reset$), direction$)
 
   return { maze$, movePlayerTo$, playerDirection$ }
 }
 
-function goTo(direction: Direction, from: Coordinate): Coordinate {
+function movePlayer(direction: Direction, from: Coordinate): Coordinate {
   const to = adjacentCoordinate[direction](from)
 
-  if (canMoveTo(maze(to.x, to.y))) return to
+  if (playerCanMoveTo(maze1[to.y][to.x])) return to
 
   return from
 }

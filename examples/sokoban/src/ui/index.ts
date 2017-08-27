@@ -1,4 +1,2 @@
 export * from './UI'
-export * from './drawMaze'
-export * from './types'
-export * from './view'
+export { UISinks, UISources } from './types'
