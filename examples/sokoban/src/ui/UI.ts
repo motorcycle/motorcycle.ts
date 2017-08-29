@@ -9,9 +9,8 @@ import { view } from './view'
 
 export function UI(sources: UISources): UISinks {
   const { state$, document } = sources
-  const maze$ = map(({ maze }) => maze, state$)
   const pictureOfMaze$ = map(pictureOfMaze, state$)
-  const mazeSize$ = map(mazeSize, maze$)
+  const mazeSize$ = map(({ maze }) => mazeSize(maze), state$)
   const view$ = ap(map(view, pictureOfMaze$), mazeSize$)
   const key$ = key(document)
   const movePlayerInDirection$ = filter(direction => !!direction, map(key => direction[key], key$))
