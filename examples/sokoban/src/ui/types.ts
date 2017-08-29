@@ -1,4 +1,4 @@
-import { ApplicationSinks, ApplicationSources } from '@base/application'
+import { ApplicationSinks, ApplicationSources } from '@base/application/types'
 import { DomSinks, DomSources, VNode } from '@motorcycle/mostly-dom'
 
 import { DomSource } from '@motorcycle/dom'

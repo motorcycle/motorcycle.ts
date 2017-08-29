@@ -1,35 +1,45 @@
-import { ApplicationSinks, ApplicationSources } from './'
-import { Coordinate, Direction } from './types'
-import { decrement, increment } from '167'
-import { maze1, playerCanMoveTo } from '@base/domain/model'
-import { now, sample, startWith } from '@motorcycle/stream'
+import { ApplicationSinks, ApplicationSources, Boxes, Coordinate, Direction, State } from './types'
+import { Maze, maze1 } from '@base/domain/model'
+import { createProxy, sample, startWith } from '@motorcycle/stream'
+import { equals, reduce } from '167'
 
-const START_PLAYER_COORDINATE: Coordinate = { x: 4, y: 3 }
+import { movePlayer } from './movePlayer'
+
+const START_PLAYER_COORDINATE: Coordinate = { x: 3, y: 3 }
 const START_PLAYER_DIRECTION: Direction = 'right'
 
 export function Application(sinks: ApplicationSinks): ApplicationSources {
-  const { movePlayerInDirection$, movePlayerFrom$ } = sinks
-  const maze$ = now(maze1)
+  const { movePlayerInDirection$ } = sinks
+  const { attach, stream: proxyState$ } = createProxy<State>()
+  const maze = maze1
+  const initialState: State = {
+    playerPosition: START_PLAYER_COORDINATE,
+    playerDirection: START_PLAYER_DIRECTION,
+    boxes: initialBoxes(maze),
+    maze,
+  }
   const playerDirection$ = startWith(START_PLAYER_DIRECTION, movePlayerInDirection$)
-  const movePlayerTo$ = startWith(
-    START_PLAYER_COORDINATE,
-    sample(movePlayer, playerDirection$, movePlayerFrom$)
+  const newState$ = sample<Direction, State, State>(
+    movePlayer,
+    playerDirection$,
+    startWith(initialState, proxyState$)
   )
+  const state$ = attach(newState$)
 
-  return { maze$, movePlayerTo$, playerDirection$ }
+  return { state$ }
 }
 
-function movePlayer(direction: Direction, from: Coordinate): Coordinate {
-  const to = adjacentCoordinate[direction](from)
-
-  if (playerCanMoveTo(maze1[to.y][to.x])) return to
-
-  return from
-}
-
-const adjacentCoordinate: { [key in Direction]: (from: Coordinate) => Coordinate } = {
-  up: (from: Coordinate) => ({ x: from.x, y: decrement(from.y) }),
-  right: (from: Coordinate) => ({ x: increment(from.x), y: from.y }),
-  down: (from: Coordinate) => ({ x: from.x, y: increment(from.y) }),
-  left: (from: Coordinate) => ({ x: decrement(from.x), y: from.y }),
+function initialBoxes(maze: Maze): Boxes {
+  return reduce(
+    (accumulator, row, y) => [
+      ...accumulator,
+      ...reduce(
+        (accumulator, tile, x) => (equals('B', tile) ? [...accumulator, { x, y }] : accumulator),
+        [],
+        row
+      ),
+    ],
+    [],
+    maze
+  )
 }
