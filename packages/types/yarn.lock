@@ -2,6 +2,6 @@
 # yarn lockfile v1
 
 
-"@most/types@^0.10.0":
-  version "0.10.0"
-  resolved "https://registry.yarnpkg.com/@most/types/-/types-0.10.0.tgz#5a60b581915349b210a13fed1563e9d06cba287f"
+"@most/types@0.11.0":
+  version "0.11.0"
+  resolved "https://registry.yarnpkg.com/@most/types/-/types-0.11.0.tgz#39ca6c156163a65ba754ca8c7ebdb309d21197c6"
