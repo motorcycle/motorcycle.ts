@@ -10,14 +10,11 @@ import { view } from './view'
 export function UI(sources: UISources): UISinks {
   const { state$, document } = sources
   const maze$ = map(({ maze }) => maze, state$)
-  const playerPosition$ = map(({ playerPosition }) => playerPosition, state$)
-  const playerDirection$ = map(({ playerDirection }) => playerDirection, state$)
-  const pictureOfMaze$ = ap(ap(map(pictureOfMaze, maze$), playerPosition$), playerDirection$)
+  const pictureOfMaze$ = map(pictureOfMaze, state$)
   const mazeSize$ = map(mazeSize, maze$)
   const view$ = ap(map(view, pictureOfMaze$), mazeSize$)
   const key$ = key(document)
   const movePlayerInDirection$ = filter(direction => !!direction, map(key => direction[key], key$))
 
-  // The order of the returned sinks are important because of interdependency.
   return { view$, movePlayerInDirection$ }
 }

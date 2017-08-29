@@ -1,19 +1,16 @@
-import { Coordinate, Direction, Maze, Tile } from '@base/application/types'
+import { Coordinate, Direction, State, Tile } from '@base/application/types'
 import { Dimension, NonnegativeInteger } from '@base/common/types'
-import { TILE_CENTER, TILE_SIZE } from '../constants'
+import { TILE_CENTER, TILE_SIZE } from './constants'
 import { VNode, svg } from '@motorcycle/mostly-dom'
 import { curry, equals, flatten, map } from '167'
 
-import { PictureOfMazeArity3 } from './types'
-import { VNodes } from '../types'
+import { VNodes } from './types'
 
-export const pictureOfMaze: PictureOfMazeArity3 = curry(function pictureOfMaze(
-  maze: Maze,
-  playerPosition: Coordinate,
-  playerDirection: Direction
-): VNodes {
+export function pictureOfMaze(state: State): VNodes {
+  const { maze, playerPosition, playerDirection } = state
+
   return flatten<VNode>(map(drawRow(playerPosition, playerDirection), maze))
-})
+}
 
 const drawRow = curry(function drawRow(
   playerPosition: Coordinate,
