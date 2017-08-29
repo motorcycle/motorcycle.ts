@@ -1,6 +1,6 @@
 {
   "name": "@motorcycle/run",
-  "version": "3.5.0",
+  "version": "3.6.0",
   "description": "A statically-typed, functional and reactive framework for modern browsers",
   "main": "lib/index.js",
   "module": "lib.es2015/index.js",
@@ -37,7 +37,7 @@
   },
   "homepage": "https://github.com/motorcyclets/motorcycle#readme",
   "dependencies": {
-    "@motorcycle/stream": "1.6.0",
-    "@motorcycle/types": "1.5.0"
+    "@motorcycle/stream": "1.7.0",
+    "@motorcycle/types": "1.6.0"
   }
 }
