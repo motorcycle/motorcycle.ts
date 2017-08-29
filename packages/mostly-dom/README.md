@@ -1,4 +1,4 @@
-# @motorcycle/mostly-dom -- 3.1.0
+# @motorcycle/mostly-dom -- 3.2.0
 
 Motorcycle.ts adapter for mostly-dom. Built on @motorcycle/dom.
 

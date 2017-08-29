@@ -1,4 +1,4 @@
-# @motorcycle/test -- 1.5.0
+# @motorcycle/test -- 1.6.0
 
 Testing functions for Motorcycle.ts
 
