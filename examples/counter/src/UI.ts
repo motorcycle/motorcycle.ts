@@ -3,8 +3,10 @@ import { constant, map, merge, scan } from '@motorcycle/stream'
 import { events, query } from '@motorcycle/dom'
 
 const click = events('click')
-const INCREMENT_SELECTOR = '#increment'
-const DECREMENT_SELECTOR = '#decrement'
+const INCREMENT_ID = 'increment'
+const DECREMENT_ID = 'decrement'
+const INCREMENT_SELECTOR = `#${INCREMENT_ID}`
+const DECREMENT_SELECTOR = `#${DECREMENT_ID}`
 
 const add = (x: number, y: number) => x + y
 
@@ -21,7 +23,7 @@ export function UI(sources: DomSources): DomSinks {
 function view(amount: number) {
   return div([
     h1(`Count: ${amount}`),
-    button(INCREMENT_SELECTOR, `Increment +`),
-    button(DECREMENT_SELECTOR, `Decrement -`),
+    button({ id: INCREMENT_ID }, `Increment +`),
+    button({ id: DECREMENT_ID }, `Decrement -`),
   ])
 }
