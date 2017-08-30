@@ -1,6 +1,18 @@
-import { Boxes, Coordinate, Direction, Maze, State } from './types'
+import {
+  BLANK,
+  BOX,
+  GROUND,
+  PLAYER_DOWN,
+  PLAYER_LEFT,
+  PLAYER_RIGHT,
+  PLAYER_UP,
+  STORAGE,
+} from './constants'
+import { Boxes, Coordinate, Direction, Maze, State, Tile } from './types'
 import { curry, decrement, equals, find, increment, length, map } from '167'
 import { maze1, playerCanMoveTo } from '@base/domain/model'
+
+import { NonnegativeInteger } from '@base/common/types'
 
 const maze = maze1
 
@@ -11,7 +23,8 @@ export const movePlayer: MovePlayer = curry(function movePlayer(
   const { playerPosition: from, boxes } = state
   const to = adjacentCoordinate[direction](from)
   const beyond = adjacentCoordinate[direction](to)
-  const noBoxMaze = mazeWithoutBoxes(maze)
+  const noPlayerMaze = mazeWithoutPlayer(maze)
+  const noBoxMaze = mazeWithoutBoxes(noPlayerMaze)
   const currentMaze = mazeWithBoxes(noBoxMaze, boxes)
   const movedBoxes = map(moveBox(currentMaze, to, beyond), boxes)
   const movedBoxesMaze = mazeWithBoxes(noBoxMaze, movedBoxes)
@@ -32,12 +45,38 @@ const adjacentCoordinate: { [key in Direction]: (from: Coordinate) => Coordinate
   left: (from: Coordinate) => ({ x: decrement(from.x), y: from.y }),
 }
 
+function mazeWithoutPlayer(maze: Maze): Maze {
+  return map(row => map(replacePlayer, row), maze)
+}
+
+function replacePlayer(tile: Tile): Tile {
+  return equals(PLAYER_UP, tile) ||
+  equals(PLAYER_RIGHT, tile) ||
+  equals(PLAYER_DOWN, tile) ||
+  equals(PLAYER_LEFT, tile)
+    ? GROUND
+    : tile
+}
+
 function mazeWithoutBoxes(maze: Maze): Maze {
-  return map(row => map(tile => (equals('B', tile) ? 'G' : tile), row), maze)
+  return map(row => map(replaceBox, row), maze)
+}
+
+function replaceBox(tile: Tile): Tile {
+  return equals(BOX, tile) ? GROUND : tile
 }
 
 const mazeWithBoxes = curry(function mazeWithBoxes(maze: Maze, boxes: Boxes): Maze {
-  return map((row, y) => map((tile, x) => (find(equals({ x, y }), boxes) ? 'B' : tile), row), maze)
+  return map((row, y) => map(addBox(boxes, y), row), maze)
+})
+
+const addBox = curry(function addBox(
+  boxes: Boxes,
+  y: NonnegativeInteger,
+  tile: Tile,
+  x: NonnegativeInteger
+): Tile {
+  return find(equals<Coordinate>({ x, y }), boxes) ? BOX : tile
 })
 
 const moveBox = curry(function moveBox(
@@ -50,9 +89,9 @@ const moveBox = curry(function moveBox(
   const height = length(maze)
   const width = length(maze[0])
   const withinBounds = x >= 0 && x < width && (y >= 0 && y < height)
-  const tile = withinBounds ? maze[y][x] : '_'
+  const tile = withinBounds ? maze[y][x] : BLANK
   const newBox: Coordinate =
-    equals(to, box) && (equals('G', tile) || equals('S', tile)) ? beyond : box
+    equals(to, box) && (equals(GROUND, tile) || equals(STORAGE, tile)) ? beyond : box
 
   return newBox
 })

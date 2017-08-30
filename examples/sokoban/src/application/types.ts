@@ -13,6 +13,11 @@ export {
   Box,
   Blank,
   State,
+  PlayerUp,
+  PlayerRight,
+  PlayerDown,
+  PlayerLeft,
+  Player,
 } from '@base/domain/model'
 
 export type ApplicationComponent = EffectfulComponent<ApplicationSinks, ApplicationSources>

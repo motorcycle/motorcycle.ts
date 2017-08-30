@@ -40,11 +40,15 @@ function drawTileAt(
 }
 
 const vNode: { [key in Tile]: (playerOrBlank: VNode, key: string) => VNode } = {
-  W: (_, key: string) => wall(key),
-  G: (playerOrBlank: VNode, key: string) => ground(playerOrBlank, key),
-  S: (playerOrBlank: VNode, key: string) => storage(playerOrBlank, key),
+  X: (_, key: string) => wall(key),
+  ' ': (playerOrBlank: VNode, key: string) => ground(playerOrBlank, key),
+  O: (playerOrBlank: VNode, key: string) => storage(playerOrBlank, key),
   B: (_, key: string) => box(key),
   _: (_, key: string) => blank(key),
+  '^': (playerOrBlank: VNode, key: string) => ground(playerOrBlank, key),
+  '>': (playerOrBlank: VNode, key: string) => ground(playerOrBlank, key),
+  v: (playerOrBlank: VNode, key: string) => ground(playerOrBlank, key),
+  '<': (playerOrBlank: VNode, key: string) => ground(playerOrBlank, key),
 }
 
 const { rect, circle, g, path } = svg
