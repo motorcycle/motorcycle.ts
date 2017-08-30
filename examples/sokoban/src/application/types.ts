@@ -8,6 +8,7 @@ export type ApplicationComponent = EffectfulComponent<ApplicationSinks, Applicat
 
 export type ApplicationSinks = {
   readonly go$: Stream<Direction>
+  readonly reset$: Stream<true>
 }
 
 export type ApplicationSources = {
