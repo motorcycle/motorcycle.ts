@@ -13,7 +13,7 @@ export function UI(sources: UISources): UISinks {
   const mazeSize$ = map(({ maze }) => mazeSize(maze), state$)
   const view$ = ap(map(view, pictureOfMaze$), mazeSize$)
   const key$ = key(document)
-  const movePlayerInDirection$ = filter(direction => !!direction, map(key => direction[key], key$))
+  const go$ = filter(direction => !!direction, map(key => direction[key], key$))
 
-  return { view$, movePlayerInDirection$ }
+  return { view$, go$ }
 }

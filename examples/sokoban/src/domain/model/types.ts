@@ -2,7 +2,9 @@ import { Matrix2D, NonnegativeInteger } from '@base/common/types'
 
 export type Maze = Matrix2D<Tile>
 
-export type Tile = Wall | Ground | Storage | Box | Blank | Player
+export type Tiles = ReadonlyArray<Tile>
+
+export type Tile = Wall | Ground | Storage | Box | Blank | PlayerDirection
 
 export type Wall = 'X'
 
@@ -14,7 +16,12 @@ export type Box = 'B'
 
 export type Blank = '_'
 
-export type Player = PlayerUp | PlayerRight | PlayerDown | PlayerLeft
+export type Player = {
+  position: Coordinate
+  direction: Direction
+}
+
+export type PlayerDirection = PlayerUp | PlayerRight | PlayerDown | PlayerLeft
 
 export type PlayerUp = '^'
 
@@ -25,8 +32,7 @@ export type PlayerDown = 'v'
 export type PlayerLeft = '<'
 
 export type State = {
-  playerPosition: Coordinate
-  playerDirection: Direction
+  player: Player
   boxes: Boxes
   maze: Maze
 }

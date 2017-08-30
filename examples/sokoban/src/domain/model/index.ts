@@ -1,3 +1,3 @@
 export * from './mazes'
-export * from './playerCanMoveTo'
+export * from './tryMove'
 export * from './types'

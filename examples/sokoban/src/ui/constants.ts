@@ -1,3 +1,3 @@
 export const TILE_SIZE = 40
 
-export const TILE_CENTER = 20
+export const TILE_CENTER = TILE_SIZE / 2

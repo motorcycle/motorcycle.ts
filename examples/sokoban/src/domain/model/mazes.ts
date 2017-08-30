@@ -1,6 +1,6 @@
 import { Maze } from './'
 
-export const maze1: Maze = [
+export const maze0: Maze = [
   ['X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'],
   ['X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'],
   ['X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'],

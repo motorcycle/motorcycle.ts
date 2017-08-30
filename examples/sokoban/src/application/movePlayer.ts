@@ -1,26 +1,17 @@
-import {
-  BLANK,
-  BOX,
-  GROUND,
-  PLAYER_DOWN,
-  PLAYER_LEFT,
-  PLAYER_RIGHT,
-  PLAYER_UP,
-  STORAGE,
-} from './constants'
-import { Boxes, Coordinate, Direction, Maze, State, Tile } from './types'
-import { curry, decrement, equals, find, increment, length, map } from '167'
-import { maze1, playerCanMoveTo } from '@base/domain/model'
+import { BLANK, BOX, GROUND, PLAYER_DOWN, PLAYER_LEFT, PLAYER_RIGHT, PLAYER_UP } from './constants'
+import { Boxes, Coordinate, Direction, Maze, MovePlayer, State, Tile } from './types'
+import { curry, decrement, equals, find, increment, length, map, or } from '167'
+import { maze0, tryMove } from '@base/domain/model'
 
 import { NonnegativeInteger } from '@base/common/types'
 
-const maze = maze1
+const maze = maze0
 
 export const movePlayer: MovePlayer = curry(function movePlayer(
   direction: Direction,
   state: State
 ): State {
-  const { playerPosition: from, boxes } = state
+  const { player: { position: from }, boxes } = state
   const to = adjacentCoordinate[direction](from)
   const beyond = adjacentCoordinate[direction](to)
   const noPlayerMaze = mazeWithoutPlayer(maze)
@@ -28,11 +19,11 @@ export const movePlayer: MovePlayer = curry(function movePlayer(
   const currentMaze = mazeWithBoxes(noBoxMaze, boxes)
   const movedBoxes = map(moveBox(currentMaze, to, beyond), boxes)
   const movedBoxesMaze = mazeWithBoxes(noBoxMaze, movedBoxes)
-  const playerPosition = playerCanMoveTo(movedBoxesMaze[to.y][to.x]) ? to : from
+  const position = tryMove(movedBoxesMaze[to.y][to.x]) ? to : from
+  const player = { position, direction }
 
   return {
-    playerPosition,
-    playerDirection: direction,
+    player,
     boxes: movedBoxes,
     maze: movedBoxesMaze,
   }
@@ -50,12 +41,12 @@ function mazeWithoutPlayer(maze: Maze): Maze {
 }
 
 function replacePlayer(tile: Tile): Tile {
-  return equals(PLAYER_UP, tile) ||
-  equals(PLAYER_RIGHT, tile) ||
-  equals(PLAYER_DOWN, tile) ||
-  equals(PLAYER_LEFT, tile)
-    ? GROUND
-    : tile
+  const isPlayerUp = equals(PLAYER_UP, tile)
+  const isPlayerRight = equals(PLAYER_RIGHT, tile)
+  const isPlayerDown = equals(PLAYER_DOWN, tile)
+  const isPlayerLeft = equals(PLAYER_LEFT, tile)
+
+  return or(or(or(isPlayerUp, isPlayerRight), isPlayerDown), isPlayerLeft) ? GROUND : tile
 }
 
 function mazeWithoutBoxes(maze: Maze): Maze {
@@ -84,24 +75,13 @@ const moveBox = curry(function moveBox(
   to: Coordinate,
   beyond: Coordinate,
   box: Coordinate
-) {
+): Coordinate {
   const { x, y } = beyond
   const height = length(maze)
   const width = length(maze[0])
   const withinBounds = x >= 0 && x < width && (y >= 0 && y < height)
   const tile = withinBounds ? maze[y][x] : BLANK
-  const newBox: Coordinate =
-    equals(to, box) && (equals(GROUND, tile) || equals(STORAGE, tile)) ? beyond : box
+  const newBox: Coordinate = equals(to, box) && tryMove(tile) ? beyond : box
 
   return newBox
 })
-
-export type MovePlayer = {
-  (direction: Direction, state: State): State
-
-  (direction: Direction): MovePlayerArity1
-}
-
-export type MovePlayerArity1 = {
-  (state: State): State
-}

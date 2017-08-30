@@ -7,9 +7,9 @@ import { curry, equals, flatten, map } from '167'
 import { VNodes } from './types'
 
 export function pictureOfMaze(state: State): VNodes {
-  const { maze, playerPosition, playerDirection } = state
+  const { maze, player: { position, direction } } = state
 
-  return flatten<VNode>(map(drawRow(playerPosition, playerDirection), maze))
+  return flatten<VNode>(map(drawRow(position, direction), maze))
 }
 
 const drawRow = curry(function drawRow(
