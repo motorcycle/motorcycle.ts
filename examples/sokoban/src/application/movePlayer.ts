@@ -8,10 +8,9 @@ import { NonnegativeInteger } from '@base/common/types'
 const maze = maze0
 
 export const movePlayer: MovePlayer = curry(function movePlayer(
-  direction: Direction,
-  state: State
+  { player: { position: from }, boxes }: State,
+  direction: Direction
 ): State {
-  const { player: { position: from }, boxes } = state
   const to = adjacentCoordinate[direction](from)
   const beyond = adjacentCoordinate[direction](to)
   const noPlayerMaze = mazeWithoutPlayer(maze)
@@ -20,20 +19,19 @@ export const movePlayer: MovePlayer = curry(function movePlayer(
   const movedBoxes = map(moveBox(currentMaze, to, beyond), boxes)
   const movedBoxesMaze = mazeWithBoxes(noBoxMaze, movedBoxes)
   const position = tryMove(movedBoxesMaze[to.y][to.x]) ? to : from
-  const player = { position, direction }
 
   return {
-    player,
+    player: { position, direction },
     boxes: movedBoxes,
     maze: movedBoxesMaze,
   }
 })
 
 const adjacentCoordinate: { [key in Direction]: (from: Coordinate) => Coordinate } = {
-  up: (from: Coordinate) => ({ x: from.x, y: decrement(from.y) }),
-  right: (from: Coordinate) => ({ x: increment(from.x), y: from.y }),
-  down: (from: Coordinate) => ({ x: from.x, y: increment(from.y) }),
-  left: (from: Coordinate) => ({ x: decrement(from.x), y: from.y }),
+  up: ({ x, y }) => ({ x, y: decrement(y) }),
+  right: ({ x, y }) => ({ x: increment(x), y }),
+  down: ({ x, y }) => ({ x, y: increment(y) }),
+  left: ({ x, y }) => ({ x: decrement(x), y }),
 }
 
 function mazeWithoutPlayer(maze: Maze): Maze {
@@ -81,7 +79,6 @@ const moveBox = curry(function moveBox(
   const width = length(maze[0])
   const withinBounds = x >= 0 && x < width && (y >= 0 && y < height)
   const tile = withinBounds ? maze[y][x] : BLANK
-  const newBox: Coordinate = equals(to, box) && tryMove(tile) ? beyond : box
 
-  return newBox
+  return equals(to, box) && tryMove(tile) ? beyond : box
 })

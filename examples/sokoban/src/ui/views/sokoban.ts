@@ -1,9 +1,10 @@
-import { MazeSize, VNodes, ViewArity2 } from './types'
+import { SokobanView, VNodes } from './types'
 import { VNode, div } from '@motorcycle/mostly-dom'
 
+import { MazeSize } from '../types'
 import { curry } from '167'
 
-export const view: ViewArity2 = curry(function view(
+export const sokoban: SokobanView = curry(function view(
   pictureOfMaze: VNodes,
   mazeSize: MazeSize
 ): VNode {

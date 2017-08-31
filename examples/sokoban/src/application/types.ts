@@ -9,6 +9,7 @@ export type ApplicationComponent = EffectfulComponent<ApplicationSinks, Applicat
 export type ApplicationSinks = {
   readonly go$: Stream<Direction>
   readonly reset$: Stream<true>
+  readonly start$: Stream<true>
 }
 
 export type ApplicationSources = {
@@ -16,11 +17,11 @@ export type ApplicationSources = {
 }
 
 export type MovePlayer = {
-  (direction: Direction, state: State): State
+  (state: State, direction: Direction): State
 
-  (direction: Direction): MovePlayerArity1
+  (state: State): MovePlayerArity1
 }
 
 export type MovePlayerArity1 = {
-  (state: State): State
+  (direction: Direction): State
 }

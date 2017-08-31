@@ -4,11 +4,9 @@ import { TILE_CENTER, TILE_SIZE } from './constants'
 import { VNode, svg } from '@motorcycle/mostly-dom'
 import { curry, equals, flatten, map } from '167'
 
-import { VNodes } from './types'
+import { VNodes } from './views/types'
 
-export function pictureOfMaze(state: State): VNodes {
-  const { maze, player: { position, direction } } = state
-
+export function pictureOfMaze({ maze, player: { position, direction } }: State): VNodes {
   return flatten<VNode>(map(drawRow(position, direction), maze))
 }
 
@@ -33,8 +31,9 @@ function drawTileAt(
 ): VNode {
   const { x, y } = coordinate
   const key = `${x}${y}`
-  const shouldAddPlayer = equals(playerPosition, coordinate)
-  const playerOrBlank = shouldAddPlayer ? player(playerDirection, key) : blank(key)
+  const playerOrBlank = equals(playerPosition, coordinate)
+    ? player(playerDirection, key)
+    : blank(key)
 
   return vNode[tile](playerOrBlank, key)
 }
