@@ -9,16 +9,13 @@ import {
   startWith,
   switchLatest,
 } from '@motorcycle/stream'
+import { direction, key, reset, start } from './interaction'
 import { sokoban, startScreen } from './views'
 
 import { Direction } from '@base/application/types'
-import { direction } from './direction'
-import { key } from './key'
 import { mazeSize } from './mazeSize'
 import { not } from '167'
 import { pictureOfMaze } from './pictureOfMaze'
-import { reset } from './reset'
-import { start } from './start'
 
 export function UI({ state$, gameWon$, document }: UISources): UISinks {
   const key$ = key(document)
