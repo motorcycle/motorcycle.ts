@@ -4,13 +4,19 @@ import { VNode } from '@motorcycle/mostly-dom'
 export type StartScreenView = VNode
 
 export type SokobanView = {
-  (pictureOfMaze: VNodes, mazeSize: MazeSize): VNode
+  (pictureOfMaze: VNodes, mazeSize: MazeSize, gameWon: boolean): VNode
 
-  (pictureOfMaze: VNodes): SokobanViewArity1
+  (pictureOfMaze: VNodes, mazeSize: MazeSize): SokobanViewArity1
+  (pictureOfMaze: VNodes): SokobanViewArity2
+}
+
+export type SokobanViewArity2 = {
+  (mazeSize: MazeSize, gameWon: boolean): VNode
+  (mazeSize: MazeSize): SokobanViewArity1
 }
 
 export type SokobanViewArity1 = {
-  (mazeSize: MazeSize): VNode
+  (gameWon: boolean): VNode
 }
 
 export type VNodes = ReadonlyArray<VNode>

@@ -1,14 +1,15 @@
 import { SokobanView, VNodes } from './types'
-import { VNode, div } from '@motorcycle/mostly-dom'
+import { VNode, div, h1 } from '@motorcycle/mostly-dom'
 
 import { MazeSize } from '../types'
 import { curry } from '167'
 
 export const sokoban: SokobanView = curry(function view(
   pictureOfMaze: VNodes,
-  mazeSize: MazeSize
+  { height: mazeHeight, width: mazeWidth }: MazeSize,
+  gameWon: boolean
 ): VNode {
-  const { height: mazeHeight, width: mazeWidth } = mazeSize
+  const {} = gameWon
 
   return div(
     {
@@ -25,6 +26,29 @@ export const sokoban: SokobanView = curry(function view(
         },
         pictureOfMaze
       ),
+      gameWon
+        ? div(
+            {
+              attrs: {
+                style: `position: absolute; z-index: 1`,
+              },
+            },
+            [
+              h1(
+                {
+                  attrs: {
+                    style: `color: #fff; text-shadow: -2px 0 #000, 0 2px #000, 2px 0 #000, 0 -2px #000;`,
+                  },
+                },
+                `LEVEL SOLVED!`
+              ),
+            ]
+          )
+        : div({
+            attrs: {
+              style: `position: absolute; z-index: 1`,
+            },
+          }),
     ]
   )
 })

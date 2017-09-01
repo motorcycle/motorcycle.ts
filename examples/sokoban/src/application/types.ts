@@ -8,12 +8,13 @@ export type ApplicationComponent = EffectfulComponent<ApplicationSinks, Applicat
 
 export type ApplicationSinks = {
   readonly go$: Stream<Direction>
-  readonly reset$: Stream<true>
-  readonly start$: Stream<true>
+  readonly reset$: Stream<boolean>
+  readonly start$: Stream<boolean>
 }
 
 export type ApplicationSources = {
   readonly state$: Stream<State>
+  readonly gameWon$: Stream<boolean>
 }
 
 export type MovePlayer = {

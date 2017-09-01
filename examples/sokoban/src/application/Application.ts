@@ -1,8 +1,8 @@
 import { ApplicationSinks, ApplicationSources, State } from './types'
 import { constant, map, merge, scan, switchLatest } from '@motorcycle/stream'
+import { gameWon, maze0 } from '@base/domain/model'
 
 import { boxes } from './boxes'
-import { maze0 } from '@base/domain/model'
 import { movePlayer } from './movePlayer'
 import { player } from './player'
 
@@ -14,6 +14,7 @@ export function Application({ go$, start$, reset$ }: ApplicationSinks): Applicat
   const state$ = switchLatest(
     map(initialState => scan(movePlayer, initialState, go$), initialState$)
   )
+  const gameWon$ = map(({ boxes }) => gameWon(boxes), state$)
 
-  return { state$ }
+  return { state$, gameWon$ }
 }
