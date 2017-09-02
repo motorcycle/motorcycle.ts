@@ -6,11 +6,14 @@ import { popState } from './popState'
 
 const QUERY_PARAM_NAME = 'q'
 
+const saveQuery = pipe(skipRepeats, tap(pushQuery))
+const retrieveStateOnPopstate = merge(map(retrieveCurrentState, popState()))
+const startWithInitialState = startWith(retrieveCurrentState())
+
 export const saveQueryToHistory = pipe<Stream<string>, Stream<string>>(
-  skipRepeats,
-  tap(pushQuery),
-  merge(map(retrieveCurrentState, popState())),
-  startWith(retrieveCurrentState()),
+  saveQuery,
+  retrieveStateOnPopstate,
+  startWithInitialState,
   skipRepeats,
   hold
 )
@@ -35,7 +38,7 @@ function parseQueryString(queryString: string): Queries {
 
 function setQueryValue(queries: Queries, query: string) {
   const [queryName, queryValue] = query.split('=')
-  
+
   return set(queryName, queryValue, queries)
 }
 
