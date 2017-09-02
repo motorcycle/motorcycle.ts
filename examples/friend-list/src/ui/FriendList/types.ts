@@ -5,8 +5,8 @@ export type Sources = DomSources & AppSources
 
 export type Sinks = DomSinks & AppSinks
 
-export type Model = 
-  {
-    readonly friends: Friends
-    readonly searchView: VNode,
-  }
+export type Model = {
+  readonly friends: Friends
+  readonly searchView: VNode
+  readonly isLoading: boolean
+}

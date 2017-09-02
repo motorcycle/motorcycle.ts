@@ -7,19 +7,13 @@ import { Model } from './types'
 export function view(model: Model): VNode {
   const { friends, searchView } = model
 
-  const friendList = length(friends) === 0 ? 
-    [ renderNoMatches() ] :
-    map(friendView, friends)
+  const friendList = length(friends) === 0 ? [noMatches()] : map(friendView, friends)
 
-  return div({ className: 'app' }, [
-    ul({ className: 'friend-list' }, [searchView, ...friendList]),
-  ])
+  return div({ className: 'app' }, [ul({ className: 'friend-list' }, [searchView, ...friendList])])
 }
 
-function renderNoMatches() {
-  return div({ className: 'app' }, [
-    h1('No matches could be found, try again!')
-  ])
+function noMatches() {
+  return div({ className: 'app' }, [h1('No matches could be found, try again!')])
 }
 
 function friendView(friend: Friend): VNode {

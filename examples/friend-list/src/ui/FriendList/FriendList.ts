@@ -1,15 +1,16 @@
-import { Sinks, Sources } from './types'
+import { Model, Sinks, Sources } from './types'
 import { combineObj, map } from '@motorcycle/stream'
 
 import { SearchInput } from '../SearchInput'
 import { view } from './view'
 
 export function FriendList(sources: Sources): Sinks {
-  const { friends$ } = sources
+  const { friends$, isLoading$ } = sources
 
   const { view$: searchView$, value$ } = SearchInput(sources)
 
-  const model$ = combineObj({
+  const model$ = combineObj<Model>({
+    isLoading: isLoading$,
     searchView: searchView$,
     friends: friends$,
   })

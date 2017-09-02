@@ -1,5 +1,3 @@
-import './loader.css'
-
 import { FriendList, Sinks, Sources } from './ui'
 
 import { Application } from './application'
@@ -17,6 +15,6 @@ run<Sources, Sinks>(FriendList, Effects)
 function Effects(sinks: Sinks): Sources {
   return {
     ...Dom(sinks),
-    ...Application(sinks)
+    ...Application(sinks),
   }
 }
