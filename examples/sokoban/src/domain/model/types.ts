@@ -1,5 +1,7 @@
 import { Matrix2D, NonnegativeInteger } from '@base/common/types'
 
+export type Mazes = ReadonlyArray<Maze>
+
 export type Maze = Matrix2D<Tile>
 
 export type Tiles = ReadonlyArray<Tile>
@@ -32,9 +34,10 @@ export type PlayerDown = 'v'
 export type PlayerLeft = '<'
 
 export type State = {
-  player: Player
-  boxes: Boxes
-  maze: Maze
+  readonly player: Player
+  readonly boxes: Boxes
+  readonly maze: Maze
+  readonly levelComplete: boolean
 }
 
 export type Boxes = Coordinates

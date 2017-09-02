@@ -1,20 +1,38 @@
 import { ApplicationSinks, ApplicationSources, State } from './types'
-import { constant, map, merge, scan, switchLatest } from '@motorcycle/stream'
-import { gameWon, maze0 } from '@base/domain/model'
+import { Maze, mazes } from '@base/domain/model'
+import { map, scan, switchLatest, tap } from '@motorcycle/stream'
 
+import { NonnegativeInteger } from '@base/common/types'
 import { boxes } from './boxes'
+import { increment } from '167'
 import { movePlayer } from './movePlayer'
 import { player } from './player'
 
-const maze = maze0
-const initialState: State = { player: player(maze), boxes: boxes(maze), maze }
-
-export function Application({ go$, start$, reset$ }: ApplicationSinks): ApplicationSources {
-  const initialState$ = constant(initialState, merge(reset$, start$))
-  const state$ = switchLatest(
-    map(initialState => scan(movePlayer, initialState, go$), initialState$)
+export function Application({ go$, start$ }: ApplicationSinks): ApplicationSources {
+  const level$ = tap(
+    console.log,
+    scan(level => increment(level), -1, tap(x => console.log(`start`, x), start$))
   )
-  const gameWon$ = map(({ boxes }) => gameWon(boxes), state$)
+  const maze$ = map(loadMaze, level$)
+  const initialState$ = map(initialState, maze$)
+  const state$ = switchLatest(map(state => scan(movePlayer, state, go$), initialState$))
 
-  return { state$, gameWon$ }
+  return { state$ }
+}
+
+function loadMaze(level: NonnegativeInteger): Maze {
+  console.log(`load maze`, level)
+  const maze = mazes[level > 0 ? level : 0]
+
+  return maze
+}
+
+function initialState(maze: Maze): State {
+  console.log(`initial state`)
+  return {
+    player: player(maze),
+    boxes: boxes(maze),
+    maze,
+    levelComplete: false,
+  }
 }

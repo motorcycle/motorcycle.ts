@@ -11,3 +11,5 @@ export const maze0: Maze = [
   ['X', ' ', ' ', ' ', ' ', ' ', 'X', 'O', 'X'],
   ['X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'],
 ]
+
+export const mazes = [maze0]

@@ -7,10 +7,8 @@ import { curry } from '167'
 export const sokoban: SokobanView = curry(function view(
   pictureOfMaze: VNodes,
   { height: mazeHeight, width: mazeWidth }: MazeSize,
-  gameWon: boolean
+  levelComplete: boolean
 ): VNode {
-  const {} = gameWon
-
   return div(
     {
       attrs: {
@@ -26,7 +24,7 @@ export const sokoban: SokobanView = curry(function view(
         },
         pictureOfMaze
       ),
-      gameWon
+      levelComplete
         ? div(
             {
               attrs: {
