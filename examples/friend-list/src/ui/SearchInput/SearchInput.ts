@@ -5,11 +5,12 @@ import { lensPath, pipe, view as viewLens } from '167'
 
 import { debounce } from '@most/core'
 import { map } from '@motorcycle/stream'
+import { searchInputClass } from './styles'
 
-const searchInput = pipe(query('#search-input'), events('input'))
+const searchInput = pipe(query(`.${searchInputClass}`), events('input'))
 const eventTargetValue = map(viewLens(lensPath<Event, string>(['target', 'value'])))
 
-const DEBOUNCE_TIME = 300
+const DEBOUNCE_TIME = 100
 
 export function SearchInput(sources: Sources): Sinks {
   const { dom, query$ } = sources
@@ -21,5 +22,5 @@ export function SearchInput(sources: Sources): Sinks {
 }
 
 function view(value: string = ''): VNode {
-  return input({ id: 'search-input', type: 'search', value }, [])
+  return input({ className: searchInputClass, type: 'search', value })
 }
