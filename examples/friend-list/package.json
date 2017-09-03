@@ -1,9 +1,9 @@
 {
-  "name": "@motorcycle/starter",
-  "description": "Starter application for Motorcycle.ts",
-  "repository": "https://github.com/motorcyclets/starter",
-  "version": "0.0.0",
-  "main": "lib/index.js",
+  "private": true,
+  "name": "@motorcycle/friends-list",
+  "description": "Example Motorcycle.ts application",
+  "repository": "https://github.com/motorcyclets/motorcycle",
+  "version": "1.0.0",
   "author": "Motorcycle",
   "license": "MIT",
   "devDependencies": {
