@@ -1,6 +1,6 @@
 import { Maze } from './'
 
-export const maze0: Maze = [
+const maze0: Maze = [
   ['X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'],
   ['X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'],
   ['X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'],
@@ -12,4 +12,16 @@ export const maze0: Maze = [
   ['X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'],
 ]
 
-export const mazes = [maze0]
+const maze1: Maze = [
+  ['X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'],
+  ['X', 'X', 'X', ' ', ' ', ' ', ' ', ' ', 'X'],
+  ['X', 'X', 'O', 'O', 'B', ' ', ' ', ' ', 'X'],
+  ['X', 'X', ' ', 'O', 'X', '>', ' ', ' ', 'X'],
+  ['X', 'X', 'X', ' ', 'B', ' ', ' ', 'X', 'X'],
+  ['X', 'X', ' ', 'X', 'B', ' ', ' ', ' ', 'X'],
+  ['X', 'X', ' ', ' ', ' ', 'B', ' ', ' ', 'X'],
+  ['X', 'X', 'O', 'O', ' ', ' ', 'B', ' ', 'X'],
+  ['X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'],
+]
+
+export const mazes = [maze1, maze0]

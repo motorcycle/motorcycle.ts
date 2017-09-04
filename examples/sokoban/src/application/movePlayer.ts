@@ -1,13 +1,12 @@
 import { BLANK, BOX, GROUND, PLAYER_DOWN, PLAYER_LEFT, PLAYER_RIGHT, PLAYER_UP } from './constants'
 import { Boxes, Coordinate, Direction, Maze, MovePlayer, State, Tile } from './types'
 import { curry, decrement, equals, find, increment, length, map, or } from '167'
-import { levelComplete, maze0, tryMove } from '@base/domain/model'
+import { levelComplete, tryMove } from '@base/domain/model'
 
 import { NonnegativeInteger } from '@base/common/types'
 
-const maze = maze0
-
 export const movePlayer: MovePlayer = curry(function movePlayer(
+  maze: Maze,
   { player: { position: from }, boxes }: State,
   direction: Direction
 ): State {

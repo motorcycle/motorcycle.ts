@@ -1,4 +1,4 @@
-import { Direction, State } from '@base/domain/model'
+import { Direction, Maze, State } from '@base/domain/model'
 import { EffectfulComponent, Stream } from '@motorcycle/types'
 
 // Re-export, so UI doesn’t query the domain directly.
@@ -18,8 +18,14 @@ export type ApplicationSources = {
 }
 
 export type MovePlayer = {
-  (state: State, direction: Direction): State
+  (maze: Maze, state: State, direction: Direction): State
 
+  (maze: Maze, state: State): MovePlayerArity1
+  (maze: Maze): MovePlayerArity2
+}
+
+export type MovePlayerArity2 = {
+  (state: State, direction: Direction): State
   (state: State): MovePlayerArity1
 }
 

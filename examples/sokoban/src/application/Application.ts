@@ -15,7 +15,7 @@ export function Application({ go$, start$ }: ApplicationSinks): ApplicationSourc
   )
   const maze$ = map(loadMaze, level$)
   const initialState$ = map(initialState, maze$)
-  const state$ = switchLatest(map(state => scan(movePlayer, state, go$), initialState$))
+  const state$ = switchLatest(map(state => scan(movePlayer(state.maze), state, go$), initialState$))
 
   return { state$ }
 }
