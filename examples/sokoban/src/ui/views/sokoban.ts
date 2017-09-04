@@ -19,7 +19,7 @@ export const sokoban: SokobanView = curry(function view(
       div(
         {
           attrs: {
-            style: `border: 1px solid #c3c3c3; position: relative; height: ${mazeHeight}px; width: ${mazeWidth}px`,
+            style: `position: relative; height: ${mazeHeight}px; width: ${mazeWidth}px`,
           },
         },
         pictureOfMaze
