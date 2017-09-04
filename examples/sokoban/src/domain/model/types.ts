@@ -44,6 +44,8 @@ export type Boxes = Coordinates
 
 export type Coordinates = ReadonlyArray<Coordinate>
 
+// TODO: a 2D coordinate has longitude and latitude; not x and y as these are
+// purely mathematical aliases.
 export type Coordinate = {
   x: NonnegativeInteger
   y: NonnegativeInteger

@@ -1,5 +1,7 @@
 export type Index = NonnegativeInteger & -1
 
+export type PositiveInteger = number
+
 export type NonnegativeInteger = number
 
 export type Integer = number

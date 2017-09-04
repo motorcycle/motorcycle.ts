@@ -1,6 +1,8 @@
 import { Direction, Maze, State } from '@base/domain/model'
 import { EffectfulComponent, Stream } from '@motorcycle/types'
 
+import { PositiveInteger } from '@base/common/types'
+
 // Re-export, so UI doesn’t query the domain directly.
 export * from '@base/domain/model/types'
 
@@ -8,9 +10,8 @@ export type ApplicationComponent = EffectfulComponent<ApplicationSinks, Applicat
 
 export type ApplicationSinks = {
   readonly go$: Stream<Direction>
-  // TODO: quit$ is not being used by the application and is purely UI functionality for now
-  readonly quit$: Stream<boolean>
   readonly start$: Stream<boolean>
+  readonly level$: Stream<PositiveInteger>
 }
 
 export type ApplicationSources = {
