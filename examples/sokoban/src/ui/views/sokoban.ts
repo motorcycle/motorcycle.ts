@@ -1,5 +1,5 @@
 import { SokobanView, VNodes } from './types'
-import { VNode, div, h1 } from '@motorcycle/mostly-dom'
+import { VNode, div, h1, span } from '@motorcycle/mostly-dom'
 
 import { MazeSize } from '../types'
 import { NonnegativeInteger } from '@base/common/types'
@@ -33,7 +33,7 @@ export const sokoban: SokobanView = curry(function view(
         ? div(
             {
               attrs: {
-                style: `position: absolute; z-index: 1`,
+                style: `position: absolute; z-index: 1; display: flex; justify-content: center; align-items: center; flex-direction: column;`,
               },
             },
             [
@@ -44,6 +44,34 @@ export const sokoban: SokobanView = curry(function view(
                   },
                 },
                 `LEVEL SOLVED!`
+              ),
+              div(
+                {
+                  attrs: {
+                    style: `margin: 4px; color: #fff; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;`,
+                  },
+                },
+                [
+                  `PRESS`,
+                  span(
+                    {
+                      attrs: {
+                        style: `padding-right: 4px; padding-left: 4px; border-radius: 3px; background-color: #000; margin: 4px; text-shadow: none;`,
+                      },
+                    },
+                    `SPACE`
+                  ),
+                  `OR`,
+                  span(
+                    {
+                      attrs: {
+                        style: `padding-right: 4px; padding-left: 4px; border-radius: 3px; background-color: #000; margin: 4px; text-shadow: none;`,
+                      },
+                    },
+                    `ENTER ↵`
+                  ),
+                  `TO CONTINUE`,
+                ]
               ),
             ]
           )
