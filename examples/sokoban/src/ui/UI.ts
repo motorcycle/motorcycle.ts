@@ -51,7 +51,8 @@ export function UI({ state$, document }: UISources): UISinks {
 
   const pictureOfMaze$ = map(pictureOfMaze, state$)
   const mazeSize$ = map(({ maze }) => mazeSize(maze), state$)
-  const sokoban$ = ap(ap(map(sokoban, pictureOfMaze$), mazeSize$), levelComplete$)
+  const moveCount$ = map(({ moveCount }) => moveCount, state$)
+  const sokoban$ = ap(ap(ap(map(sokoban, pictureOfMaze$), mazeSize$), levelComplete$), moveCount$)
 
   const startScreen$ = map(startScreen, quit$)
   const viewToggle$ = merge(constant(true, start$), constant(false, quit$))

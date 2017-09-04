@@ -7,7 +7,7 @@ import { NonnegativeInteger } from '@base/common/types'
 
 export const movePlayer: MovePlayer = curry(function movePlayer(
   maze: Maze,
-  { player: { position: from }, boxes }: State,
+  { player: { position: from }, boxes, moveCount }: State,
   direction: Direction
 ): State {
   const to = adjacentCoordinate[direction](from)
@@ -23,6 +23,7 @@ export const movePlayer: MovePlayer = curry(function movePlayer(
     player: { position, direction },
     boxes: movedBoxes,
     maze: movedBoxesMaze,
+    moveCount: equals(position, to) ? increment(moveCount) : moveCount,
     levelComplete: levelComplete(maze, movedBoxes),
   }
 })

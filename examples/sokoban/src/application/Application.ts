@@ -28,6 +28,7 @@ function initialState(maze: Maze): State {
     player: player(maze),
     boxes: boxes(maze),
     maze,
+    moveCount: 0,
     levelComplete: false,
   }
 }

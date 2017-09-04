@@ -37,6 +37,7 @@ export type State = {
   readonly player: Player
   readonly boxes: Boxes
   readonly maze: Maze
+  readonly moveCount: NonnegativeInteger
   readonly levelComplete: boolean
 }
 
