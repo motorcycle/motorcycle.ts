@@ -66,4 +66,4 @@ export type Left = 'left'
 
 export type Level = NonnegativeInteger
 
-export type Seconds = NonnegativeInteger
+export type Seconds = NonnegativeInteger & -1

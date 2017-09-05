@@ -1,6 +1,6 @@
 import { Direction } from '@base/application/types'
 
-export const direction: { [key: string]: Direction } = {
+export const directionKeys: { [key: string]: Direction } = {
   ArrowUp: 'up',
   ArrowRight: 'right',
   ArrowDown: 'down',

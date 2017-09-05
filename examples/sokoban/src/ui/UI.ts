@@ -1,4 +1,4 @@
-import { Level, LevelCompletion, UISinks, UISources } from './types'
+import { ChangeLevel, LevelCompletion, UISinks, UISources } from './types'
 import {
   ap,
   combineObj,
@@ -13,30 +13,33 @@ import {
   startWith,
   switchLatest,
 } from '@motorcycle/stream'
-import { direction, key, reset, start } from './interaction'
+import { directionKeys, key, keyed, resetKeys, startKeys } from './interaction'
 import { increment, not } from '167'
 import { sokoban, startScreen } from './views'
 
 import { Direction } from '@base/application/types'
-import { NonnegativeInteger } from '@base/common/types'
+import { NO_LEVEL } from './constants'
 import { Stream } from '@motorcycle/types'
 import { canIncrementLevel } from './canIncrementLevel'
+import { goInDirection } from './goInDirection'
+import { identity } from './identity'
 import { mazeSize } from './mazeSize'
 import { pictureOfMaze } from './pictureOfMaze'
+import { quit } from './quit'
 
 const DEFAULT_LEVEL_COMPLETION = { levelCompleted: true, allLevelsCompleted: false }
 
-export function UI({ state$, elapsedTime$, allLevelsCompleted$, document }: UISources): UISinks {
+export function UI({ state$, allLevelsCompleted$, elapsedTime$, document }: UISources): UISinks {
   const key$ = key(document)
-  const quit$ = startWith(true, filter<true>(Boolean, map(key => reset[key], key$)))
-  const start$ = filter<true>(Boolean, map(key => start[key], key$))
+  const quit$ = startWith(true, filter<true>(Boolean, map(keyed(resetKeys), key$)))
+  const start$ = filter<true>(Boolean, map(keyed(startKeys), key$))
 
   const levelCompleted$ = map(({ levelCompleted }) => levelCompleted, state$)
   const go$ = filter<Direction>(
     Boolean,
     sample(
-      (direction, canMove) => (canMove ? direction : false),
-      filter<Direction>(Boolean, map(key => direction[key], key$)),
+      goInDirection,
+      filter<Direction>(Boolean, map(keyed(directionKeys), key$)),
       map(not, levelCompleted$)
     )
   )
@@ -52,15 +55,12 @@ export function UI({ state$, elapsedTime$, allLevelsCompleted$, document }: UISo
     )
   )
   const level$ = scan(
-    (level, f: Level) => f(level),
-    0,
+    (level, f: ChangeLevel) => f(level),
+    NO_LEVEL,
     mergeArray([
       constant(increment, filter(canIncrementLevel, levelCompletion$)),
-      constant(() => 0, quit$),
-      constant(
-        (level: NonnegativeInteger) => level,
-        filter(not, sampleWith(start$, levelCompleted$))
-      ),
+      constant(quit, quit$),
+      constant(identity, filter(not, sampleWith(start$, levelCompleted$))),
     ])
   )
 

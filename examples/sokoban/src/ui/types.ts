@@ -1,4 +1,4 @@
-import { ApplicationSinks, ApplicationSources } from '@base/application/types'
+import { ApplicationSinks, ApplicationSources, Level } from '@base/application/types'
 import { DomSinks, DomSources } from '@motorcycle/mostly-dom'
 
 import { DomSource } from '@motorcycle/dom'
@@ -16,7 +16,7 @@ export type MazeSize = {
 
 export type Time = string
 
-export type Level = (a: NonnegativeInteger) => NonnegativeInteger
+export type ChangeLevel = (a: Level) => Level
 
 export type LevelCompletion = {
   readonly levelCompleted: boolean

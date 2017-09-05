@@ -15,8 +15,8 @@ export type ApplicationSinks = {
 
 export type ApplicationSources = {
   readonly state$: Stream<State>
-  readonly elapsedTime$: Stream<NonnegativeInteger>
   readonly allLevelsCompleted$: Stream<boolean>
+  readonly elapsedTime$: Stream<NonnegativeInteger>
 }
 
 export type MovePlayer = {
