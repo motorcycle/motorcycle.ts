@@ -14,7 +14,7 @@ import {
   switchLatest,
 } from '@motorcycle/stream'
 import { directionKeys, key, keyed, resetKeys, startKeys } from './interaction'
-import { increment, not } from '167'
+import { id, increment, not } from '167'
 import { sokoban, startScreen } from './views'
 
 import { Direction } from '@base/application/types'
@@ -22,7 +22,6 @@ import { NO_LEVEL } from './constants'
 import { Stream } from '@motorcycle/types'
 import { canIncrementLevel } from './canIncrementLevel'
 import { goInDirection } from './goInDirection'
-import { identity } from './identity'
 import { mazeSize } from './mazeSize'
 import { pictureOfMaze } from './pictureOfMaze'
 import { quit } from './quit'
@@ -60,7 +59,7 @@ export function UI({ state$, allLevelsCompleted$, elapsedTime$, document }: UISo
     mergeArray([
       constant(increment, filter(canIncrementLevel, levelCompletion$)),
       constant(quit, quit$),
-      constant(identity, filter(not, sampleWith(start$, levelCompleted$))),
+      constant(id, filter(not, sampleWith(start$, levelCompleted$))),
     ])
   )
 
