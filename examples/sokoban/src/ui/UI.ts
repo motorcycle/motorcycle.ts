@@ -21,7 +21,7 @@ import { NonnegativeInteger } from '@base/common/types'
 import { mazeSize } from './mazeSize'
 import { pictureOfMaze } from './pictureOfMaze'
 
-export function UI({ state$, document }: UISources): UISinks {
+export function UI({ state$, elapsedTime$, document }: UISources): UISinks {
   const key$ = key(document)
   const quit$ = startWith(true, filter<true>(Boolean, map(key => reset[key], key$)))
   const start$ = filter<true>(Boolean, map(key => start[key], key$))
@@ -52,7 +52,10 @@ export function UI({ state$, document }: UISources): UISinks {
   const pictureOfMaze$ = map(pictureOfMaze, state$)
   const mazeSize$ = map(({ maze }) => mazeSize(maze), state$)
   const moveCount$ = map(({ moveCount }) => moveCount, state$)
-  const sokoban$ = ap(ap(ap(map(sokoban, pictureOfMaze$), mazeSize$), levelComplete$), moveCount$)
+  const sokoban$ = ap(
+    ap(ap(ap(map(sokoban, pictureOfMaze$), mazeSize$), levelComplete$), moveCount$),
+    elapsedTime$
+  )
 
   const startScreen$ = map(startScreen, quit$)
   const viewToggle$ = merge(constant(true, start$), constant(false, quit$))

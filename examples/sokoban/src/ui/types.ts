@@ -13,3 +13,5 @@ export type MazeSize = {
   height: NonnegativeInteger
   width: NonnegativeInteger
 }
+
+export type Time = string

@@ -4,12 +4,14 @@ import { VNode, div, h1, span } from '@motorcycle/mostly-dom'
 import { MazeSize } from '../types'
 import { NonnegativeInteger } from '@base/common/types'
 import { curry } from '167'
+import { secondsToTime } from '../secondsToTime'
 
 export const sokoban: SokobanView = curry(function view(
   pictureOfMaze: VNodes,
   { height: mazeHeight, width: mazeWidth }: MazeSize,
   levelComplete: boolean,
-  moveCount: NonnegativeInteger
+  moveCount: NonnegativeInteger,
+  elapsedTime: NonnegativeInteger
 ): VNode {
   return div(
     {
@@ -19,7 +21,8 @@ export const sokoban: SokobanView = curry(function view(
     },
     [
       div({ attrs: { style: `position: relative; width: 760px; margin-bottom: 20px;` } }, [
-        `Moves: ${moveCount}`,
+        div([`Moves: ${moveCount}`]),
+        div([`Elapsed time: ${secondsToTime(elapsedTime)}`]),
       ]),
       div(
         {

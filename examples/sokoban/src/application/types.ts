@@ -1,7 +1,6 @@
 import { Direction, Maze, State } from '@base/domain/model'
 import { EffectfulComponent, Stream } from '@motorcycle/types'
-
-import { PositiveInteger } from '@base/common/types'
+import { NonnegativeInteger, PositiveInteger } from '@base/common/types'
 
 // Re-export, so UI doesn’t query the domain directly.
 export * from '@base/domain/model/types'
@@ -16,6 +15,7 @@ export type ApplicationSinks = {
 
 export type ApplicationSources = {
   readonly state$: Stream<State>
+  readonly elapsedTime$: Stream<NonnegativeInteger>
 }
 
 export type MovePlayer = {
