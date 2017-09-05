@@ -10,45 +10,80 @@ export type SokobanView = {
     mazeSize: MazeSize,
     levelComplete: boolean,
     moveCount: NonnegativeInteger,
-    elapsedTime: NonnegativeInteger
+    elapsedTime: NonnegativeInteger,
+    allLevelsCompleted: boolean
   ): VNode
 
   (
     pictureOfMaze: VNodes,
     mazeSize: MazeSize,
     levelComplete: boolean,
-    moveCount: NonnegativeInteger
+    moveCount: NonnegativeInteger,
+    elapsedTime: NonnegativeInteger
   ): SokobanViewArity1
-  (pictureOfMaze: VNodes, mazeSize: MazeSize, levelComplete: boolean): SokobanViewArity2
-  (pictureOfMaze: VNodes, mazeSize: MazeSize): SokobanViewArity3
-  (pictureOfMaze: VNodes): SokobanViewArity4
+  (
+    pictureOfMaze: VNodes,
+    mazeSize: MazeSize,
+    levelComplete: boolean,
+    moveCount: NonnegativeInteger
+  ): SokobanViewArity2
+  (pictureOfMaze: VNodes, mazeSize: MazeSize, levelComplete: boolean): SokobanViewArity3
+  (pictureOfMaze: VNodes, mazeSize: MazeSize): SokobanViewArity4
+  (pictureOfMaze: VNodes): SokobanViewArity5
 }
 
 export type SokobanViewArity1 = {
-  (elapsedTime: NonnegativeInteger): VNode
+  (allLevelsCompleted: boolean): VNode
 }
 
 export type SokobanViewArity2 = {
-  (moveCount: NonnegativeInteger, elapsedTime: NonnegativeInteger): VNode
-  (moveCount: NonnegativeInteger): SokobanViewArity1
+  (elapsedTime: NonnegativeInteger, allLevelsCompleted: boolean): VNode
+  (elapsedTime: NonnegativeInteger): SokobanViewArity1
 }
 
 export type SokobanViewArity3 = {
-  (levelComplete: boolean, moveCount: NonnegativeInteger, elapsedTime: NonnegativeInteger): VNode
-  (levelComplete: boolean, moveCount: NonnegativeInteger): SokobanViewArity1
-  (levelComplete: boolean): SokobanViewArity2
+  (
+    moveCount: NonnegativeInteger,
+    elapsedTime: NonnegativeInteger,
+    allLevelsCompleted: boolean
+  ): VNode
+  (moveCount: NonnegativeInteger, elapsedTime: NonnegativeInteger): SokobanViewArity1
+  (moveCount: NonnegativeInteger): SokobanViewArity2
 }
 
 export type SokobanViewArity4 = {
+  (
+    levelComplete: boolean,
+    moveCount: NonnegativeInteger,
+    elapsedTime: NonnegativeInteger,
+    allLevelsCompleted: boolean
+  ): VNode
+  (
+    levelComplete: boolean,
+    moveCount: NonnegativeInteger,
+    elapsedTime: NonnegativeInteger
+  ): SokobanViewArity1
+  (levelComplete: boolean, moveCount: NonnegativeInteger): SokobanViewArity2
+  (levelComplete: boolean): SokobanViewArity3
+}
+
+export type SokobanViewArity5 = {
+  (
+    mazeSize: MazeSize,
+    levelComplete: boolean,
+    moveCount: NonnegativeInteger,
+    elapsedTime: NonnegativeInteger,
+    allLevelsCompleted: boolean
+  ): VNode
   (
     mazeSize: MazeSize,
     levelComplete: boolean,
     moveCount: NonnegativeInteger,
     elapsedTime: NonnegativeInteger
-  ): VNode
-  (mazeSize: MazeSize, levelComplete: boolean, moveCount: NonnegativeInteger): SokobanViewArity1
-  (mazeSize: MazeSize, levelComplete: boolean): SokobanViewArity2
-  (mazeSize: MazeSize): SokobanViewArity3
+  ): SokobanViewArity1
+  (mazeSize: MazeSize, levelComplete: boolean, moveCount: NonnegativeInteger): SokobanViewArity2
+  (mazeSize: MazeSize, levelComplete: boolean): SokobanViewArity3
+  (mazeSize: MazeSize): SokobanViewArity4
 }
 
 export type VNodes = ReadonlyArray<VNode>

@@ -4,16 +4,17 @@ import { PLAYER_DOWN, PLAYER_LEFT, PLAYER_RIGHT, PLAYER_UP } from './constants'
 import { length } from '167'
 
 const DEFAULT_PLAYER: Player = {
-  position: { x: 0, y: 0 },
+  position: { lat: 0, long: 0 },
   direction: 'right',
 }
 
 export function player(maze: Maze): Player {
-  for (let y = 0; y < length(maze); ++y)
-    for (let x = 0; x < length(maze[y]); ++x) {
-      const tile = maze[y][x]
+  for (let long = 0; long < length(maze); ++long)
+    for (let lat = 0; lat < length(maze[long]); ++lat) {
+      const tile = maze[long][lat]
 
-      if (tileIsPlayerDirection(tile)) return { position: { x, y }, direction: direction[tile] }
+      if (tileIsPlayerDirection(tile))
+        return { position: { lat, long }, direction: direction[tile] }
     }
 
   return DEFAULT_PLAYER

@@ -38,19 +38,21 @@ export type State = {
   readonly boxes: Boxes
   readonly maze: Maze
   readonly moveCount: NonnegativeInteger
-  readonly levelComplete: boolean
+  readonly levelCompleted: boolean
 }
 
 export type Boxes = Coordinates
 
 export type Coordinates = ReadonlyArray<Coordinate>
 
-// TODO: a 2D coordinate has longitude and latitude; not x and y as these are
-// purely mathematical aliases.
 export type Coordinate = {
-  x: NonnegativeInteger
-  y: NonnegativeInteger
+  lat: Latitude
+  long: Longitude
 }
+
+export type Latitude = NonnegativeInteger
+
+export type Longitude = NonnegativeInteger
 
 export type Direction = Up | Right | Down | Left
 
@@ -61,3 +63,7 @@ export type Right = 'right'
 export type Down = 'down'
 
 export type Left = 'left'
+
+export type Level = NonnegativeInteger
+
+export type Seconds = NonnegativeInteger

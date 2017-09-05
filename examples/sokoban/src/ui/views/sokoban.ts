@@ -11,7 +11,8 @@ export const sokoban: SokobanView = curry(function view(
   { height: mazeHeight, width: mazeWidth }: MazeSize,
   levelComplete: boolean,
   moveCount: NonnegativeInteger,
-  elapsedTime: NonnegativeInteger
+  elapsedTime: NonnegativeInteger,
+  allLevelsCompleted: boolean
 ): VNode {
   return div(
     {
@@ -32,57 +33,98 @@ export const sokoban: SokobanView = curry(function view(
         },
         pictureOfMaze
       ),
-      levelComplete
-        ? div(
-            {
+      allLevelsCompleted
+        ? completedAllLevels
+        : levelComplete
+          ? completedLevel
+          : div({
               attrs: {
-                style: `position: absolute; z-index: 1; display: flex; justify-content: center; align-items: center; flex-direction: column;`,
+                style: `position: absolute; z-index: 1`,
               },
-            },
-            [
-              h1(
-                {
-                  attrs: {
-                    style: `color: #fff; text-shadow: -2px 0 #000, 0 2px #000, 2px 0 #000, 0 -2px #000;`,
-                  },
-                },
-                `LEVEL SOLVED!`
-              ),
-              div(
-                {
-                  attrs: {
-                    style: `margin: 4px; color: #fff; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;`,
-                  },
-                },
-                [
-                  `PRESS`,
-                  span(
-                    {
-                      attrs: {
-                        style: `padding-right: 4px; padding-left: 4px; border-radius: 3px; background-color: #000; margin: 4px; text-shadow: none;`,
-                      },
-                    },
-                    `SPACE`
-                  ),
-                  `OR`,
-                  span(
-                    {
-                      attrs: {
-                        style: `padding-right: 4px; padding-left: 4px; border-radius: 3px; background-color: #000; margin: 4px; text-shadow: none;`,
-                      },
-                    },
-                    `ENTER ↵`
-                  ),
-                  `TO CONTINUE`,
-                ]
-              ),
-            ]
-          )
-        : div({
-            attrs: {
-              style: `position: absolute; z-index: 1`,
-            },
-          }),
+            }),
     ]
   )
 })
+
+const completedLevel = div(
+  {
+    attrs: {
+      style: `position: absolute; z-index: 1; display: flex; justify-content: center; align-items: center; flex-direction: column;`,
+    },
+  },
+  [
+    h1(
+      {
+        attrs: {
+          style: `color: #fff; text-shadow: -2px 0 #000, 0 2px #000, 2px 0 #000, 0 -2px #000;`,
+        },
+      },
+      `LEVEL SOLVED!`
+    ),
+    div(
+      {
+        attrs: {
+          style: `margin: 4px; color: #fff; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;`,
+        },
+      },
+      [
+        `PRESS`,
+        span(
+          {
+            attrs: {
+              style: `padding-right: 4px; padding-left: 4px; border-radius: 3px; background-color: #000; margin: 4px; text-shadow: none;`,
+            },
+          },
+          `SPACE`
+        ),
+        `OR`,
+        span(
+          {
+            attrs: {
+              style: `padding-right: 4px; padding-left: 4px; border-radius: 3px; background-color: #000; margin: 4px; text-shadow: none;`,
+            },
+          },
+          `ENTER ↵`
+        ),
+        `TO CONTINUE`,
+      ]
+    ),
+  ]
+)
+
+const completedAllLevels = div(
+  {
+    attrs: {
+      style: `position: absolute; z-index: 1; display: flex; justify-content: center; align-items: center; flex-direction: column;`,
+    },
+  },
+  [
+    h1(
+      {
+        attrs: {
+          style: `color: #fff; text-shadow: -2px 0 #000, 0 2px #000, 2px 0 #000, 0 -2px #000;`,
+        },
+      },
+      `ALL LEVELS SOLVED!`
+    ),
+    div(
+      {
+        attrs: {
+          style: `margin: 4px; color: #fff; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;`,
+        },
+      },
+      [
+        `PRESS`,
+        span(
+          {
+            attrs: {
+              style: `padding-right: 4px; padding-left: 4px; border-radius: 3px; background-color: #000; margin: 4px; text-shadow: none;`,
+            },
+          },
+          `ESC`
+        ),
+        `TO PLAY AGAIN`,
+      ]
+    ),
+  ]
+)

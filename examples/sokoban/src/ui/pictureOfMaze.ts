@@ -1,4 +1,4 @@
-import { Coordinate, Direction, State, Tile } from '@base/application/types'
+import { Coordinate, Direction, Latitude, Longitude, State, Tile } from '@base/application/types'
 import { Dimension, NonnegativeInteger } from '@base/common/types'
 import { TILE_CENTER, TILE_SIZE } from './constants'
 import { VNode, svg } from '@motorcycle/mostly-dom'
@@ -14,11 +14,10 @@ const drawRow = curry(function drawRow(
   playerPosition: Coordinate,
   playerDirection: Direction,
   row: Dimension<Tile>,
-  y: NonnegativeInteger
+  long: Longitude
 ): VNodes {
   return map(
-    (tile: Tile, x: NonnegativeInteger) =>
-      drawTileAt({ x, y }, tile, playerPosition, playerDirection),
+    (tile: Tile, lat: Latitude) => drawTileAt({ lat, long }, tile, playerPosition, playerDirection),
     row
   )
 })
@@ -29,8 +28,8 @@ function drawTileAt(
   playerPosition: Coordinate,
   playerDirection: Direction
 ): VNode {
-  const { x, y } = coordinate
-  const key = `${x}${y}`
+  const { lat, long } = coordinate
+  const key = `${lat}${long}`
   const playerOrBlank = equals(playerPosition, coordinate)
     ? player(playerDirection, key)
     : blank(key)

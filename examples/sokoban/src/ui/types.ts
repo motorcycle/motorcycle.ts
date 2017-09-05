@@ -15,3 +15,10 @@ export type MazeSize = {
 }
 
 export type Time = string
+
+export type Level = (a: NonnegativeInteger) => NonnegativeInteger
+
+export type LevelCompletion = {
+  readonly levelCompleted: boolean
+  readonly allLevelsCompleted: boolean
+}

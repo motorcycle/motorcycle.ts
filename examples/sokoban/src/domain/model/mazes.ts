@@ -40,7 +40,8 @@ export const maze2: Maze = [
   ['X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', '_', '_', '_', '_', '_', '_', '_', '_', '_'],
 ]
 
-export const simpleTest: Maze = [
+// Use this maze when you are testing new features and need a quick response.
+export const testMaze: Maze = [
   ['X', 'X', 'X', 'X', 'X'],
   ['X', '>', 'B', 'O', 'X'],
   ['X', 'X', 'X', 'X', 'X'],

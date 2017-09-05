@@ -1,22 +1,21 @@
-import { Boxes, Coordinates, Maze, Tile, Tiles } from './types'
+import { Boxes, Coordinates, Latitude, Longitude, Maze, Tile, Tiles } from './types'
 import { curry, equals, reduce } from '167'
 
 import { BOX } from './constants'
-import { NonnegativeInteger } from '@base/common/types'
 
 export function boxes(maze: Maze): Boxes {
   return reduce(rowIterator, [], maze)
 }
 
-function rowIterator(acc: Coordinates, row: Tiles, y: NonnegativeInteger): Boxes {
-  return [...acc, ...reduce(boxIterator(y), [], row)]
+function rowIterator(acc: Coordinates, row: Tiles, long: Longitude): Boxes {
+  return [...acc, ...reduce(boxIterator(long), [], row)]
 }
 
 const boxIterator = curry(function boxIterator(
-  y: NonnegativeInteger,
+  long: Longitude,
   acc: Coordinates,
   tile: Tile,
-  x: NonnegativeInteger
+  lat: Latitude
 ): Coordinates {
-  return equals(BOX, tile) ? [...acc, { x, y }] : acc
+  return equals(BOX, tile) ? [...acc, { lat, long }] : acc
 })
