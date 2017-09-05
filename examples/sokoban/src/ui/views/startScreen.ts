@@ -6,7 +6,7 @@ export function startScreen(): StartScreenView {
   return div(
     {
       attrs: {
-        style: `position: absolute; top: 0; right: 0; bottom: 0; left: 0; display: flex; justify-content: center; align-items: center; flex-direction: column`,
+        style: `position: absolute; top: 0; right: 0; bottom: 0; left: 0; display: flex; justify-content: center; align-items: center; flex-direction: column; background: #252526; color: #fff;`,
       },
     },
     [
@@ -22,7 +22,7 @@ export function startScreen(): StartScreenView {
         span(
           {
             attrs: {
-              style: `padding-right: 4px; padding-left: 4px; border-radius: 3px; color: #fff; background-color: #000; margin: 4px;`,
+              style: `padding-right: 4px; padding-left: 4px; border-radius: 3px; background: #000; margin: 4px;`,
             },
           },
           `SPACE`
@@ -31,7 +31,7 @@ export function startScreen(): StartScreenView {
         span(
           {
             attrs: {
-              style: `padding-right: 4px; padding-left: 4px; border-radius: 3px; color: #fff; background-color: #000; margin: 4px;`,
+              style: `padding-right: 4px; padding-left: 4px; border-radius: 3px; background: #000; margin: 4px;`,
             },
           },
           `ENTER ↵`
@@ -42,7 +42,7 @@ export function startScreen(): StartScreenView {
         span(
           {
             attrs: {
-              style: `padding-right: 4px; padding-left: 4px; border-radius: 3px; color: #fff; background-color: #000; margin: 4px;`,
+              style: `padding-right: 4px; padding-left: 4px; border-radius: 3px; background: #000; margin: 4px;`,
             },
           },
           `ESC`
@@ -53,7 +53,7 @@ export function startScreen(): StartScreenView {
         span(
           {
             attrs: {
-              style: `padding-right: 4px; padding-left: 4px; border-radius: 3px; color: #fff; background-color: #000; margin-right: 4px;`,
+              style: `padding-right: 4px; padding-left: 4px; border-radius: 3px; background: #000; margin-right: 4px;`,
             },
           },
           `⬆`
@@ -61,7 +61,7 @@ export function startScreen(): StartScreenView {
         span(
           {
             attrs: {
-              style: `padding-right: 4px; padding-left: 4px; border-radius: 3px; color: #fff; background-color: #000; margin-right: 4px;`,
+              style: `padding-right: 4px; padding-left: 4px; border-radius: 3px; background: #000; margin-right: 4px;`,
             },
           },
           `➡`
@@ -69,7 +69,7 @@ export function startScreen(): StartScreenView {
         span(
           {
             attrs: {
-              style: `padding-right: 4px; padding-left: 4px; border-radius: 3px; color: #fff; background-color: #000; margin-right: 4px;`,
+              style: `padding-right: 4px; padding-left: 4px; border-radius: 3px; background: #000; margin-right: 4px;`,
             },
           },
           `⬇`
@@ -77,7 +77,7 @@ export function startScreen(): StartScreenView {
         span(
           {
             attrs: {
-              style: `padding-right: 4px; padding-left: 4px; border-radius: 3px; color: #fff; background-color: #000; margin-right: 4px;`,
+              style: `padding-right: 4px; padding-left: 4px; border-radius: 3px; background: #000; margin-right: 4px;`,
             },
           },
           `⬅`

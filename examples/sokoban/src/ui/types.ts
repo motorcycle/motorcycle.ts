@@ -14,8 +14,6 @@ export type MazeSize = {
   width: NonnegativeInteger
 }
 
-export type Time = string
-
 export type ChangeLevel = (a: Level) => Level
 
 export type LevelCompletion = {
