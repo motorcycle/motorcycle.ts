@@ -6,9 +6,9 @@
   version "0.37.0"
   resolved "https://registry.yarnpkg.com/167/-/167-0.37.0.tgz#8cbe1589b2e9fa363eb7d128b3e46572c44a849b"
 
-"167@0.38.0":
-  version "0.38.0"
-  resolved "https://registry.yarnpkg.com/167/-/167-0.38.0.tgz#87c60dad6df6e4560a0a058db558c9c89c45c01a"
+"167@0.39.0":
+  version "0.39.0"
+  resolved "https://registry.yarnpkg.com/167/-/167-0.39.0.tgz#79638b8019aa92cf500eb43f6ed04eef65f8d987"
 
 "@most/core@0.11.4":
   version "0.11.4"
@@ -60,13 +60,17 @@
     "@most/prelude" "^1.6.3"
     "@most/types" "^0.11.0"
 
-"@most/types@0.11.0", "@most/types@^0.11.0":
+"@most/types@0.11.0":
   version "0.11.0"
   resolved "https://registry.yarnpkg.com/@most/types/-/types-0.11.0.tgz#39ca6c156163a65ba754ca8c7ebdb309d21197c6"
 
 "@most/types@^0.10.0":
   version "0.10.0"
   resolved "https://registry.yarnpkg.com/@most/types/-/types-0.10.0.tgz#5a60b581915349b210a13fed1563e9d06cba287f"
+
+"@most/types@^0.11.0":
+  version "0.11.1"
+  resolved "https://registry.yarnpkg.com/@most/types/-/types-0.11.1.tgz#5e305e0e346c5b01f1ebdeec4c1dfa5b189b5f9d"
 
 "@motorcycle/dom@15.1.0":
   version "15.1.0"
