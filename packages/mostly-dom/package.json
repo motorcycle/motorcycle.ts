@@ -30,7 +30,7 @@
   },
   "homepage": "https://github.com/motorcyclets/motorcycle#readme",
   "dependencies": {
-    "167": "0.37.0",
+    "167": "0.39.0",
     "@motorcycle/dom": "15.1.0",
     "@motorcycle/stream": "1.7.0",
     "@motorcycle/types": "1.6.0",
