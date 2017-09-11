@@ -1,4 +1,4 @@
-# @motorcycle/stream -- 1.7.0
+# @motorcycle/stream -- 2.0.0
 
 Functional and reactive event streams for Motorcycle.ts
 
@@ -772,7 +772,7 @@ class Hold<A> extends MulticastSource<A> implements Stream<A> {
   }
 
   public add(sink: Sink<A>) {
-    if (this.has) sink.event(this.scheduler.now(), this.value)
+    if (this.has) sink.event(this.scheduler.currentTime(), this.value)
 
     return super.add(sink)
   }
@@ -1944,8 +1944,21 @@ observe(console.log, s) // 3
 
 ```typescript
 
-export function switchMap<A, B = A>(f: (a: A) => Stream<B>, s: Stream<A>): Stream<B> {
+export const switchMap: SwitchMapArity2 = curry2(function switchMap<A, B = A>(
+  f: (a: A) => Stream<B>,
+  s: Stream<A>
+): Stream<B> {
   return switchLatest(map(f, s))
+})
+
+export interface SwitchMapArity2 {
+  <A, B = A>(f: (a: A) => Stream<B>, s: Stream<A>): Stream<B>
+
+  <A, B = A>(f: (a: A) => Stream<B>): SwitchMapArity1<A, B>
+}
+
+export interface SwitchMapArity1<A, B = A> {
+  (s: Stream<A>): Stream<B>
 }
 
 ```

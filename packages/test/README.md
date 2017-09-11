@@ -1,4 +1,4 @@
-# @motorcycle/test -- 1.6.0
+# @motorcycle/test -- 2.0.0
 
 Testing functions for Motorcycle.ts
 
@@ -114,7 +114,9 @@ export class VirtualTimer implements Timer {
 
     return new Promise<void>((resolve, reject) => {
       this.timer = setTimeout(() => {
-        this.step().then(() => resolve()).catch(reject)
+        this.step()
+          .then(() => resolve())
+          .catch(reject)
       }, 0)
     })
   }
@@ -137,7 +139,13 @@ export class VirtualTimer implements Timer {
 
       if (typeof task === 'function') task()
 
-      this.timer = setTimeout(() => this.step().then(() => resolve()).catch(reject), 0)
+      this.timer = setTimeout(
+        () =>
+          this.step()
+            .then(() => resolve())
+            .catch(reject),
+        0
+      )
     })
   }
 }
@@ -324,7 +332,7 @@ export function run<
   const { disposable, tick } = replicateSinks(sinks, sinkProxies)
 
   function dispose() {
-    endSignal.event(scheduler.now(), void 0)
+    endSignal.event(scheduler.currentTime(), void 0)
     disposable.dispose()
     disposeSources(sources)
   }
