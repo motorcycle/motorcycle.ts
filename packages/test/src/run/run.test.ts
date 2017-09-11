@@ -53,7 +53,10 @@ export const test: Test = describe(`run`, [
       function UI(sources: Sources): Sinks {
         const { foo } = sources
 
-        collectEvents(take(3, foo)).then(equal([0, 1, 2])).then(() => done()).catch(done)
+        collectEvents(take(3, foo))
+          .then(equal([0, 1, 2]))
+          .then(() => done())
+          .catch(done)
 
         const bar = scan(x => x + 5, 0, skip(1, periodic(10)))
 

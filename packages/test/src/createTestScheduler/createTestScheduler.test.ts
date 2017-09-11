@@ -2,6 +2,7 @@ import { Test, describe, it } from '@typed/test'
 
 import { Sink } from '@motorcycle/types'
 import { createTestScheduler } from './createTestScheduler'
+import { delay } from '@most/scheduler'
 import { propagateEventTask } from '@most/core'
 
 export const test: Test = describe(`createTestScheduler`, [
@@ -9,20 +10,20 @@ export const test: Test = describe(`createTestScheduler`, [
     it(`returns time starting from 0`, ({ equal }) => {
       const { scheduler } = createTestScheduler()
 
-      equal(0, scheduler.now())
+      equal(0, scheduler.currentTime())
     }),
 
     describe(`tick`, [
       it(`increases time after running tasks`, ({ equal }, done) => {
         const { tick, scheduler } = createTestScheduler()
-        const delay = 100
+        const delayTime = 100
         const expectedValue = 500
 
         const sink: Sink<number> = {
           event(time, value) {
-            equal(delay, time)
+            equal(delayTime, time)
             equal(expectedValue, value)
-            equal(delay, scheduler.now())
+            equal(delayTime, scheduler.currentTime())
             done()
           },
           error(_, err) {
@@ -31,9 +32,9 @@ export const test: Test = describe(`createTestScheduler`, [
           end() {},
         }
 
-        scheduler.delay(delay, propagateEventTask(expectedValue, sink))
+        delay(delayTime, propagateEventTask(expectedValue, sink), scheduler)
 
-        tick(delay)
+        tick(delayTime)
       }),
     ]),
   ]),

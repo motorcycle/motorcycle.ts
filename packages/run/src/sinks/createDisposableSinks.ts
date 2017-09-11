@@ -5,14 +5,14 @@ export function createDisposableSinks<Sinks extends Readonly<Record<string, Stre
   sinks: Sinks,
   endSignal: Stream<any>
 ): Sinks {
-  return Object.keys(sinks).reduce<Sinks>(function createDisposableSink(
-    disposableSinks: Sinks,
-    sinkName: keyof Sinks
-  ): Sinks {
-    const disposableSink = until(endSignal, sinks[sinkName])
+  return Object.keys(sinks).reduce<Sinks>(
+    function createDisposableSink(disposableSinks: Sinks, sinkName: keyof Sinks): Sinks {
+      const disposableSink = until(endSignal, sinks[sinkName])
 
-    disposableSinks[sinkName] = disposableSink
+      disposableSinks[sinkName] = disposableSink
 
-    return disposableSinks
-  }, {} as Sinks)
+      return disposableSinks
+    },
+    {} as Sinks
+  )
 }
