@@ -16,7 +16,7 @@ export class EventStream<Ev extends Event> implements Stream<Ev> {
   public run(sink: Sink<Ev>, scheduler: Scheduler): Disposable {
     const { eventType, element, options: { capture } } = this
 
-    const listener = (event: Ev) => sink.event(scheduler.now(), event)
+    const listener = (event: Ev) => sink.event(scheduler.currentTime(), event)
 
     const dispose = () => element.removeEventListener(eventType, listener, capture)
 
