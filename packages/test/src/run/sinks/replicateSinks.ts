@@ -17,7 +17,7 @@ export function replicateSinks<Sinks extends Readonly<Record<string, Stream<any>
   }
 
   function disposeSinkProxy(name: keyof Sinks) {
-    sinkProxies[name].end(scheduler.now())
+    sinkProxies[name].end(scheduler.currentTime())
   }
 
   const disposables = sinkNames.map(replicateSink)
