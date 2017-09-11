@@ -1,6 +1,6 @@
 {
   "name": "@motorcycle/test",
-  "version": "1.6.0",
+  "version": "2.0.0",
   "description": "Testing functions for Motorcycle.ts",
   "main": "lib/index.js",
   "module": "lib.es2015/index.js",
@@ -35,8 +35,8 @@
   "homepage": "https://github.com/motorcyclets/motorcycle#readme",
   "dependencies": {
     "@most/scheduler": "0.13.0",
-    "@motorcycle/stream": "1.7.0",
-    "@motorcycle/types": "1.6.0"
+    "@motorcycle/stream": "2.0.0",
+    "@motorcycle/types": "2.0.0"
   },
   "devDependencies": {
     "@most/core": "0.13.0"
