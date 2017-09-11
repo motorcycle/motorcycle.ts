@@ -22,15 +22,15 @@
   },
   "homepage": "https://github.com/motorcyclets/motorcycle#readme",
   "dependencies": {
-    "@motorcycle/dom": "15.0.0",
-    "@motorcycle/mostly-dom": "3.1.0",
-    "@motorcycle/run": "3.5.0",
-    "@motorcycle/stream": "1.6.0"
+    "@motorcycle/dom": "16.0.0",
+    "@motorcycle/mostly-dom": "4.0.0",
+    "@motorcycle/run": "4.0.0",
+    "@motorcycle/stream": "2.0.0"
   },
   "devDependencies": {
-    "@types/node": "8.0.25",
-    "ts-loader": "2.3.4",
-    "webpack": "3.5.5",
+    "@types/node": "8.0.28",
+    "ts-loader": "2.3.7",
+    "webpack": "3.5.6",
     "webpack-dev-server": "2.7.1"
   }
 }
