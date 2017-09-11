@@ -135,7 +135,10 @@ export const methodsTest: Test = describe(`EventDelegationDomSource methods`, [
         const event$ = sut.events(eventType)
         const event = new Event(eventType)
 
-        collectEventsFor(1, event$).then(equal([event, event])).then(() => done()).catch(done)
+        collectEventsFor(1, event$)
+          .then(equal([event, event]))
+          .then(() => done())
+          .catch(done)
 
         setTimeout(() => {
           rootEl.dispatchEvent(event)
@@ -221,7 +224,9 @@ export const methodsTest: Test = describe(`EventDelegationDomSource methods`, [
 
         const event$ = sut.events('click')
 
-        observe(event => equal('click', event.type), take(1, event$)).then(() => done()).catch(done)
+        observe(event => equal('click', event.type), take(1, event$))
+          .then(() => done())
+          .catch(done)
 
         setTimeout(() => {
           child.dispatchEvent(new Event('click', { bubbles: true }))
@@ -243,7 +248,10 @@ export const methodsTest: Test = describe(`EventDelegationDomSource methods`, [
         const event$ = sut.events(eventType, { capture: true })
         const event = new Event(eventType)
 
-        collectEventsFor(1, event$).then(pipe(length, equal(3))).then(() => done()).catch(done)
+        collectEventsFor(1, event$)
+          .then(pipe(length, equal(3)))
+          .then(() => done())
+          .catch(done)
 
         setTimeout(() => {
           rootEl.dispatchEvent(event)

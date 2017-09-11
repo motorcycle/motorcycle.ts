@@ -66,7 +66,9 @@ export class VirtualTimer implements Timer {
 
     return new Promise<void>((resolve, reject) => {
       this.timer = setTimeout(() => {
-        this.step().then(() => resolve()).catch(reject)
+        this.step()
+          .then(() => resolve())
+          .catch(reject)
       }, 0)
     })
   }
@@ -89,7 +91,13 @@ export class VirtualTimer implements Timer {
 
       if (typeof task === 'function') task()
 
-      this.timer = setTimeout(() => this.step().then(() => resolve()).catch(reject), 0)
+      this.timer = setTimeout(
+        () =>
+          this.step()
+            .then(() => resolve())
+            .catch(reject),
+        0
+      )
     })
   }
 }
