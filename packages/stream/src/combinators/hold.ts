@@ -54,7 +54,7 @@ class Hold<A> extends MulticastSource<A> implements Stream<A> {
   }
 
   public add(sink: Sink<A>) {
-    if (this.has) sink.event(this.scheduler.now(), this.value)
+    if (this.has) sink.event(this.scheduler.currentTime(), this.value)
 
     return super.add(sink)
   }
