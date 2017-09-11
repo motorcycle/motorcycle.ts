@@ -2,53 +2,57 @@
 # yarn lockfile v1
 
 
-"167@0.36.0":
-  version "0.36.0"
-  resolved "https://registry.yarnpkg.com/167/-/167-0.36.0.tgz#040850b3b60fda4fe1b6305676bd42dc0ffe3dae"
+"167@0.37.0":
+  version "0.37.0"
+  resolved "https://registry.yarnpkg.com/167/-/167-0.37.0.tgz#8cbe1589b2e9fa363eb7d128b3e46572c44a849b"
 
-"@most/core@0.11.2":
-  version "0.11.2"
-  resolved "https://registry.yarnpkg.com/@most/core/-/core-0.11.2.tgz#6e3615fb4fc5a6a32cd35acb10a513a0e56df150"
+"@most/core@0.12.1":
+  version "0.12.1"
+  resolved "https://registry.yarnpkg.com/@most/core/-/core-0.12.1.tgz#1895b9b02566b2fe2213997a397af03802d3f78c"
   dependencies:
-    "@most/disposable" "^0.11.0"
-    "@most/prelude" "^1.6.2"
-    "@most/scheduler" "^0.11.0"
-    "@most/types" "^0.10.0"
+    "@most/disposable" "^0.12.0"
+    "@most/prelude" "^1.6.3"
+    "@most/scheduler" "^0.12.0"
+    "@most/types" "^0.11.0"
 
-"@most/disposable@0.11.0", "@most/disposable@^0.11.0":
+"@most/disposable@0.12.0", "@most/disposable@^0.12.0":
+  version "0.12.0"
+  resolved "https://registry.yarnpkg.com/@most/disposable/-/disposable-0.12.0.tgz#aaf3fe59eef9b951b43265abbbaac25548b64ccf"
+  dependencies:
+    "@most/prelude" "^1.6.3"
+    "@most/types" "^0.11.0"
+
+"@most/prelude@^1.6.3":
+  version "1.6.4"
+  resolved "https://registry.yarnpkg.com/@most/prelude/-/prelude-1.6.4.tgz#254ab6e22c0d4e7cb19e6ec1c966b75f57317f25"
+
+"@most/scheduler@0.12.0", "@most/scheduler@^0.12.0":
+  version "0.12.0"
+  resolved "https://registry.yarnpkg.com/@most/scheduler/-/scheduler-0.12.0.tgz#149b1e40194379a96dc4f10f321010c463feeac8"
+  dependencies:
+    "@most/prelude" "^1.6.3"
+    "@most/types" "^0.11.0"
+
+"@most/types@0.11.0":
   version "0.11.0"
-  resolved "https://registry.yarnpkg.com/@most/disposable/-/disposable-0.11.0.tgz#ad9d0d160d932a6881785f363083a44d8400cef5"
+  resolved "https://registry.yarnpkg.com/@most/types/-/types-0.11.0.tgz#39ca6c156163a65ba754ca8c7ebdb309d21197c6"
+
+"@most/types@^0.11.0":
+  version "0.11.1"
+  resolved "https://registry.yarnpkg.com/@most/types/-/types-0.11.1.tgz#5e305e0e346c5b01f1ebdeec4c1dfa5b189b5f9d"
+
+"@motorcycle/stream@1.7.0":
+  version "1.7.0"
+  resolved "https://registry.yarnpkg.com/@motorcycle/stream/-/stream-1.7.0.tgz#0dddf150e7bb89d6542de1391c6abf4568225f93"
   dependencies:
-    "@most/prelude" "^1.6.2"
-    "@most/types" "^0.10.0"
+    "167" "0.37.0"
+    "@most/core" "0.12.1"
+    "@most/disposable" "0.12.0"
+    "@most/scheduler" "0.12.0"
+    "@motorcycle/types" "1.6.0"
 
-"@most/prelude@^1.6.2":
-  version "1.6.2"
-  resolved "https://registry.yarnpkg.com/@most/prelude/-/prelude-1.6.2.tgz#e022db0a3522ea45a427f739570b99f6a6b49162"
-
-"@most/scheduler@0.11.0", "@most/scheduler@^0.11.0":
-  version "0.11.0"
-  resolved "https://registry.yarnpkg.com/@most/scheduler/-/scheduler-0.11.0.tgz#0f67a0f097c9358e4308931e206c03a30f87faf4"
+"@motorcycle/types@1.6.0":
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/@motorcycle/types/-/types-1.6.0.tgz#d8f43631cc67529a65411a42f156c087a8d95f95"
   dependencies:
-    "@most/prelude" "^1.6.2"
-    "@most/types" "^0.10.0"
-
-"@most/types@^0.10.0":
-  version "0.10.0"
-  resolved "https://registry.yarnpkg.com/@most/types/-/types-0.10.0.tgz#5a60b581915349b210a13fed1563e9d06cba287f"
-
-"@motorcycle/stream@1.3.0":
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/@motorcycle/stream/-/stream-1.3.0.tgz#8ac30b3f411901448011f8353b6b844163e50cc5"
-  dependencies:
-    "167" "0.36.0"
-    "@most/core" "0.11.2"
-    "@most/disposable" "0.11.0"
-    "@most/scheduler" "0.11.0"
-    "@motorcycle/types" "1.3.0"
-
-"@motorcycle/types@1.3.0":
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/@motorcycle/types/-/types-1.3.0.tgz#3a895f6dd601171ea3310211328b8045badae22b"
-  dependencies:
-    "@most/types" "^0.10.0"
+    "@most/types" "0.11.0"
