@@ -53,7 +53,7 @@ export function run<
   const disposable = replicateSinks(sinks, sinkProxies)
 
   function dispose() {
-    endSignal.event(scheduler.now(), void 0)
+    endSignal.event(scheduler.currentTime(), void 0)
     disposable.dispose()
     disposeSources(sources)
   }
