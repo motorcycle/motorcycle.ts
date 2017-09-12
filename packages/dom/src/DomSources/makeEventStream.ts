@@ -2,7 +2,7 @@ import { CssSelector, StandardEvents } from '../'
 import { either, equals, length, not } from '167'
 import { filter, map } from '@motorcycle/stream'
 
-import { EventStream } from './EventStream'
+import { EventStream } from '../common'
 import { Stream } from '@motorcycle/types'
 
 export function makeEventStream<Ev extends Event = Event>(
