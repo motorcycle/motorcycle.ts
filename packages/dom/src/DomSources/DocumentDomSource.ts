@@ -1,7 +1,7 @@
 import { CssSelector, DomSource, StandardEvents } from '../'
 import { map, multicast, switchLatest } from '@motorcycle/stream'
 
-import { EventStream } from './EventStream'
+import { EventStream } from '../common'
 import { Stream } from '@motorcycle/types'
 
 const DOCUMENT_CSS_SELECTORS: ReadonlyArray<CssSelector> = []

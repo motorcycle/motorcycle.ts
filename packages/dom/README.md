@@ -176,6 +176,59 @@ query<C extends A = A>(cssSelector: CssSelector): DomSource<C, B>
 <hr />
 
 
+#### HistoryEffect
+
+<p>
+
+
+
+</p>
+
+
+```typescript
+
+export type HistoryEffect = (history: History) => void
+
+```
+
+
+#### HistorySinks
+
+<p>
+
+
+
+</p>
+
+
+```typescript
+
+export type HistorySinks = {
+  readonly history$: Stream<HistoryEffect>
+}
+
+```
+
+
+#### HistorySources
+
+<p>
+
+
+
+</p>
+
+
+```typescript
+
+export type HistorySources<State = any> = {
+  readonly location$: Stream<Readonly<Location>>
+  readonly state$: Stream<State>
+}
+
+```
+
+
 #### StandardEvents
 
 <p>
@@ -685,6 +738,81 @@ export const vrDisplayConnectedEvent = events<Element, Event>('vrdisplayconnecte
 export const vrDisplayDisconnectedEvent = events<Element, Event>('vrdisplaydisconnected')
 export const waitingEvent = events<Element, Event>('waiting')
 export const wheelEvent = events<Element, WheelEvent>('wheel')
+
+```
+
+</details>
+
+<hr />
+
+
+#### makeHistoryComponent\<State = any\>(location: Location, history: History): EffectfulComponent\<HistorySinks, HistorySources\<State\>\>
+
+<p>
+
+Given implementations of the `Location` and `History` interfaces, it returns
+an EffectfulComponent function which facilitates performing side-effects with 
+the history API.
+
+</p>
+
+
+<details>
+  <summary>See an example</summary>
+  
+```typescript
+import { run } from '@motorcycle/run'
+import { makeDomComponent, makeHistoryComponent } from '@motorcycle/dom'
+import { UI } from './ui'
+
+const rootElementSelector = '#app'
+const element = document.querySelector(rootElementSelector)
+
+if (!element) throw new Error(`Unable to find element by '${rootElementSelector}'`)
+
+const Dom = makeDomComponent(element)
+const History = makeHistoryComponent(location, history)
+
+function Effects(sinks) {
+  return {
+    ...Dom(sinks),
+    ...History(sinks),
+  }
+}
+
+run(UI, Effects)
+```
+
+</details>
+
+<details>
+  <summary>See the code</summary>
+
+```typescript
+
+export function makeHistoryComponent<State = any>(
+  location: Location,
+  history: History
+): EffectfulComponent<HistorySinks, HistorySources<State>> {
+  const popState$: Stream<PopStateEvent> =
+    typeof window === void 0 ? empty() : new EventStream('popstate', window, {})
+
+  return function History(sinks: HistorySinks): HistorySources {
+    const { history$ } = sinks
+
+    const performHistoryEffect$ = multicast(tap(historyEffect => historyEffect(history), history$))
+    const updateSignal$ = multicast(merge<any>(performHistoryEffect$, popState$))
+
+    const location$ = hold(startWith(location, constant(location, updateSignal$)))
+    const state$ = hold(
+      map(({ state }) => state, startWith(history, constant(history, updateSignal$)))
+    )
+
+    drain(performHistoryEffect$)
+
+    return { location$, state$ }
+  }
+}
 
 ```
 
