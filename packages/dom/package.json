@@ -1,6 +1,6 @@
 {
   "name": "@motorcycle/dom",
-  "version": "16.0.0",
+  "version": "16.1.0",
   "description": "Declarative, functional, reactive abstractions for the DOM",
   "main": "lib/index.js",
   "module": "lib.es2015/index.js",
@@ -37,10 +37,10 @@
   "homepage": "https://github.com/motorcyclets/motorcycle#readme",
   "dependencies": {
     "167": "0.39.0",
-    "@motorcycle/stream": "2.0.0",
-    "@motorcycle/types": "2.0.0"
+    "@motorcycle/stream": "2.1.0",
+    "@motorcycle/types": "2.1.0"
   },
   "devDependencies": {
-    "@motorcycle/test": "2.0.0"
+    "@motorcycle/test": "2.1.0"
   }
 }
