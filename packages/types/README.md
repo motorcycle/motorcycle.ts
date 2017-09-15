@@ -1,4 +1,4 @@
-# @motorcycle/types -- 2.0.0
+# @motorcycle/types -- 2.1.0
 
 A shared-kernel of types for Motorcycle
 
