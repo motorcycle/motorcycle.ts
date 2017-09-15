@@ -38,7 +38,6 @@
     "@motorcycle/mostly-dom": "4.1.0",
     "@motorcycle/stream": "2.1.0",
     "@motorcycle/types": "2.1.0",
-    "mostly-dom": "4.3.0",
     "mostly-html": "2.0.0"
   },
   "devDependencies": {
