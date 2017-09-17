@@ -18,7 +18,9 @@ import { tap } from '@motorcycle/stream'
  * However, isolated components are not isolated from access by an ancestor DOM
  * element.
  *
- * @name isolate<Sources extends { readonly dom: DomSource }, Sinks extends { readonly view$: Stream<VNode> }>(component: Component<Sources, Sinks>, key: string): Component<Sources, Sinks>
+ * Note that `isolate` is curried.
+ *
+ * @name isolate<Sources extends DomSources, Sinks extends DomSinks>(component: Component<Sources, Sinks>, key: string): Component<Sources, Sinks>
  *
  * @example
  * const MyIsolatedComponent = isolate(MyComponent, `myIsolationKey`)
