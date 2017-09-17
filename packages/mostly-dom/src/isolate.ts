@@ -1,8 +1,8 @@
 import { Component, Stream } from '@motorcycle/types'
 import { DomSinks, DomSources } from './'
+import { curry2, join } from '167'
 
 import { VNode } from 'mostly-dom'
-import { join } from '167'
 import { tap } from '@motorcycle/stream'
 
 /**
@@ -24,10 +24,10 @@ import { tap } from '@motorcycle/stream'
  * const MyIsolatedComponent = isolate(MyComponent, `myIsolationKey`)
  * const sinks = MyIsolatedComponent(sources)
  */
-export function isolate<Sources extends DomSources, Sinks extends DomSinks>(
-  component: Component<Sources, Sinks>,
-  key: string
-): Component<Sources, Sinks> {
+export const isolate: IsolatedComponent = curry2(function isolate<
+  Sources extends DomSources,
+  Sinks extends DomSinks
+>(component: Component<Sources, Sinks>, key: string): Component<Sources, Sinks> {
   return function isolatedComponent(sources: Sources) {
     const { dom } = sources
     const isolatedDom = dom.query(`.${KEY_PREFIX}${key}`)
@@ -36,7 +36,7 @@ export function isolate<Sources extends DomSources, Sinks extends DomSinks>(
 
     return isolatedSinks
   }
-}
+})
 
 const KEY_PREFIX = `__isolation__`
 
@@ -62,3 +62,17 @@ function removeSuperfluousSpaces(str: string): string {
 }
 
 const RE_TWO_OR_MORE_SPACES = /\s{2,}/g
+
+export interface IsolatedComponent {
+  <Sources extends DomSources, Sinks extends DomSinks>(
+    component: Component<Sources, Sinks>,
+    key: string
+  ): Component<Sources, Sinks>
+  <Sources extends DomSources, Sinks extends DomSinks>(
+    component: Component<Sources, Sinks>
+  ): IsolatedComponentArity1
+}
+
+export interface IsolatedComponentArity1 {
+  <Sources extends DomSources, Sinks extends DomSinks>(key: string): Component<Sources, Sinks>
+}
