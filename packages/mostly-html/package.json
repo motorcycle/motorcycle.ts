@@ -1,0 +1,46 @@
+{
+  "name": "@motorcycle/mostly-html",
+  "version": "0.0.0",
+  "description": "Server-side rendering for Motorcycle.ts",
+  "main": "lib/index.js",
+  "module": "lib.es2015/index.js",
+  "jsnext:main": "lib.es2015/index.js",
+  "typings": "lib/index.d.ts",
+  "types": "lib/index.d.ts",
+  "scripts": {
+    "build": "cd ../../ && node ./tools/build.js --only mostly-html",
+    "test": "yarn test:lint && yarn test:unit",
+    "test:unit": "../../node_modules/.bin/typed-test 'src/*.test.ts' 'src/**/*.test.ts'",
+    "test:lint": "../../node_modules/.bin/prettier --write --print-width 100 --tab-width 2 --no-semi --single-quote --trailing-comma es5 --parser typescript src/**/*.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/motorcyclets/motorcyclets.git"
+  },
+  "keywords": [
+    "motorcycle",
+    "html",
+    "node",
+    "server",
+    "ssr",
+    "mostly-dom",
+    "virtual-dom",
+    "rendering"
+  ],
+  "author": "Tylor Steinberger <tlsteinberger167@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/motorcyclets/motorcyclets/issues"
+  },
+  "homepage": "https://github.com/motorcyclets/motorcyclets#readme",
+  "dependencies": {
+    "@motorcycle/dom": "16.1.0",
+    "@motorcycle/mostly-dom": "4.1.0",
+    "@motorcycle/stream": "2.1.0",
+    "@motorcycle/types": "2.1.0",
+    "mostly-html": "2.0.0"
+  },
+  "devDependencies": {
+    "@motorcycle/test": "2.1.0"
+  }
+}
