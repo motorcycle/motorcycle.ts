@@ -1,6 +1,6 @@
 import { Component, Stream } from '@motorcycle/types'
 import { DomSinks, DomSources } from './'
-import { curry2, join } from '167'
+import { curry3, join } from '167'
 
 import { VNode } from 'mostly-dom'
 import { tap } from '@motorcycle/stream'
@@ -26,18 +26,16 @@ import { tap } from '@motorcycle/stream'
  * const MyIsolatedComponent = isolate(MyComponent, `myIsolationKey`)
  * const sinks = MyIsolatedComponent(sources)
  */
-export const isolate: IsolatedComponent = curry2(function isolate<
+export const isolate: IsolatedComponent = curry3(function isolate<
   Sources extends DomSources,
   Sinks extends DomSinks
->(component: Component<Sources, Sinks>, key: string): Component<Sources, Sinks> {
-  return function isolatedComponent(sources: Sources) {
-    const { dom } = sources
-    const isolatedDom = dom.query(`.${KEY_PREFIX}${key}`)
-    const sinks = component(Object.assign({}, sources, { dom: isolatedDom }))
-    const isolatedSinks = Object.assign({}, sinks, { view$: isolateView(sinks.view$, key) })
+>(component: Component<Sources, Sinks>, key: string, sources: Sources): Sinks {
+  const { dom } = sources
+  const isolatedDom = dom.query(`.${KEY_PREFIX}${key}`)
+  const sinks = component(Object.assign({}, sources, { dom: isolatedDom }))
+  const isolatedSinks = Object.assign({}, sinks, { view$: isolateView(sinks.view$, key) })
 
-    return isolatedSinks
-  }
+  return isolatedSinks
 })
 
 const KEY_PREFIX = `__isolation__`
@@ -68,13 +66,19 @@ const RE_TWO_OR_MORE_SPACES = /\s{2,}/g
 export interface IsolatedComponent {
   <Sources extends DomSources, Sinks extends DomSinks>(
     component: Component<Sources, Sinks>,
+    key: string,
+    sources: Sources
+  ): Sinks
+  <Sources extends DomSources, Sinks extends DomSinks>(
+    component: Component<Sources, Sinks>,
     key: string
   ): Component<Sources, Sinks>
   <Sources extends DomSources, Sinks extends DomSinks>(
     component: Component<Sources, Sinks>
-  ): IsolatedComponentArity1
+  ): IsolatedComponentArity2
 }
 
-export interface IsolatedComponentArity1 {
+export interface IsolatedComponentArity2 {
+  <Sources extends DomSources, Sinks extends DomSinks>(key: string, sources: Sources): Sinks
   <Sources extends DomSources, Sinks extends DomSinks>(key: string): Component<Sources, Sinks>
 }

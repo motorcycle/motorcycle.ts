@@ -83,4 +83,26 @@ export const test: Test = describe(`isolate`, [
       })
     }),
   ]),
+
+  given(`a component, an isolation and sources`, [
+    it(`returns sinks from the isolated component`, ({ equal }) => {
+      const component = function(sources: Readonly<Record<string, any>>) {
+        const {} = sources
+
+        return {
+          view$: now(div({ className: `bar` })),
+        }
+      }
+
+      const sources = { dom: createDomSource(empty()) }
+      const sut: DomSinks = isolate(component, `foo`, sources)
+      const { view$ } = sut
+
+      return collectEventsFor(1, view$).then(view => {
+        const { props: { className } } = view[0]
+
+        equal(`bar __isolation__foo`, className)
+      })
+    }),
+  ]),
 ])
