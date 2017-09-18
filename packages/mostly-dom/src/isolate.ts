@@ -20,11 +20,14 @@ import { tap } from '@motorcycle/stream'
  *
  * Note that `isolate` is curried.
  *
- * @name isolate<Sources extends DomSources, Sinks extends DomSinks>(component: Component<Sources, Sinks>, key: string): Component<Sources, Sinks>
+ * @name isolate<Sources extends DomSources, Sinks extends DomSinks>(component: Component<Sources, Sinks>, key: string, sources: Sources): Sinks
  *
  * @example
- * const MyIsolatedComponent = isolate(MyComponent, `myIsolationKey`)
- * const sinks = MyIsolatedComponent(sources)
+ * import { empty } from '@motorcycle/stream'
+ * import { createDomSource } from '@motorcycle/dom'
+ *
+ * const sources = createDomSource(empty())
+ * const sinks = isolate(MyComponent, `myIsolationKey`, sources)
  */
 export const isolate: IsolatedComponent = curry3(function isolate<
   Sources extends DomSources,
