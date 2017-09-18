@@ -75,10 +75,10 @@ export interface IsolatedComponent {
   ): Component<Sources, Sinks>
   <Sources extends DomSources, Sinks extends DomSinks>(
     component: Component<Sources, Sinks>
-  ): IsolatedComponentArity2
+  ): IsolatedComponentArity2<Sources, Sinks>
 }
 
-export interface IsolatedComponentArity2 {
-  <Sources extends DomSources, Sinks extends DomSinks>(key: string, sources: Sources): Sinks
-  <Sources extends DomSources, Sinks extends DomSinks>(key: string): Component<Sources, Sinks>
+export interface IsolatedComponentArity2<Sources extends DomSources, Sinks extends DomSinks> {
+  (key: string, sources: Sources): Sinks
+  (key: string): Component<Sources, Sinks>
 }
