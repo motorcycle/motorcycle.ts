@@ -1,5 +1,5 @@
 import { Test, describe, given, it } from '@typed/test'
-import { chain, observe, periodic, scan, take } from '../'
+import { drain, observe, periodic, scan, scheduler, skip, take } from '../'
 
 import { Stream } from '@motorcycle/types'
 import { hold } from './hold'
@@ -7,11 +7,38 @@ import { hold } from './hold'
 export const test: Test = describe(`hold`, [
   given(`a Stream`, [
     it(`returns a Stream that delivers most recent event to new observer`, ({ equal }) => {
-      const stream = hold<number>(scan(x => x + 1, 0, periodic(5)))
+      const stream = hold<number>(scan(x => x + 1, 0, skip(1, periodic(100))))
 
-      const sut: Stream<number> = chain(() => take(3, stream), take(1, stream))
+      drain(stream)
 
-      return collectEvents(sut).then(equal([0, 1, 2]))
+      return drain(take(1, stream)).then(() => {
+        const sut: Stream<number> = take(3, stream)
+
+        return collectEvents(sut).then(equal([0, 1, 2]))
+      })
+    }),
+
+    it(`does not emit on the same tick as run`, ({ ok, notOk }) => {
+      const stream = hold(scan(x => x + 1, 0, periodic(5)))
+
+      return drain(take(1, stream)).then(() => {
+        let called = false
+
+        stream.run(
+          {
+            event() {
+              called = true
+            },
+            error() {},
+            end() {},
+          },
+          scheduler
+        )
+
+        notOk(called)
+
+        return Promise.resolve().then(() => ok(called))
+      })
     }),
   ]),
 ])
