@@ -43,16 +43,13 @@ export function hold<A>(stream: Stream<A>): Stream<A> {
 class Hold<A> extends MulticastSource<A> implements Stream<A> {
   private has: boolean
   private value: A
-  private scheduler: Scheduler
 
   constructor(stream: Stream<A>) {
     super(stream)
   }
 
   public run(sink: Sink<A>, scheduler: Scheduler) {
-    this.scheduler = scheduler
-
-    const [numberOfSinks, disposable] = this.addSink(sink)
+    const [numberOfSinks, disposable] = this.addSink(sink, scheduler)
 
     if (numberOfSinks === 1) this.disposable = this.source.run(this, scheduler)
 
@@ -61,8 +58,8 @@ class Hold<A> extends MulticastSource<A> implements Stream<A> {
     return disposeBoth(holdDisposable, disposable)
   }
 
-  public addSink(sink: Sink<A>): [number, Disposable] {
-    const { has, value, scheduler } = this
+  public addSink(sink: Sink<A>, scheduler: Scheduler): [number, Disposable] {
+    const { has, value } = this
 
     const disposable: Disposable = has
       ? asap(propagateEventTask(value, sink), scheduler)
