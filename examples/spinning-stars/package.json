@@ -1,0 +1,58 @@
+{
+  "private": true,
+  "name": "@motorcycle/spinning-stars",
+  "version": "0.0.0",
+  "description": "Spinning stars example application using canvas",
+  "scripts": {
+    "precommit": "lint-staged",
+    "start": "webpack-dev-server",
+    "test": "yarn test:lint && yarn test:unit",
+    "test:lint": "./node_modules/.bin/prettier --write --print-width 100 --tab-width 2 --no-semi --single-quote --trailing-comma es5 --parser typescript src/**/*.ts",
+    "test:unit": "./node_modules/.bin/typed-test 'src/*.test.ts' 'src/**/*.test.ts'"
+  },
+  "lint-staged": {
+    "*.ts": [
+      "prettier --write --print-width 100 --tab-width 2 --no-semi --single-quote --trailing-comma es5 --parser typescript",
+      "git add"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/motorcyclets/motorcycle.git"
+  },
+  "keywords": [
+    "motorcycle",
+    "application",
+    "stars",
+    "canvas"
+  ],
+  "author": "Frederik Krautwald <fkrautwald@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/motorcyclets/motorcycle/issues"
+  },
+  "homepage": "https://github.com/motorcyclets/motorcycle#readme",
+  "dependencies": {
+    "167": "0.39.0",
+    "@motorcycle/dom": "16.1.0",
+    "@motorcycle/mostly-dom": "4.1.0",
+    "@motorcycle/run": "4.1.0",
+    "@motorcycle/stream": "2.1.0"
+  },
+  "devDependencies": {
+    "@motorcycle/loader": "3.0.0",
+    "@types/node": "8.0.28",
+    "cache-loader": "1.0.3",
+    "fork-ts-checker-webpack-plugin": "0.2.8",
+    "happypack": "4.0.0",
+    "html-webpack-plugin": "2.30.1",
+    "husky": "0.14.3",
+    "lint-staged": "4.2.1",
+    "prettier": "1.7.0",
+    "thread-loader": "1.1.1",
+    "ts-loader": "2.3.7",
+    "typescript": "2.5.2",
+    "webpack": "3.6.0",
+    "webpack-dev-server": "2.8.2"
+  }
+}
