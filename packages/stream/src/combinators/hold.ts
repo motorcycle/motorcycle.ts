@@ -1,6 +1,8 @@
-import { Scheduler, Sink, Stream, Time } from '@motorcycle/types'
+import { Disposable, Scheduler, Sink, Stream, Time } from '@motorcycle/types'
+import { MulticastSource, propagateEventTask } from '@most/core'
+import { disposeBoth, disposeNone, disposeOnce } from '@most/disposable'
 
-import { MulticastSource } from '@most/core'
+import { asap } from '@most/scheduler'
 
 /**
  * Deliver the most recently seen event to each new observer the instant it
@@ -41,22 +43,31 @@ export function hold<A>(stream: Stream<A>): Stream<A> {
 class Hold<A> extends MulticastSource<A> implements Stream<A> {
   private has: boolean
   private value: A
-  private scheduler: Scheduler
 
   constructor(stream: Stream<A>) {
     super(stream)
   }
 
   public run(sink: Sink<A>, scheduler: Scheduler) {
-    this.scheduler = scheduler
+    const [numberOfSinks, disposable] = this.addSink(sink, scheduler)
 
-    return super.run(sink, scheduler)
+    if (numberOfSinks === 1) this.disposable = this.source.run(this, scheduler)
+
+    const holdDisposable = disposeOnce(new HoldDisposable<A>(this, sink))
+
+    return disposeBoth(holdDisposable, disposable)
   }
 
-  public add(sink: Sink<A>) {
-    if (this.has) sink.event(this.scheduler.currentTime(), this.value)
+  public addSink(sink: Sink<A>, scheduler: Scheduler): [number, Disposable] {
+    const { has, value } = this
 
-    return super.add(sink)
+    const disposable: Disposable = has
+      ? asap(propagateEventTask(value, sink), scheduler)
+      : disposeNone()
+
+    const numberOfSinks = super.add(sink)
+
+    return [numberOfSinks, disposable]
   }
 
   public event(time: Time, value: A) {
@@ -64,5 +75,13 @@ class Hold<A> extends MulticastSource<A> implements Stream<A> {
     this.value = value
 
     return super.event(time, value)
+  }
+}
+
+class HoldDisposable<A> implements Disposable {
+  constructor(private source: Hold<A>, private sink: Sink<A>) {}
+
+  public dispose(): void {
+    if (this.source.remove(this.sink) === 0) this.source.dispose()
   }
 }
