@@ -1,0 +1,31 @@
+{
+  "private": true,
+  "name": "@motorcycle/friends-list",
+  "description": "Example Motorcycle.ts application",
+  "repository": "https://github.com/motorcyclets/motorcycle",
+  "version": "1.0.0",
+  "author": "Motorcycle",
+  "license": "MIT",
+  "devDependencies": {
+    "@motorcycle/loader": "1.2.0",
+    "@motorcycle/test": "1.6.0",
+    "css-loader": "0.28.7",
+    "html-webpack-plugin": "2.30.1",
+    "ts-loader": "2.3.4",
+    "typescript": "2.4.2",
+    "webpack": "3.5.5",
+    "webpack-dev-server": "2.7.1"
+  },
+  "dependencies": {
+    "@motorcycle/dom": "15.1.0",
+    "@motorcycle/mostly-dom": "3.2.0",
+    "@motorcycle/run": "3.6.0",
+    "@motorcycle/stream": "1.7.0",
+    "@motorcycle/types": "1.6.0",
+    "typestyle": "1.3.8"
+  },
+  "scripts": {
+    "build": "webpack -p",
+    "start": "webpack-dev-server"
+  }
+}
