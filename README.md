@@ -27,6 +27,7 @@
 
 ## Examples
 
-- [Counter](./examples/counter)
-- [Traffic Light](./examples/traffic-light)
-- [Sokoban](./axamples/sokoban) -- A type of transport puzzle, in which the player pushes boxes or crates around in a warehouse, trying to get them to storage locations.
+- [Counter](./examples/counter) -- A simple counter example.
+- [Traffic Light](./examples/traffic-light) -- A data-driven, animated traffic light example.
+- [Sokoban](./examples/sokoban) -- A type of transport puzzle, in which the player pushes boxes or crates around in a warehouse, trying to get them to storage locations.
+- [Spinning Stars](./examples/sokoban) -- A data-driven, animated spinning stars example, using canvas.
