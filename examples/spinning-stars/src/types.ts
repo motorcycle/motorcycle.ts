@@ -3,15 +3,16 @@ import { DomSinks, DomSources } from '@motorcycle/mostly-dom'
 import { List } from '@typed/prelude'
 import { Stream } from '@motorcycle/types'
 
-export type UISources = DomSources
+export type UISources = DomSources & SpinningStarsSources
 
 export type UISinks = DomSinks & SpinningStarsSinks
 
+export type SpinningStarsSources = {}
+
 export type SpinningStarsSinks = {
   canvas$: Stream<HTMLCanvasElement>
+  starsCount$: Stream<NonnegativeInteger>
 }
-
-export type SpinningStarsSources = {}
 
 export type Stars = List<Star>
 

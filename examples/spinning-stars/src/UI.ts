@@ -1,9 +1,10 @@
-import { canvas, VNode } from '@motorcycle/mostly-dom'
-
-import { now, map, hold } from '@motorcycle/stream'
-import { query, elements, DomSource } from '@motorcycle/dom'
-import { head, Just, fromJust } from '@typed/prelude'
+import { DomSource, elements, query } from '@motorcycle/dom'
+import { Just, fromJust, head } from '@typed/prelude'
 import { UISinks, UISources } from '@base/types'
+import { VNode, canvas, div } from '@motorcycle/mostly-dom'
+import { hold, map } from '@motorcycle/stream'
+
+import { Settings } from '@base/Settings'
 import { Stream } from '@motorcycle/types'
 
 const SPACE_ID = 'space'
@@ -12,17 +13,21 @@ const SPACE_WIDTH = '100%'
 const SPACE_HEIGHT = '100%'
 
 export function UI({ dom }: UISources): UISinks {
-  const view$ = now(view())
+  const { view$: settingsView$, starsCount$ } = Settings({ dom })
+  const view$ = map(view, settingsView$)
   const canvas$ = hold(canvasSink(dom))
 
-  return { view$, canvas$ }
+  return { view$, canvas$, starsCount$ }
 }
 
-function view(): VNode {
-  return canvas({
-    id: SPACE_ID,
-    attrs: { style: `height: ${SPACE_HEIGHT}; width: ${SPACE_WIDTH}` },
-  })
+function view(settings: VNode): VNode {
+  return div({ attrs: { style: `height: 100%; overflow: hidden` } }, [
+    canvas({
+      id: SPACE_ID,
+      attrs: { style: `height: ${SPACE_HEIGHT}; width: ${SPACE_WIDTH}` },
+    }),
+    settings,
+  ])
 }
 
 function canvasSink(dom: DomSource<Element, Event>): Stream<HTMLCanvasElement> {

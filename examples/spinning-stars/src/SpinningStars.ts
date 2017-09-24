@@ -22,26 +22,28 @@ import {
 } from '@typed/prelude'
 import { combineObj, drain, map, sample, sampleWith, scan, skip, tap } from '@motorcycle/stream'
 
+import { NonnegativeInteger } from '@base/common/types'
 import { requestAnimationFrames } from 'most-request-animation-frame'
 import { temperatureToRgb } from '@base/temperatureToRgb'
 
 const CANVAS_CONTEXT = '2d'
-const PI = 3.14
+const TAU = 6.28
 const STARS_SPEED_FACTOR = 0.01
 const STARS_COUNT = 1000
-const BLUR = 10
-const GLOW = 5
-const SPACE_COLOR = `rgba(0, 0, 0, ${1 / BLUR})`
-const RADIUS = 1
+const BLUR = 2
+const GLOW = 10
+const SPACE_COLOR = `rgba(0, 0, 0, ${divide(BLUR, 1)})`
+const RADIUS = 2
 const START_ANGLE = 0
-const END_ANGLE = PI * 2
+const END_ANGLE = TAU
 
-export function SpinningStars({ canvas$ }: SpinningStarsSinks): SpinningStarsSources {
-  // Why do we need to skip the first event?
-  // skipRepeats emits two equal canvas elements, which is strange.
-  const initializedCanvas$ = tap(initCanvas, skip(1, canvas$))
+export function SpinningStars({ canvas$, starsCount$ }: SpinningStarsSinks): SpinningStarsSources {
+  // Weird undefined
+  console.log(starsCount$)
+  const initializedCanvas$ = tap(initCanvas, canvas$)
   const ctx$ = map(context2D, initializedCanvas$)
   const size$ = map(({ height, width }) => ({ height, width }), initializedCanvas$)
+  // const starsData$ = combineObj({ spaceSize: size$, count: startWith(STARS_COUNT, starsCount$) })
   const stars$ = map(({ width }) => stars(random, width), size$)
   const space$ = combineObj({ ctx: ctx$, size: size$ })
   const state$ = skip(1, scan(starsState, [], sampleWith(requestAnimationFrames(), stars$)))
@@ -61,16 +63,20 @@ function context2D(canvas: HTMLCanvasElement): CanvasRenderingContext2D {
   return canvas.getContext(CANVAS_CONTEXT) as CanvasRenderingContext2D
 }
 
-function stars(random: Random, width: number): Stars {
+const stars = function stars(
+  random: Random,
+  width: number,
+  count: NonnegativeInteger = STARS_COUNT
+): Stars {
   return dataMap(
     () => ({
-      offset: random(width / 2),
-      angle: random(PI * 2),
+      offset: random(half(width)),
+      angle: random(TAU),
       speed: random(STARS_SPEED_FACTOR),
       color: starColor(random),
       radius: random(RADIUS),
     }),
-    new Array(STARS_COUNT).fill(void 0)
+    new Array(count).fill(void 0)
   )
 }
 
