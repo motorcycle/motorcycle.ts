@@ -8,6 +8,7 @@ import {
   Star,
   Stars,
   TemperatureRange,
+  VersionedStars
 } from '@base/types'
 import { Random, random } from '@base/common/random'
 import {
@@ -15,12 +16,14 @@ import {
   curry,
   map as dataMap,
   divide,
+  equals,
   forEach,
+  increment,
   length,
   lessThanOrEqual,
-  reduce,
+  reduce
 } from '@typed/prelude'
-import { combineObj, drain, map, sample, sampleWith, scan, skip, tap } from '@motorcycle/stream'
+import { combineObj, drain, loop, map, sample, sampleWith, skip, tap } from '@motorcycle/stream'
 
 import { NonnegativeInteger } from '@base/common/types'
 import { requestAnimationFrames } from 'most-request-animation-frame'
@@ -28,26 +31,32 @@ import { temperatureToRgb } from '@base/temperatureToRgb'
 
 const CANVAS_CONTEXT = '2d'
 const TAU = 6.28
-const STARS_SPEED_FACTOR = 0.01
-const STARS_COUNT = 1000
-const BLUR = 2
 const GLOW = 10
-const SPACE_COLOR = `rgba(0, 0, 0, ${divide(BLUR, 1)})`
 const RADIUS = 2
 const START_ANGLE = 0
 const END_ANGLE = TAU
+const INITIAL_STARS_STATE = { version: 0, stars: [] }
 
-export function SpinningStars({ canvas$, starsCount$ }: SpinningStarsSinks): SpinningStarsSources {
-  // Weird undefined
-  console.log(starsCount$)
+export function SpinningStars({
+  canvas$,
+  starsCount$,
+  rotationSpeed$,
+  starsTrail$,
+}: SpinningStarsSinks): SpinningStarsSources {
   const initializedCanvas$ = tap(initCanvas, canvas$)
   const ctx$ = map(context2D, initializedCanvas$)
   const size$ = map(({ height, width }) => ({ height, width }), initializedCanvas$)
-  // const starsData$ = combineObj({ spaceSize: size$, count: startWith(STARS_COUNT, starsCount$) })
-  const stars$ = map(({ width }) => stars(random, width), size$)
-  const space$ = combineObj({ ctx: ctx$, size: size$ })
-  const state$ = skip(1, scan(starsState, [], sampleWith(requestAnimationFrames(), stars$)))
-  const draw$ = sample(drawSpaceWithStars, state$, space$)
+  const offsetMax$ = map(({ width }) => width, size$)
+  const starsConfig$ = combineObj({ offsetMax: offsetMax$, count: starsCount$, speed: rotationSpeed$ })
+  const versionedStars$ = loop((version, config) => makeStars(random, config, version), 0, starsConfig$)
+  const spaceColor$ = map(blur => `rgba(0, 0, 0, ${blur})`, starsTrail$)
+  const space$ = combineObj<Space>({ ctx: ctx$, size: size$, color: spaceColor$ })
+  const stars$ =
+    skip(
+      1,
+      loop(starsState, INITIAL_STARS_STATE, sampleWith(requestAnimationFrames(), versionedStars$))
+    )
+  const draw$ = sample(drawSpaceWithStars, stars$, space$)
 
   drain(draw$)
 
@@ -63,21 +72,37 @@ function context2D(canvas: HTMLCanvasElement): CanvasRenderingContext2D {
   return canvas.getContext(CANVAS_CONTEXT) as CanvasRenderingContext2D
 }
 
-const stars = function stars(
+const makeStars = function stars(
   random: Random,
-  width: number,
-  count: NonnegativeInteger = STARS_COUNT
-): Stars {
-  return dataMap(
+  { offsetMax, count, speed }: StarsConfig,
+  version: NonnegativeInteger
+): { seed: NonnegativeInteger, value: VersionedStars} {
+  const stars = dataMap(
     () => ({
-      offset: random(half(width)),
+      offset: random(offsetMax),
       angle: random(TAU),
-      speed: random(STARS_SPEED_FACTOR),
+      speed: random(speed),
       color: starColor(random),
-      radius: random(RADIUS),
+      radius: random(RADIUS)
     }),
     new Array(count).fill(void 0)
   )
+
+  const newVersion = increment(version)
+
+  return {
+    seed: newVersion,
+    value: {
+      version: newVersion,
+      stars
+    }
+  }
+}
+
+export type StarsConfig = {
+  offsetMax: NonnegativeInteger
+  count: NonnegativeInteger
+  speed: NonnegativeInteger
 }
 
 function starColor(random: Random): string {
@@ -98,7 +123,7 @@ const SPECTRAL_TYPE_TEMPERATURES: { [key in SpectralType]: TemperatureRange } = 
   F: { min: 6000, max: 7500 },
   G: { min: 5200, max: 6000 },
   K: { min: 3700, max: 5200 },
-  M: { min: 2400, max: 3700 },
+  M: { min: 2400, max: 3700 }
 }
 
 const spectralTypeWeightsSum = reduce(add, 0, SPECTRAL_TYPE_WEIGHTS)
@@ -124,8 +149,23 @@ function randomTemperature({ min, max }: TemperatureRange): Kelvin {
   return random(max - min) + min
 }
 
-function starsState(starsSeed: Stars, stars: Stars): Stars {
-  return length<number>(starsSeed) ? adjustStars(starsSeed) : stars
+function starsState(previousState: VersionedStars, currentState: VersionedStars): {seed: VersionedStars, value: Stars} {
+  const { version: previousVersion, stars: previousStars } = previousState
+  const { version, stars } = currentState
+
+  if (equals(version, previousVersion)) {
+    const adjustedStars = adjustStars(previousStars)
+
+    return {
+      seed: { ...previousState, stars: adjustedStars},
+      value: adjustedStars
+    }
+  }
+
+  return {
+    seed: currentState,
+    value: stars
+  }
 }
 
 function adjustStars(stars: Stars): Stars {
@@ -138,13 +178,13 @@ function adjustStarAngle({ offset, angle, speed, color, radius }: Star): Star {
     angle: add(angle, speed),
     speed,
     color,
-    radius,
+    radius
   }
 }
 
 function drawSpaceWithStars(stars: Stars, space: Space) {
-  const { ctx, size: { height, width } } = space
-  ctx.fillStyle = SPACE_COLOR
+  const { ctx, size: { height, width }, color } = space
+  ctx.fillStyle = color
   ctx.fillRect(0, 0, width, height)
   forEach(drawStar(space), stars)
 }

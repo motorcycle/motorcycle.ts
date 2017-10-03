@@ -1,6 +1,6 @@
 import { DomSinks, DomSources } from '@motorcycle/mostly-dom'
+import { NonnegativeInteger, NonnegativeRationalNumber } from '@base/common/types';
 
-import { List } from '@typed/prelude'
 import { Stream } from '@motorcycle/types'
 
 export type UISources = DomSources & SpinningStarsSources
@@ -12,9 +12,16 @@ export type SpinningStarsSources = {}
 export type SpinningStarsSinks = {
   canvas$: Stream<HTMLCanvasElement>
   starsCount$: Stream<NonnegativeInteger>
+  rotationSpeed$: Stream<NonnegativeRationalNumber>
+  starsTrail$: Stream<NonnegativeRationalNumber>
 }
 
-export type Stars = List<Star>
+export type VersionedStars = {
+  version: NonnegativeInteger
+  stars: Stars
+}
+
+export type Stars = ReadonlyArray<Star>
 
 export type Star = {
   offset: number
@@ -27,7 +34,7 @@ export type Star = {
 export type Space = {
   ctx: CanvasRenderingContext2D
   size: Dimensions
-  stars: Stars
+  color: string
 }
 
 export type Dimensions = {
@@ -43,9 +50,7 @@ export type Rgb = {
 
 export type RgbComponentValue = NonnegativeInteger
 
-export type NonnegativeInteger = number
-
-export type SpectralTypes = List<SpectralType>
+export type SpectralTypes = ReadonlyArray<SpectralType>
 
 export type SpectralType = 'O' | 'B' | 'A' | 'F' | 'G' | 'K' | 'M'
 
