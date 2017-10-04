@@ -44,7 +44,7 @@ export function view(starsCount: NonnegativeInteger): VNode {
         div({ attrs: { style: `display: flex; margin: 8px 0` } }, [
           div({ attrs: { style: `margin-right: 16px` } }, `Glow`),
           input({
-            attrs: { type: 'range', min: 1, max: 100, value: 10 },
+            attrs: { type: 'range', min: 1, max: 20, value: 10 },
             className: `${GLOW_INPUT_CSS_CLASS}`,
           }),
         ]),

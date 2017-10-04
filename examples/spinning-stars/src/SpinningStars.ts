@@ -31,7 +31,6 @@ import { temperatureToRgb } from '@base/temperatureToRgb'
 
 const CANVAS_CONTEXT = '2d'
 const TAU = 6.28
-const GLOW = 10
 const RADIUS = 2
 const START_ANGLE = 0
 const END_ANGLE = TAU
@@ -42,20 +41,33 @@ export function SpinningStars({
   starsCount$,
   rotationSpeed$,
   starsTrail$,
+  starsGlow$
 }: SpinningStarsSinks): SpinningStarsSources {
   const initializedCanvas$ = tap(initCanvas, canvas$)
   const ctx$ = map(context2D, initializedCanvas$)
   const size$ = map(({ height, width }) => ({ height, width }), initializedCanvas$)
   const offsetMax$ = map(({ width }) => width, size$)
-  const starsConfig$ = combineObj({ offsetMax: offsetMax$, count: starsCount$, speed: rotationSpeed$ })
-  const versionedStars$ = loop((version, config) => makeStars(random, config, version), 0, starsConfig$)
+  const starsConfig$ = combineObj({
+    offsetMax: offsetMax$,
+    count: starsCount$,
+    speed: rotationSpeed$
+  })
+  const versionedStars$ = loop(
+    (version, config) => makeStars(random, config, version),
+    0,
+    starsConfig$
+  )
   const spaceColor$ = map(blur => `rgba(0, 0, 0, ${blur})`, starsTrail$)
-  const space$ = combineObj<Space>({ ctx: ctx$, size: size$, color: spaceColor$ })
-  const stars$ =
-    skip(
-      1,
-      loop(starsState, INITIAL_STARS_STATE, sampleWith(requestAnimationFrames(), versionedStars$))
-    )
+  const space$ = combineObj<Space>({
+    ctx: ctx$,
+    size: size$,
+    color: spaceColor$,
+    glow: starsGlow$
+  })
+  const stars$ = skip(
+    1,
+    loop(starsState, INITIAL_STARS_STATE, sampleWith(requestAnimationFrames(), versionedStars$))
+  )
   const draw$ = sample(drawSpaceWithStars, stars$, space$)
 
   drain(draw$)
@@ -76,7 +88,7 @@ const makeStars = function stars(
   random: Random,
   { offsetMax, count, speed }: StarsConfig,
   version: NonnegativeInteger
-): { seed: NonnegativeInteger, value: VersionedStars} {
+): { seed: NonnegativeInteger; value: VersionedStars } {
   const stars = dataMap(
     () => ({
       offset: random(offsetMax),
@@ -84,6 +96,7 @@ const makeStars = function stars(
       speed: random(speed),
       color: starColor(random),
       radius: random(RADIUS)
+      // TODO: add glow from config
     }),
     new Array(count).fill(void 0)
   )
@@ -149,7 +162,10 @@ function randomTemperature({ min, max }: TemperatureRange): Kelvin {
   return random(max - min) + min
 }
 
-function starsState(previousState: VersionedStars, currentState: VersionedStars): {seed: VersionedStars, value: Stars} {
+function starsState(
+  previousState: VersionedStars,
+  currentState: VersionedStars
+): { seed: VersionedStars; value: Stars } {
   const { version: previousVersion, stars: previousStars } = previousState
   const { version, stars } = currentState
 
@@ -157,7 +173,7 @@ function starsState(previousState: VersionedStars, currentState: VersionedStars)
     const adjustedStars = adjustStars(previousStars)
 
     return {
-      seed: { ...previousState, stars: adjustedStars},
+      seed: { ...previousState, stars: adjustedStars },
       value: adjustedStars
     }
   }
@@ -190,14 +206,14 @@ function drawSpaceWithStars(stars: Stars, space: Space) {
 }
 
 const drawStar = curry(function drawStar(
-  { ctx, size: { height, width } }: Space,
+  { ctx, size: { height, width }, glow }: Space,
   { offset, angle, color, radius }: Star
 ) {
   ctx.save()
   ctx.beginPath()
   ctx.translate(half(width), half(height))
   ctx.rotate(angle)
-  ctx.shadowBlur = radius * GLOW
+  ctx.shadowBlur = radius * glow
   ctx.shadowColor = color
   ctx.arc(offset, offset, radius, START_ANGLE, END_ANGLE)
   ctx.closePath()

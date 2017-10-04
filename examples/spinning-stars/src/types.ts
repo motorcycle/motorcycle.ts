@@ -14,6 +14,7 @@ export type SpinningStarsSinks = {
   starsCount$: Stream<NonnegativeInteger>
   rotationSpeed$: Stream<NonnegativeRationalNumber>
   starsTrail$: Stream<NonnegativeRationalNumber>
+  starsGlow$: Stream<NonnegativeInteger>
 }
 
 export type VersionedStars = {
@@ -35,6 +36,7 @@ export type Space = {
   ctx: CanvasRenderingContext2D
   size: Dimensions
   color: string
+  glow: NonnegativeInteger
 }
 
 export type Dimensions = {
