@@ -512,6 +512,89 @@ export function createDomSource(element$: Stream<Element>): DomSource {
 <hr />
 
 
+#### createWindowDomSource(window$: Stream\<Window\>): WindowDomSource
+
+<p>
+
+Takes in `Stream\<Window\>` and produces a `WindowDomSource`.
+`Stream\<Document\>` is required and allows for the developer to decide which
+events cause the stream to emit.
+
+</p>
+
+
+<details>
+  <summary>See an example</summary>
+  
+```typescript
+import { createWindowDomSource } from '@motorcycle/dom'
+import { makeDomComponent } from '@motorcycle/mostly-dom'
+import { constant } from '@motorcycle/stream'
+import { UI } from './UI'
+
+const element = document.querySelector('#app-container') as Element
+
+const Dom = makeDomComponent(element)
+
+function Effects(sinks) {
+  const { view$ } = sinks
+
+  const window$ = constant(window, view$)
+
+  const { dom } = Dom({ view$ })
+
+  return {
+    dom,
+    window: createWindowDomSource(window$)
+  }
+}
+```
+
+</details>
+
+<details>
+  <summary>See the code</summary>
+
+```typescript
+
+export class WindowDomSource implements DomSource<Window, Event> {
+  public window$: Stream<Window>
+
+  constructor(window$: Stream<Window>) {
+    this.window$ = window$
+  }
+
+  public query(): DomSource<Window, Event> {
+    return this
+  }
+
+  public elements(): Stream<ReadonlyArray<Window>> {
+    return map(Array, this.window$)
+  }
+
+  public events<Ev extends Event = Event>(
+    eventType: StandardEvents,
+    options: EventListenerOptions = {}
+  ): Stream<Ev> {
+    const { window$ } = this
+
+    const event$$ = map(window => new EventStream(eventType, window, options), window$)
+
+    return multicast(switchLatest(event$$))
+  }
+
+  public cssSelectors(): ReadonlyArray<CssSelector> {
+    return WINDOW_CSS_SELECTORS
+  }
+}
+
+```
+
+</details>
+
+<hr />
+
+
 #### elements\<A = Element, B = Event\>\>(dom: DomSource\<A, B\>): Stream\<ReadonlyArray\<A\>\>
 
 <p>

@@ -126,7 +126,7 @@ export * from './makeDomComponent'
 <hr />
 
 
-#### isolate\<Sources extends { readonly dom: DomSource }, Sinks extends { readonly view$: Stream\<VNode\> }\>(component: Component\<Sources, Sinks\>, key: string): Component\<Sources, Sinks\>
+#### isolate\<Sources extends DomSources, Sinks extends DomSinks\>(component: Component\<Sources, Sinks\>, key: string, sources: Sources): Sinks
 
 <p>
 
@@ -142,6 +142,8 @@ specific component, so that events can be differentiated between the siblings.
 However, isolated components are not isolated from access by an ancestor DOM
 element.
 
+Note that `isolate` is curried.
+
 </p>
 
 
@@ -149,8 +151,11 @@ element.
   <summary>See an example</summary>
   
 ```typescript
-const MyIsolatedComponent = isolate(MyComponent, `myIsolationKey`)
-const sinks = MyIsolatedComponent(sources)
+import { empty } from '@motorcycle/stream'
+import { createDomSource } from '@motorcycle/dom'
+
+const sources = createDomSource(empty())
+const sinks = isolate(MyComponent, `myIsolationKey`, sources)
 ```
 
 </details>
@@ -160,19 +165,17 @@ const sinks = MyIsolatedComponent(sources)
 
 ```typescript
 
-export function isolate<Sources extends DomSources, Sinks extends DomSinks>(
-  component: Component<Sources, Sinks>,
-  key: string
-): Component<Sources, Sinks> {
-  return function isolatedComponent(sources: Sources) {
-    const { dom } = sources
-    const isolatedDom = dom.query(`.${KEY_PREFIX}${key}`)
-    const sinks = component(Object.assign({}, sources, { dom: isolatedDom }))
-    const isolatedSinks = Object.assign({}, sinks, { view$: isolateView(sinks.view$, key) })
+export const isolate: IsolatedComponent = curry3(function isolate<
+  Sources extends DomSources,
+  Sinks extends DomSinks
+>(component: Component<Sources, Sinks>, key: string, sources: Sources): Sinks {
+  const { dom } = sources
+  const isolatedDom = dom.query(`.${KEY_PREFIX}${key}`)
+  const sinks = component(Object.assign({}, sources, { dom: isolatedDom }))
+  const isolatedSinks = Object.assign({}, sinks, { view$: isolateView(sinks.view$, key) })
 
-    return isolatedSinks
-  }
-}
+  return isolatedSinks
+})
 
 const KEY_PREFIX = `__isolation__`
 
@@ -198,6 +201,26 @@ function removeSuperfluousSpaces(str: string): string {
 }
 
 const RE_TWO_OR_MORE_SPACES = /\s{2,}/g
+
+export interface IsolatedComponent {
+  <Sources extends DomSources, Sinks extends DomSinks>(
+    component: Component<Sources, Sinks>,
+    key: string,
+    sources: Sources
+  ): Sinks
+  <Sources extends DomSources, Sinks extends DomSinks>(
+    component: Component<Sources, Sinks>,
+    key: string
+  ): Component<Sources, Sinks>
+  <Sources extends DomSources, Sinks extends DomSinks>(
+    component: Component<Sources, Sinks>
+  ): IsolatedComponentArity2<Sources, Sinks>
+}
+
+export interface IsolatedComponentArity2<Sources extends DomSources, Sinks extends DomSinks> {
+  (key: string, sources: Sources): Sinks
+  (key: string): Component<Sources, Sinks>
+}
 
 ```
 
