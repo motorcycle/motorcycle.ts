@@ -949,7 +949,7 @@ export { map } from '@most/core'
 <hr />
 
 
-#### mapSinks\<Sinks, A\>(f: (sinks: Sinks, index: number) =\> A, sinksList$: Stream\<Array\<Sinks\>\>): Stream\<ReadonlyArray\<A\>\>
+#### mapList\<A, B\>(f: (value: A, index: number) =\> B, sinksList$: Stream\<ArrayLike\<A\>\>): Stream\<ReadonlyArray\<B\>\>
 
 <p>
 
@@ -962,18 +962,18 @@ Applies a function to all Sinks in a list of Sinks.
   <summary>See an example</summary>
   
 ```typescript
-import { mapSinks } from '@motorcycle/stream'
+import { mapList } from '@motorcycle/stream'
 
 function Component(sources) {
   const { listOfData$ } = sources
 
-  const sinksList$: Stream<ReadonlyArray<Sinks>> = map(
-    listOfData => listOfData.map(data => ChildComponent({ ...sources, data$: now(data) })), 
+  const sinksList$: Stream<ReadonlyArray<Sinks>> = mapList(
+    data => ChildComponent({ ...sources, data$: now(data) })), 
     listOfData$,
   )
 
   const childViews$: Stream<ReadonlyArray<Stream<VNode>> = 
-    mapSinks(sinks => sinks.view$, sinksList$)
+    mapList(({ view$ }) => view$, sinksList$)
 
   ...
 }
@@ -986,41 +986,20 @@ function Component(sources) {
 
 ```typescript
 
-export const mapSinks: MapSinksArity2 = curry2(function mapSinks<
-  Sinks extends { readonly [key: string]: Stream<any> },
-  A
->(
-  f: (sinks: Sinks, index: number) => A,
-  sinksList$: Stream<Array<Sinks>>
-): Stream<ReadonlyArray<A>> {
-  return map<Array<Sinks>, ReadonlyArray<A>>(arrayMap(f), sinksList$)
-})
+export const mapList: MapList = curry2(__mapList)
 
-export interface MapSinksArity2 {
-  <Sinks extends { readonly [key: string]: Stream<any> }, A>(
-    f: (sinks: Sinks, index: number) => A,
-    sinksList$: Stream<Array<Sinks>>
-  ): Stream<ReadonlyArray<A>>
-
-  <Sinks extends { readonly [key: string]: Stream<any> }, A>(
-    f: (sinks: Sinks, index: number) => A,
-    sinksList$: Stream<ArrayLike<Sinks>>
-  ): Stream<ReadonlyArray<A>>
-
-  <Sinks extends { readonly [key: string]: Stream<any> }, A>(
-    f: (sinks: Sinks, index: number) => A,
-    sinksList$: Stream<ReadonlyArray<Sinks>>
-  ): Stream<ReadonlyArray<A>>
-
-  <Sinks extends { readonly [key: string]: Stream<any> }, A>(
-    f: (sinks: Sinks, index: number) => A
-  ): MapSinksArity1<Sinks, A>
+export type MapList = {
+  <A, B>(f: (value: A, index: number) => B, list$: Stream<ArrayLike<A>>): Stream<ReadonlyArray<B>>
+  <A, B>(f: (value: A, index: number) => B): (
+    list$: Stream<ArrayLike<A>>
+  ) => Stream<ReadonlyArray<B>>
 }
 
-export interface MapSinksArity1<Sinks extends { readonly [key: string]: Stream<any> }, A> {
-  (sinksList$: Stream<Array<Sinks>>): Stream<ReadonlyArray<A>>
-  (sinksList$: Stream<ArrayLike<Sinks>>): Stream<ReadonlyArray<A>>
-  (sinksList$: Stream<Readonly<Sinks>>): Stream<ReadonlyArray<A>>
+function __mapList<A, B>(
+  f: (value: A) => B,
+  list$: Stream<ArrayLike<A>>
+): Stream<ReadonlyArray<B>> {
+  return map<ArrayLike<A>, ReadonlyArray<B>>(mapArray(f), list$)
 }
 
 ```
