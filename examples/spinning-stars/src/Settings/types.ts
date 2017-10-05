@@ -6,8 +6,8 @@ import { Stream } from '@motorcycle/types'
 export type SettingsSources = DomSources
 
 export type SettingsSinks = DomSinks & {
-  starsCount$: Stream<NonnegativeInteger>
+  starCount$: Stream<NonnegativeInteger>
   rotationSpeed$: Stream<NonnegativeRationalNumber>
-  starsTrail$: Stream<NonnegativeRationalNumber>
-  starsGlow$: Stream<NonnegativeInteger>
+  trail$: Stream<NonnegativeRationalNumber>
+  glow$: Stream<NonnegativeInteger>
 }

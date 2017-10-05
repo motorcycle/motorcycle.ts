@@ -13,11 +13,11 @@ const SPACE_WIDTH = '100%'
 const SPACE_HEIGHT = '100%'
 
 export function UI({ dom }: UISources): UISinks {
-  const { view$: settingsView$, starsCount$, rotationSpeed$, starsTrail$, starsGlow$ } = Settings({ dom })
+  const { view$: settingsView$, starCount$, rotationSpeed$, trail$, glow$ } = Settings({ dom })
   const view$ = map(view, settingsView$)
   const canvas$ = hold(canvasSink(dom))
 
-  return { view$, canvas$, starsCount$, rotationSpeed$, starsTrail$, starsGlow$ }
+  return { view$, canvas$, starCount$, rotationSpeed$, trail$, glow$ }
 }
 
 function view(settings: VNode): VNode {

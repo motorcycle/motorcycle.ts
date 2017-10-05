@@ -38,10 +38,10 @@ const INITIAL_STARS_STATE = { version: 0, stars: [] }
 
 export function SpinningStars({
   canvas$,
-  starsCount$,
+  starCount$,
   rotationSpeed$,
-  starsTrail$,
-  starsGlow$
+  trail$,
+  glow$
 }: SpinningStarsSinks): SpinningStarsSources {
   const initializedCanvas$ = tap(initCanvas, canvas$)
   const ctx$ = map(context2D, initializedCanvas$)
@@ -49,7 +49,7 @@ export function SpinningStars({
   const offsetMax$ = map(({ width }) => width, size$)
   const starsConfig$ = combineObj({
     offsetMax: offsetMax$,
-    count: starsCount$,
+    count: starCount$,
     speed: rotationSpeed$
   })
   const versionedStars$ = loop(
@@ -57,12 +57,12 @@ export function SpinningStars({
     0,
     starsConfig$
   )
-  const spaceColor$ = map(blur => `rgba(0, 0, 0, ${blur})`, starsTrail$)
+  const spaceColor$ = map(blur => `rgba(0, 0, 0, ${blur})`, trail$)
   const space$ = combineObj<Space>({
     ctx: ctx$,
     size: size$,
     color: spaceColor$,
-    glow: starsGlow$
+    glow: glow$
   })
   const stars$ = skip(
     1,
