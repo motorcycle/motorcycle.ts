@@ -13,14 +13,14 @@ import {
 import { Random, random } from '@base/common/random'
 import {
   add,
-  curry,
-  map as dataMap,
+  curry2,
   divide,
   equals,
   forEach,
   increment,
   length,
   lessThanOrEqual,
+  map as mapArray,
   reduce
 } from '@typed/prelude'
 import { combineObj, drain, loop, map, sample, sampleWith, skip, tap } from '@motorcycle/stream'
@@ -89,7 +89,7 @@ const makeStars = function stars(
   { offsetMax, count, speed }: StarsConfig,
   version: NonnegativeInteger
 ): { seed: NonnegativeInteger; value: VersionedStars } {
-  const stars = dataMap(
+  const stars = mapArray(
     () => ({
       offset: random(offsetMax),
       angle: random(TAU),
@@ -185,7 +185,7 @@ function starsState(
 }
 
 function adjustStars(stars: Stars): Stars {
-  return dataMap(adjustStarAngle, stars)
+  return mapArray(adjustStarAngle, stars)
 }
 
 function adjustStarAngle({ offset, angle, speed, color, radius }: Star): Star {
@@ -205,7 +205,7 @@ function drawSpaceWithStars(stars: Stars, space: Space) {
   forEach(drawStar(space), stars)
 }
 
-const drawStar = curry(function drawStar(
+const drawStar = curry2(function drawStar(
   { ctx, size: { height, width }, glow }: Space,
   { offset, angle, color, radius }: Star
 ) {
