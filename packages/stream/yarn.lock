@@ -2,9 +2,9 @@
 # yarn lockfile v1
 
 
-"167@0.39.0":
-  version "0.39.0"
-  resolved "https://registry.yarnpkg.com/167/-/167-0.39.0.tgz#79638b8019aa92cf500eb43f6ed04eef65f8d987"
+"167@0.42.0":
+  version "0.42.0"
+  resolved "https://registry.yarnpkg.com/167/-/167-0.42.0.tgz#872a7348b46215e70fd6a6a6f8a19745a379cdde"
 
 "@most/core@0.13.0":
   version "0.13.0"
@@ -22,7 +22,7 @@
     "@most/prelude" "^1.6.4"
     "@most/types" "^0.11.1"
 
-"@most/prelude@^1.6.4":
+"@most/prelude@1.6.4", "@most/prelude@^1.6.4":
   version "1.6.4"
   resolved "https://registry.yarnpkg.com/@most/prelude/-/prelude-1.6.4.tgz#254ab6e22c0d4e7cb19e6ec1c966b75f57317f25"
 
@@ -37,8 +37,8 @@
   version "0.11.1"
   resolved "https://registry.yarnpkg.com/@most/types/-/types-0.11.1.tgz#5e305e0e346c5b01f1ebdeec4c1dfa5b189b5f9d"
 
-"@motorcycle/types@2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@motorcycle/types/-/types-2.0.0.tgz#a4adc8ecff575076312659246786c7ae705006a3"
+"@motorcycle/types@2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@motorcycle/types/-/types-2.1.0.tgz#0af595e60bf21bbe55953a04d3801d6223cb66cc"
   dependencies:
     "@most/types" "0.11.1"
