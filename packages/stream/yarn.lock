@@ -2,9 +2,17 @@
 # yarn lockfile v1
 
 
+"167@0.36.0":
+  version "0.36.0"
+  resolved "https://registry.yarnpkg.com/167/-/167-0.36.0.tgz#040850b3b60fda4fe1b6305676bd42dc0ffe3dae"
+
 "167@0.42.0":
   version "0.42.0"
   resolved "https://registry.yarnpkg.com/167/-/167-0.42.0.tgz#872a7348b46215e70fd6a6a6f8a19745a379cdde"
+
+"167@^0.30.0":
+  version "0.30.0"
+  resolved "https://registry.yarnpkg.com/167/-/167-0.30.0.tgz#8e571e64851bebe8dced5723b48a07ab297b5b9b"
 
 "@most/core@0.13.0":
   version "0.13.0"
@@ -42,3 +50,26 @@
   resolved "https://registry.yarnpkg.com/@motorcycle/types/-/types-2.1.0.tgz#0af595e60bf21bbe55953a04d3801d6223cb66cc"
   dependencies:
     "@most/types" "0.11.1"
+
+"@typed/assertions@1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@typed/assertions/-/assertions-1.1.0.tgz#6428276e542b213356b82da3152ee4dd5d7ec22c"
+  dependencies:
+    "167" "0.36.0"
+    assertion-error-diff "^1.0.0"
+
+assertion-error-diff@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/assertion-error-diff/-/assertion-error-diff-1.0.0.tgz#5462fe1ff70849bfec25d108aecee5d95b86d8e5"
+  dependencies:
+    "167" "^0.30.0"
+    typed-colors "^1.0.0"
+    typed-figures "^1.0.0"
+
+typed-colors@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/typed-colors/-/typed-colors-1.0.0.tgz#a86fb57183ea8d955d811aec0e100f565e48bbb9"
+
+typed-figures@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/typed-figures/-/typed-figures-1.0.0.tgz#898932b2797b59532cfdf03f23ec2e2dc136126a"
