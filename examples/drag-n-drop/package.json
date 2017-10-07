@@ -1,0 +1,37 @@
+{
+  "private": true,
+  "name": "@motorcycle/drag-n-drop",
+  "version": "1.0.0",
+  "description": "Drag-n-drop example application",
+  "main": "lib/index.js",
+  "scripts": {
+    "start": "webpack-dev-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/motorcyclets/motorcycle.git"
+  },
+  "keywords": [
+    "motorcycle",
+    "counter"
+  ],
+  "author": "Tylor Steinberger <tlsteinberger167@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/motorcyclets/motorcycle/issues"
+  },
+  "homepage": "https://github.com/motorcyclets/motorcycle#readme",
+  "dependencies": {
+    "@motorcycle/dom": "16.1.0",
+    "@motorcycle/mostly-dom": "4.1.0",
+    "@motorcycle/run": "4.1.0",
+    "@motorcycle/stream": "2.1.0",
+    "@typed/prelude": "4.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "8.0.33",
+    "ts-loader": "2.3.7",
+    "webpack": "3.6.0",
+    "webpack-dev-server": "2.9.1"
+  }
+}
