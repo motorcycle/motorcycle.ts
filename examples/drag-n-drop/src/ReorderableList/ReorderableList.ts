@@ -13,7 +13,6 @@ export function ReorderableList(sources: Sources): Sinks {
   const reducer$ = sample((to, from) => move(from, to), map(getKey, drop$), map(getKey, dragStart$))
   const reorderedList$ = switchMap(list => scan((x, f) => f(x), list, reducer$), list$)
   const childViews$ = map(list => mapList(listItem, list), reorderedList$)
-
   const view$ = map(view, childViews$)
 
   return {
