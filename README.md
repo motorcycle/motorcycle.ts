@@ -29,4 +29,4 @@
 
 - [Counter](./examples/counter)
 - [Traffic Light](./examples/traffic-light)
-- [Sokoban](./axamples/sokoban) -- A type of transport puzzle, in which the player pushes boxes or crates around in a warehouse, trying to get them to storage locations.
+- [Sokoban](./examples/sokoban) -- A type of transport puzzle, in which the player pushes boxes or crates around in a warehouse, trying to get them to storage locations.
