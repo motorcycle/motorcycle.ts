@@ -37,7 +37,7 @@
   "dependencies": {
     "167": "0.39.0",
     "@most/core": "0.13.0",
-    "@most/disposable": "0.13.0",
+    "@most/disposable": "0.13.1",
     "@most/scheduler": "0.13.0",
     "@motorcycle/types": "2.1.0"
   }
