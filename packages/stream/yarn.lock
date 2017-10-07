@@ -15,9 +15,16 @@
     "@most/scheduler" "^0.13.0"
     "@most/types" "^0.11.1"
 
-"@most/disposable@0.13.0", "@most/disposable@^0.13.0":
+"@most/disposable@0.13.0":
   version "0.13.0"
   resolved "https://registry.yarnpkg.com/@most/disposable/-/disposable-0.13.0.tgz#6007df024b29a07a7b171e4ee7edf736038ea5f5"
+  dependencies:
+    "@most/prelude" "^1.6.4"
+    "@most/types" "^0.11.1"
+
+"@most/disposable@^0.13.0":
+  version "0.13.1"
+  resolved "https://registry.yarnpkg.com/@most/disposable/-/disposable-0.13.1.tgz#9bfa07ebff9392c72afd0fc647dcd89a42d1d40c"
   dependencies:
     "@most/prelude" "^1.6.4"
     "@most/types" "^0.11.1"
@@ -26,9 +33,9 @@
   version "1.6.4"
   resolved "https://registry.yarnpkg.com/@most/prelude/-/prelude-1.6.4.tgz#254ab6e22c0d4e7cb19e6ec1c966b75f57317f25"
 
-"@most/scheduler@0.13.0", "@most/scheduler@^0.13.0":
-  version "0.13.0"
-  resolved "https://registry.yarnpkg.com/@most/scheduler/-/scheduler-0.13.0.tgz#d76f0713ed04df4c7c9250c16a9c966e89cd6248"
+"@most/scheduler@0.13.1", "@most/scheduler@^0.13.0":
+  version "0.13.1"
+  resolved "https://registry.yarnpkg.com/@most/scheduler/-/scheduler-0.13.1.tgz#38b7cb13b81e16e3c3ef4964269d4aa9278e2e99"
   dependencies:
     "@most/prelude" "^1.6.4"
     "@most/types" "^0.11.1"
@@ -37,8 +44,8 @@
   version "0.11.1"
   resolved "https://registry.yarnpkg.com/@most/types/-/types-0.11.1.tgz#5e305e0e346c5b01f1ebdeec4c1dfa5b189b5f9d"
 
-"@motorcycle/types@2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@motorcycle/types/-/types-2.0.0.tgz#a4adc8ecff575076312659246786c7ae705006a3"
+"@motorcycle/types@2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@motorcycle/types/-/types-2.1.0.tgz#0af595e60bf21bbe55953a04d3801d6223cb66cc"
   dependencies:
     "@most/types" "0.11.1"
