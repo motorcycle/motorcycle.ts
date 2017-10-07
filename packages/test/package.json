@@ -39,6 +39,6 @@
     "@motorcycle/types": "2.1.0"
   },
   "devDependencies": {
-    "@most/core": "0.13.0"
+    "@most/core": "0.14.0"
   }
 }
