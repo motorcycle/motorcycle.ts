@@ -2,7 +2,7 @@ import { Test, describe, given, it } from '@typed/test'
 
 import { collectEventsFor } from '@motorcycle/test'
 import { div } from 'mostly-dom'
-import { length } from '167'
+import { length } from '@typed/prelude'
 import { makeDomComponent } from './makeDomComponent'
 import { now } from '@motorcycle/stream'
 

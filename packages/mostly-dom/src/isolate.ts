@@ -1,6 +1,6 @@
 import { Component, Stream } from '@motorcycle/types'
 import { DomSinks, DomSources } from './'
-import { curry3, join } from '167'
+import { curry3, join } from '@typed/prelude'
 
 import { VNode } from 'mostly-dom'
 import { tap } from '@motorcycle/stream'

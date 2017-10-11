@@ -3,7 +3,7 @@ import { ElementVNode, VNode, elementToVNode, init } from 'mostly-dom'
 import { IOComponent, Stream } from '@motorcycle/types'
 import { drain, hold, map, scan } from '@motorcycle/stream'
 
-import { prop } from '167'
+import { prop } from '@typed/prelude'
 import { vNodeWrapper } from './vNodeWrapper'
 
 /**
@@ -24,7 +24,7 @@ export type DomSources<A = Element, B = Event> = { readonly dom: DomSource<A, B>
  */
 export type DomSinks = { readonly view$: Stream<VNode> }
 
-const toElement = map(prop<ElementVNode>('element'))
+const toElement = map(prop<ElementVNode, 'element'>('element'))
 
 /**
  * Takes an element and returns a DOM component function.
