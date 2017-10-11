@@ -1,6 +1,8 @@
 import { Stream } from '@motorcycle/types'
 import { curry3 } from '167'
+import { hold } from './hold'
 import { scan } from './scan'
+import { skipRepeats } from './skipRepeats'
 import { switchMap } from './switchMap'
 
 /**
@@ -40,7 +42,7 @@ function __state<A, B>(
   seed$: Stream<B>,
   values$: Stream<A>
 ): Stream<B> {
-  return switchMap(seed => scan(f, seed, values$), seed$)
+  return hold(skipRepeats(switchMap(seed => scan(f, seed, values$), seed$)))
 }
 
 export interface State {
