@@ -5,27 +5,27 @@ import { switchMap } from './switchMap'
 
 /**
  * Especially useful when keeping local state that also needs to be updated
- * from an outside source.
+ * from a source.
  * @name state<A, B>(f: (acc: A, value: B) => A, seed$: Stream<A>, values$: Stream<B>): Stream<A>
- * @example 
+ * @example
  * import { Stream } from '@motorcycle/types'
- * import { query, dragOverEvent, dragstartEvent, dropEvent } from '@motorcycle/dom'
+ * import { query, dragOverEvent, dragStartEvent, dropEvent } from '@motorcycle/dom'
  * import { sample, map, state, mapList } from '@motorcycle/stream'
  * import { move } from '@typed/prelude'
- * 
+ *
  * export function ReorderableList(sources) {
  *   const { list$, dom } = sources
- *   const li = query('li', dom)
- *   const dragOver$ = dragOverEvent(li)
- *   const dragStart$ = dragstartEvent(li)
- *   const drop$ = dropEvent(li)
- *   const reducer$: Stream<(list: Array<string>) => Array<string>> = 
- *     sample((to, from) => move(from, to), map(getKey, drop$), map(getKey, dragStart$))
+ *   const listItemSource = query(listItemCssSelector, dom)
+ *   const dragOver$ = dragOverEvent(listItemSource)
+ *   const dragStart$ = dragStartEvent(listItemSource)
+ *   const drop$ = dropEvent(listItemSource)
+ *   const reducer$: Stream<(list: Array<string>) => Array<string>> =
+ *     sample((to, from) => move(from, to), map(elementDataKey, drop$), map(elementDataKey, dragStart$))
  *   const reorderedList$ = state((x, f) => f(x), list$, reducer$)
- *   // create all of our <li> tags
- *   const childViews$ = mapList(listItem, reorderedList$)
- *   // create our <ul> containgin our <li> tags
- *   const view$ = map(view, childViews$)
+ *   // Create all list items.
+ *   const listItemViews$ = mapList(listItem, reorderedList$)
+ *   // Pass the list items to the view
+ *   const view$ = map(view, listItemViews$)
  *
  *   return {
  *     view$,
