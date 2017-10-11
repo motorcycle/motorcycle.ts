@@ -57,6 +57,38 @@ export { ap } from '@most/core'
 <hr />
 
 
+#### at\<A\>(time: Time, value: A): Stream\<A\>
+
+<p>
+
+Creates a stream that emits a value after a given amount of time.
+
+</p>
+
+
+<details>
+  <summary>See an example</summary>
+  
+```typescript
+
+```
+
+</details>
+
+<details>
+  <summary>See the code</summary>
+
+```typescript
+
+export { at } from '@most/core'
+
+```
+
+</details>
+
+<hr />
+
+
 #### at\<A\>(time: number, value: A): Stream\<A\>
 
 <p>
@@ -1849,6 +1881,79 @@ observe(console.log, stream)
 ```typescript
 
 export { startWith } from '@most/core'
+
+```
+
+</details>
+
+<hr />
+
+
+#### state\<A, B\>(f: (acc: A, value: B) =\> A, seed$: Stream\<A\>, values$: Stream\<B\>): Stream\<A\>
+
+<p>
+
+Especially useful when keeping local state that also needs to be updated
+from an outside source.
+
+</p>
+
+
+<details>
+  <summary>See an example</summary>
+  
+```typescript
+import { Stream } from '@motorcycle/types'
+import { query, dragOverEvent, dragstartEvent, dropEvent } from '@motorcycle/dom'
+import { sample, map, state, mapList } from '@motorcycle/stream'
+import { move } from '@typed/prelude'
+
+export function ReorderableList(sources) {
+  const { list$, dom } = sources
+  const li = query('li', dom)
+  const dragOver$ = dragOverEvent(li)
+  const dragStart$ = dragstartEvent(li)
+  const drop$ = dropEvent(li)
+  const reducer$: Stream<(list: Array<string>) => Array<string>> = 
+    sample((to, from) => move(from, to), map(getKey, drop$), map(getKey, dragStart$))
+  const reorderedList$ = state((x, f) => f(x), list$, reducer$)
+  // create all of our <li> tags
+  const childViews$ = mapList(listItem, reorderedList$)
+  // create our <ul> containgin our <li> tags
+  const view$ = map(view, childViews$)
+
+  return {
+    view$,
+    preventDefault$: dragOver$,
+  }
+}
+```
+
+</details>
+
+<details>
+  <summary>See the code</summary>
+
+```typescript
+
+export const state: State = curry3(__state)
+
+function __state<A, B>(
+  f: (accumulator: B, value: A) => B,
+  seed$: Stream<B>,
+  values$: Stream<A>
+): Stream<B> {
+  return switchMap(seed => scan(f, seed, values$), seed$)
+}
+
+export interface State {
+  <A, B>(f: (accumulator: A, value: B) => A, seed$: Stream<A>, values$: Stream<B>): Stream<A>
+  <A, B>(f: (accumulator: A, value: B) => A, seed$: Stream<A>): (values$: Stream<B>) => Stream<A>
+  <A, B>(f: (accumulator: A, value: B) => A): {
+    (seed$: Stream<A>, values$: Stream<B>): Stream<A>
+    (seed$: Stream<A>): (values$: Stream<B>) => Stream<A>
+  }
+}
 
 ```
 
