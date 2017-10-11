@@ -25,6 +25,23 @@ export const test: Test = describe(`state`, [
 
       return collectEvents(sut).then(equal(expected))
     }),
+
+    it(`emits latest value to late subscribers`, ({ equal }, done) => {
+      const a$ = mergeArray([at(0, 0), at(500, 100), at(1000, 200)])
+      const b$ = mergeArray([at(150, 1), at(300, 2)])
+
+      const sut = state(add, a$, b$)
+
+      setTimeout(() => {
+        const expected = [100, 101, 103, 200, 201, 203]
+        collectEvents(sut)
+          .then(actual => console.log(actual) || equal(expected, actual))
+          .then(() => done())
+          .catch(done)
+      }, 500)
+
+      collectEvents(sut)
+    }),
   ]),
 ])
 
