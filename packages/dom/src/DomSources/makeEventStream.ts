@@ -1,5 +1,5 @@
 import { CssSelector, StandardEvents } from '../'
-import { either, equals, length, not } from '167'
+import { anyPass, equals, length, not } from '@typed/prelude'
 import { filter, map } from '@motorcycle/stream'
 
 import { EventStream } from '../common'
@@ -17,10 +17,10 @@ export function makeEventStream<Ev extends Event = Event>(
     const lastTwoCssSelectors = cssSelectors.slice(-2).join('')
 
     const ensureEventMatches = filter(
-      either(
+      anyPass([
         (event: Event) => ensureMatches(cssSelector, element, event, capture),
-        (event: Event) => ensureMatches(lastTwoCssSelectors, element, event, capture)
-      )
+        (event: Event) => ensureMatches(lastTwoCssSelectors, element, event, capture),
+      ])
     )
 
     const event$ = ensureEventMatches(new EventStream<Ev>(eventType, element, options))

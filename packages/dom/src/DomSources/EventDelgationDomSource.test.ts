@@ -1,7 +1,7 @@
 import { CssSelector, DomSource, StandardEvents } from '../'
 import { Test, describe, given, it } from '@typed/test'
 import { drain, empty, mergeArray, now, observe, take } from '@motorcycle/stream'
-import { length, pipe } from '167'
+import { length, pipe } from '@typed/prelude'
 
 import { EventDelegationDomSource } from './'
 import { collectEventsFor } from '@motorcycle/test'

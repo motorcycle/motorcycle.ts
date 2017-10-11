@@ -1,5 +1,5 @@
 import { CssSelector, DomSource, StandardEvents } from '../'
-import { append, copy, dropLast, equals, gt, join, length, pipe, prepend } from '167'
+import { append, dropLast, equals, greaterThan, join, length, pipe, prepend } from '@typed/prelude'
 import { filter, map, multicast, switchLatest } from '@motorcycle/stream'
 
 import { Stream } from '@motorcycle/types'
@@ -40,7 +40,7 @@ export class EventDelegationDomSource<A extends Element = Element> implements Do
     if (hasNoCssSelectors) return map(Array, this.element$)
 
     const elements$ = map(findMatchingElements(cssSelectors), this.element$)
-    const hasElements = pipe(length, gt(0))
+    const hasElements = pipe(length, greaterThan(0))
 
     return filter(hasElements, elements$)
   }
@@ -88,10 +88,10 @@ function findMatchingElements<El extends Element = Element>(
 ) {
   const cssSelector = join(CSS_SELECTOR_SEPARATOR, cssSelectors)
   return function(element: El): ReadonlyArray<El> {
-    const nodes = copy(element.querySelectorAll(cssSelector) as NodeListOf<El>)
+    const nodes = (element.querySelectorAll(cssSelector) as any) as ArrayLike<El>
 
-    if (element.matches(cssSelector)) return prepend(element, nodes)
+    if (element.matches(cssSelector)) return (prepend(element, nodes) as any) as ReadonlyArray<El>
 
-    return nodes
+    return Array.from(nodes)
   }
 }
