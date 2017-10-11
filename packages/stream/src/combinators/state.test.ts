@@ -15,6 +15,16 @@ export const test: Test = describe(`state`, [
 
       return collectEvents(sut).then(equal(expected))
     }),
+
+    it(`does not emit repeated values`, ({ equal }) => {
+      const a$ = mergeArray([at(0, 0), at(100, 100), at(200, 200)])
+      const b$ = mergeArray([at(1, 1), at(2, 0)])
+
+      const expected = [0, 1, 100, 101, 200, 201]
+      const sut = state(add, a$, b$)
+
+      return collectEvents(sut).then(equal(expected))
+    }),
   ]),
 ])
 
