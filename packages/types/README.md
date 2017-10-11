@@ -66,25 +66,6 @@ export interface Disposable {
 ```
 
 
-#### EffectfulComponent
-
-<p>
-
-An Effectful Component function signature.
-
-</p>
-
-
-```typescript
-
-export type EffectfulComponent<
-  Sinks extends { readonly [key: string]: Stream<any> },
-  Sources extends { readonly [key: string]: any }
-> = (sinks: Sinks) => Sources
-
-```
-
-
 #### Handle
 
 <p>
@@ -97,6 +78,25 @@ Opaque handle type produced by functions like setTimeout
 ```typescript
 
 export type Handle = any
+
+```
+
+
+#### IOComponent
+
+<p>
+
+An IO Component function signature.
+
+</p>
+
+
+```typescript
+
+export type IOComponent<
+  Sinks extends { readonly [key: string]: Stream<any> },
+  Sources extends { readonly [key: string]: any }
+> = (sinks: Sinks) => Sources
 
 ```
 

@@ -1,13 +1,13 @@
 import { DomSource, createDomSource } from '@motorcycle/dom'
-import { EffectfulComponent, Stream } from '@motorcycle/types'
 import { ElementVNode, VNode, elementToVNode, init } from 'mostly-dom'
+import { IOComponent, Stream } from '@motorcycle/types'
 import { drain, hold, map, scan } from '@motorcycle/stream'
 
 import { prop } from '167'
 import { vNodeWrapper } from './vNodeWrapper'
 
 /**
- * Sources type expected by a Dom component.
+ * Sources type expected by a DOM component.
  * @name DomSources
  * @example
  * export type DomSources<A = Element, B = Event> = { readonly dom: DomSource<A, B> }
@@ -28,40 +28,40 @@ const toElement = map(prop<ElementVNode>('element'))
 
 /**
  * Takes an element and returns a DOM component function.
- * 
+ *
  * @name makeDomComponent(element: Element): (sinks: DomSinks) => DomSources
  * @example
- * import { 
- *   makeDomComponent, 
- *   DomSources, 
- *   DomSinks, 
+ * import {
+ *   makeDomComponent,
+ *   DomSources,
+ *   DomSinks,
  *   VNode,
- *   events, 
- *   query, 
- *   div, 
- *   h1, 
- *   button 
+ *   events,
+ *   query,
+ *   div,
+ *   h1,
+ *   button
  * } from '@motorcycle/mostly-dom'
  * import { run } from '@motorcycle/run'
- * 
+ *
  * const element = document.querySelector('#app')
- * 
+ *
  * if (!element) throw new Error('unable to find element')
- * 
- * run(UI, makeDomComponent(element))
- * 
- * function UI(sources: DomSources): DomSinks {
+ *
+ * run(Main, makeDomComponent(element))
+ *
+ * function Main(sources: DomSources): DomSinks {
  *   const { dom } = sources
- * 
+ *
  *   const click$: Stream<Event> = events('click', query('button'))
- * 
+ *
  *   const amount$: Stream<number> = scan(x => x + 1, 0, click$)
- * 
+ *
  *   const view$: Stream<VNode> = map(view, amount$)
- * 
+ *
  *   return { view$ }
  * }
- * 
+ *
  * function view(amount: number) {
  *   return div([
  *     h1(`Clicked ${amount} times`),
@@ -69,7 +69,7 @@ const toElement = map(prop<ElementVNode>('element'))
  *   ])
  * }
  */
-export function makeDomComponent(element: Element): EffectfulComponent<DomSinks, DomSources> {
+export function makeDomComponent(element: Element): IOComponent<DomSinks, DomSources> {
   const rootVNode = elementToVNode(element)
   const wrapVNode = map(vNodeWrapper(element))
   const patch = scan(init(), rootVNode)

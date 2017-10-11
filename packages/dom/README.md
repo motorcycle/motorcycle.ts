@@ -829,12 +829,12 @@ export const wheelEvent = events<Element, WheelEvent>('wheel')
 <hr />
 
 
-#### makeHistoryComponent\<State = any\>(location: Location, history: History): EffectfulComponent\<HistorySinks, HistorySources\<State\>\>
+#### makeHistoryComponent\<State = any\>(location: Location, history: History): IOComponent\<HistorySinks, HistorySources\<State\>\>
 
 <p>
 
 Given implementations of the `Location` and `History` interfaces, it returns
-an EffectfulComponent function which facilitates performing side-effects with 
+an IOComponent function which facilitates performing side-effects with
 the history API.
 
 </p>
@@ -856,14 +856,14 @@ if (!element) throw new Error(`Unable to find element by '${rootElementSelector}
 const Dom = makeDomComponent(element)
 const History = makeHistoryComponent(location, history)
 
-function Effects(sinks) {
+function IO(sinks) {
   return {
     ...Dom(sinks),
     ...History(sinks),
   }
 }
 
-run(UI, Effects)
+run(UI, IO)
 ```
 
 </details>
@@ -876,7 +876,7 @@ run(UI, Effects)
 export function makeHistoryComponent<State = any>(
   location: Location,
   history: History
-): EffectfulComponent<HistorySinks, HistorySources<State>> {
+): IOComponent<HistorySinks, HistorySources<State>> {
   const popState$: Stream<PopStateEvent> =
     typeof window === void 0 ? empty() : new EventStream('popstate', window, {})
 

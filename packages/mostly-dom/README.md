@@ -54,7 +54,7 @@ interface DomSource {
 
 <p>
 
-Sources type expected by a Dom component.
+Sources type expected by a DOM component.
 
 </p>
 
@@ -242,16 +242,16 @@ Takes an element and returns a DOM component function.
   <summary>See an example</summary>
   
 ```typescript
-import { 
-  makeDomComponent, 
-  DomSources, 
-  DomSinks, 
+import {
+  makeDomComponent,
+  DomSources,
+  DomSinks,
   VNode,
-  events, 
-  query, 
-  div, 
-  h1, 
-  button 
+  events,
+  query,
+  div,
+  h1,
+  button
 } from '@motorcycle/mostly-dom'
 import { run } from '@motorcycle/run'
 
@@ -259,9 +259,9 @@ const element = document.querySelector('#app')
 
 if (!element) throw new Error('unable to find element')
 
-run(UI, makeDomComponent(element))
+run(Main, makeDomComponent(element))
 
-function UI(sources: DomSources): DomSinks {
+function Main(sources: DomSources): DomSinks {
   const { dom } = sources
 
   const click$: Stream<Event> = events('click', query('button'))
@@ -288,7 +288,7 @@ function view(amount: number) {
 
 ```typescript
 
-export function makeDomComponent(element: Element): EffectfulComponent<DomSinks, DomSources> {
+export function makeDomComponent(element: Element): IOComponent<DomSinks, DomSources> {
   const rootVNode = elementToVNode(element)
   const wrapVNode = map(vNodeWrapper(element))
   const patch = scan(init(), rootVNode)
