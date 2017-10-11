@@ -35,10 +35,10 @@ export const test: Test = describe(`state`, [
       setTimeout(() => {
         const expected = [100, 101, 103, 200, 201, 203]
         collectEvents(sut)
-          .then(actual => console.log(actual) || equal(expected, actual))
+          .then(equal(expected))
           .then(() => done())
           .catch(done)
-      }, 500)
+      }, 550)
 
       collectEvents(sut)
     }),
