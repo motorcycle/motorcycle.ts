@@ -1,5 +1,5 @@
 import { Stream } from '@motorcycle/types'
-import { curry3 } from '167'
+import { curry3 } from '@typed/prelude'
 import { hold } from './hold'
 import { scan } from './scan'
 import { skipRepeats } from './skipRepeats'

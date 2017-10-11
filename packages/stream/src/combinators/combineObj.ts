@@ -1,4 +1,4 @@
-import { keys, length, values } from '167'
+import { keys, length, values } from '@typed/prelude'
 
 import { Stream } from '@motorcycle/types'
 import { combineArray } from './combineArray'

@@ -1,5 +1,5 @@
 import { Stream } from '@motorcycle/types'
-import { curry2 } from '167'
+import { curry2 } from '@typed/prelude'
 import { map } from './map'
 import { switchLatest } from './switchLatest'
 

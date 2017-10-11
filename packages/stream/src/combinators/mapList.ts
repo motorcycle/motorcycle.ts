@@ -1,4 +1,4 @@
-import { curry2, map as mapArray } from '167'
+import { curry2, map as mapArray } from '@typed/prelude'
 
 import { Stream } from '@motorcycle/types'
 import { map } from './map'
