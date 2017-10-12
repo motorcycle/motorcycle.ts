@@ -1,6 +1,6 @@
 import { CssSelector, DomSource } from '../'
 
-import { curry2 } from '167'
+import { curry2 } from '@typed/prelude'
 
 /**
  * A curried function for building more specific queries for elements.
