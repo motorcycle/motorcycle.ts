@@ -1,7 +1,7 @@
-import { curry2, map as mapArray } from '@typed/prelude'
-
 import { Stream } from '@motorcycle/types'
+import { curry2 } from '@typed/prelude'
 import { map } from './map'
+import { map as mapArray } from '@typed/list'
 
 /**
  * Applies a function to all Sinks in a list of Sinks.
