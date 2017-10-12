@@ -1,6 +1,6 @@
 {
   "name": "@motorcycle/types",
-  "version": "2.1.0",
+  "version": "3.0.0",
   "description": "A shared-kernel of types for Motorcycle",
   "main": "lib/index.js",
   "module": "lib.es2015/index.js",

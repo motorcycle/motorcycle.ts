@@ -1,6 +1,6 @@
 {
   "name": "@motorcycle/mostly-dom",
-  "version": "4.1.0",
+  "version": "5.0.0",
   "description": "Motorcycle.ts adapter for mostly-dom. Built on @motorcycle/dom.",
   "main": "lib/index.js",
   "module": "lib.es2015/index.js",
@@ -30,13 +30,13 @@
   },
   "homepage": "https://github.com/motorcyclets/motorcycle#readme",
   "dependencies": {
+    "@motorcycle/dom": "17.0.0",
+    "@motorcycle/stream": "3.0.0",
+    "@motorcycle/types": "3.0.0",
     "@typed/prelude": "4.0.0",
-    "@motorcycle/dom": "16.1.0",
-    "@motorcycle/stream": "2.1.0",
-    "@motorcycle/types": "2.1.0",
     "mostly-dom": "4.3.0"
   },
   "devDependencies": {
-    "@motorcycle/test": "2.1.0"
+    "@motorcycle/test": "3.0.0"
   }
 }

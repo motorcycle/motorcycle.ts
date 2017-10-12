@@ -1,6 +1,6 @@
 {
   "name": "@motorcycle/mostly-html",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Server-side rendering for Motorcycle.ts",
   "main": "lib/index.js",
   "module": "lib.es2015/index.js",
@@ -34,13 +34,13 @@
   },
   "homepage": "https://github.com/motorcyclets/motorcyclets#readme",
   "dependencies": {
-    "@motorcycle/dom": "16.1.0",
-    "@motorcycle/mostly-dom": "4.1.0",
-    "@motorcycle/stream": "2.1.0",
-    "@motorcycle/types": "2.1.0",
+    "@motorcycle/dom": "17.0.0",
+    "@motorcycle/mostly-dom": "5.0.0",
+    "@motorcycle/stream": "3.0.0",
+    "@motorcycle/types": "3.0.0",
     "mostly-html": "2.0.0"
   },
   "devDependencies": {
-    "@motorcycle/test": "2.1.0"
+    "@motorcycle/test": "3.0.0"
   }
 }
