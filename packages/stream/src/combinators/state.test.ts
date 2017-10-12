@@ -2,7 +2,7 @@ import { Test, describe, given, it } from '@typed/test'
 import { at, mergeArray, observe, state } from './'
 
 import { Stream } from '@motorcycle/types'
-import { add } from '167'
+import { add } from '@typed/prelude'
 
 export const test: Test = describe(`state`, [
   given(`(a -> b -> a) -> Stream a -> Stream b`, [

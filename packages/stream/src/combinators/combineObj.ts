@@ -1,4 +1,4 @@
-import { keys, length, values } from '167'
+import { length, map } from '@typed/list'
 
 import { Stream } from '@motorcycle/types'
 import { combineArray } from './combineArray'
@@ -17,8 +17,8 @@ import { combineArray } from './combineArray'
 export function combineObj<Obj extends object>(
   object: { readonly [K in keyof Obj]: Stream<Obj[K]> }
 ): Stream<Obj> {
-  const objectKeys = keys(object)
-  const sources = values(object) as Array<Stream<Obj[keyof Obj]>>
+  const objectKeys = Object.keys(object) as Array<keyof Obj>
+  const sources = map(key => object[key], objectKeys)
 
   return combineArray((...values: Array<Obj[keyof Obj]>) => {
     const valuesMap = {} as Obj
