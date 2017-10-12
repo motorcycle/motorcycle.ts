@@ -1,4 +1,4 @@
-# @motorcycle/run -- 4.1.0
+# @motorcycle/run -- 5.0.0
 
 A statically-typed, functional and reactive framework for modern browsers
 

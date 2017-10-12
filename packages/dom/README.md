@@ -1,4 +1,4 @@
-# @motorcycle/dom -- 16.1.0
+# @motorcycle/dom -- 17.0.0
 
 Declarative, functional, reactive abstractions for the DOM
 
@@ -719,7 +719,7 @@ export const dragEndEvent = events<Element, DragEvent>('dragend')
 export const dragEnterEvent = events<Element, DragEvent>('dragenter')
 export const dragLeaveEvent = events<Element, DragEvent>('dragleave')
 export const dragOverEvent = events<Element, DragEvent>('dragover')
-export const dragstartEvent = events<Element, DragEvent>('dragstart')
+export const dragStartEvent = events<Element, DragEvent>('dragstart')
 export const dropEvent = events<Element, DragEvent>('drop')
 export const durationChangeEvent = events<Element, Event>('durationchange')
 export const emptiedEvent = events<Element, Event>('emptied')

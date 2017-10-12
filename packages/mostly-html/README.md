@@ -1,4 +1,4 @@
-# @motorcycle/mostly-html -- 0.0.0
+# @motorcycle/mostly-html -- 1.0.0
 
 Server-side rendering for Motorcycle.ts
 

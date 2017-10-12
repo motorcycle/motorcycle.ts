@@ -1,4 +1,4 @@
-# @motorcycle/stream -- 2.1.0
+# @motorcycle/stream -- 3.0.0
 
 Functional and reactive event streams for Motorcycle.ts
 
@@ -325,8 +325,8 @@ const stream: Stream<{ a: number, b: number, c: number }> = combineObj(obj)
 export function combineObj<Obj extends object>(
   object: { readonly [K in keyof Obj]: Stream<Obj[K]> }
 ): Stream<Obj> {
-  const objectKeys = keys(object)
-  const sources = values(object) as Array<Stream<Obj[keyof Obj]>>
+  const objectKeys = Object.keys(object) as Array<keyof Obj>
+  const sources = map(key => object[key], objectKeys)
 
   return combineArray((...values: Array<Obj[keyof Obj]>) => {
     const valuesMap = {} as Obj
@@ -1894,7 +1894,7 @@ export { startWith } from '@most/core'
 <p>
 
 Especially useful when keeping local state that also needs to be updated
-from an outside source.
+from a source.
 
 </p>
 
@@ -1904,23 +1904,23 @@ from an outside source.
   
 ```typescript
 import { Stream } from '@motorcycle/types'
-import { query, dragOverEvent, dragstartEvent, dropEvent } from '@motorcycle/dom'
+import { query, dragOverEvent, dragStartEvent, dropEvent } from '@motorcycle/dom'
 import { sample, map, state, mapList } from '@motorcycle/stream'
 import { move } from '@typed/prelude'
 
 export function ReorderableList(sources) {
   const { list$, dom } = sources
-  const li = query('li', dom)
-  const dragOver$ = dragOverEvent(li)
-  const dragStart$ = dragstartEvent(li)
-  const drop$ = dropEvent(li)
-  const reducer$: Stream<(list: Array<string>) => Array<string>> = 
-    sample((to, from) => move(from, to), map(getKey, drop$), map(getKey, dragStart$))
+  const listItemSource = query(listItemCssSelector, dom)
+  const dragOver$ = dragOverEvent(listItemSource)
+  const dragStart$ = dragStartEvent(listItemSource)
+  const drop$ = dropEvent(listItemSource)
+  const reducer$: Stream<(list: Array<string>) => Array<string>> =
+    sample((to, from) => move(from, to), map(elementDataKey, drop$), map(elementDataKey, dragStart$))
   const reorderedList$ = state((x, f) => f(x), list$, reducer$)
-  // create all of our <li> tags
-  const childViews$ = mapList(listItem, reorderedList$)
-  // create our <ul> containgin our <li> tags
-  const view$ = map(view, childViews$)
+  // Create all list items.
+  const listItemViews$ = mapList(listItem, reorderedList$)
+  // Pass the list items to the view
+  const view$ = map(view, listItemViews$)
 
   return {
     view$,
@@ -1943,7 +1943,7 @@ function __state<A, B>(
   seed$: Stream<B>,
   values$: Stream<A>
 ): Stream<B> {
-  return switchMap(seed => scan(f, seed, values$), seed$)
+  return hold(skipRepeats(switchMap(seed => scan(f, seed, values$), seed$)))
 }
 
 export interface State {
