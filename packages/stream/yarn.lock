@@ -41,9 +41,9 @@
   version "0.11.1"
   resolved "https://registry.yarnpkg.com/@most/types/-/types-0.11.1.tgz#5e305e0e346c5b01f1ebdeec4c1dfa5b189b5f9d"
 
-"@motorcycle/types@2.1.0":
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/@motorcycle/types/-/types-2.1.0.tgz#0af595e60bf21bbe55953a04d3801d6223cb66cc"
+"@motorcycle/types@3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@motorcycle/types/-/types-3.0.0.tgz#3f321bf22510ac64d04ce491316a9af853cbe0f4"
   dependencies:
     "@most/types" "0.11.1"
 
