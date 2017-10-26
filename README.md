@@ -47,7 +47,7 @@
 
 In your terminal, run the following:
 
-NOTE: `sudo` may be required for all of the following terminal commands.
+**NOTE**: `sudo` may be required for all of the following terminal commands.
 
 ```sh
 # If you're on a Debian-based Linux Distribution, install rake
@@ -64,5 +64,5 @@ following:
 export CHANGELOG_GITHUB_TOKEN=$GITHUB_PERSONAL_ACCESS_TOKEN_GENERATED_ABOVE
 ```
 
-In a new terminal, you will now be able to successfully run `yarn changelog`
+In a new terminal, you should now be able to successfully run `yarn changelog`
 to generate an up-to-date `CHANGELOG.md`.
