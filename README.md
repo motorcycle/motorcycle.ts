@@ -47,7 +47,7 @@
 
 In your terminal, run the following:
 
-**NOTE**: `sudo` may be required for all of the following terminal commands.
+**NOTE:** `sudo` may be required for all of the following terminal commands.
 
 ```sh
 # If you're on a Debian-based Linux Distribution, install rake
