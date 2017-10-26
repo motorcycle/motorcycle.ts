@@ -47,8 +47,7 @@
 
 In your terminal, run the following:
 
-NOTE: `sudo` may be required for all of the following terminal commands -- based
-on where you installed `Ruby`.
+NOTE: `sudo` may be required for all of the following terminal commands.
 
 ```sh
 # If you're on a Debian-based Linux Distribution, install rake
@@ -58,12 +57,12 @@ gem install rake
 gem install github_changelog_generator
 ```
 
-In your `.bash_profile`, `.zshrc` or equivalent shell configuration file add the 
+In your `.bash_profile`, `.zshrc` or equivalent shell configuration file, add the 
 following:
 
 ```sh
 export CHANGELOG_GITHUB_TOKEN=$GITHUB_PERSONAL_ACCESS_TOKEN_GENERATED_ABOVE
 ```
 
-and save. In a new terminal you will now be able to successfully run `yarn changelog`
+In a new terminal, you will now be able to successfully run `yarn changelog`
 to generate an up-to-date `CHANGELOG.md`.
