@@ -30,9 +30,10 @@
     "test:unit": "lerna run test:unit",
     "test:lint": "lerna exec -- ../../node_modules/.bin/prettier --write --print-width 100 --tab-width 2 --no-semi --single-quote --trailing-comma es5 --parser typescript src/**/*.ts",
     "build": "node tools/build.js",
+    "changelog": "github_changelog_generator --no-compare-link --bug-labels 'Type:\u0020Bug' --enhancement-labels 'Type:\u0020Feature,Type:\u0020Chore' --include-labels 'Type:\u0020Feature,Type:\u0020Chore,Type:\u0020Bug,Type:\u0020Breaking,Type:\u0020Regression' --user motorcyclets --project motorcycle",
     "docs": "node tools/docs.js && git add **/README.md && git commit -m 'docs(README): rebuild documentation' && git push",
     "release:pre": "yarn test && yarn build",
-    "release:post": "yarn docs",
+    "release:post": "yarn docs && yarn changelog && git add CHANGELOG.md && git commit -m 'docs(CHANGELOG): rebuild changelog && git push'",
     "release:next": "yarn release:pre && lerna publish --exact --canary=next --npm-tag=next -- --access=public && yarn release:post",
     "release": "yarn release:pre && lerna publish --exact -- --access=public && yarn release:post"
   }
