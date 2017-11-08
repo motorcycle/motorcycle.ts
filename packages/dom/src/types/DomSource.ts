@@ -42,11 +42,11 @@ export interface DomSource<A = Element, B = Event> {
 
   /**
    * Retrieves a stream of events from elements matching previous queries.
-   * 
+   *
    * `DomSource.events` optionally takes a second parameter of `EventListernerOptions`,
-   * which specifies whether event listeners will listen to events during the 
+   * which specifies whether event listeners will listen to events during the
    * capturing phase. If not provided, all event listeners will use bubbling phase.
-   * 
+   *
    * @name DomSource.events<Ev extends Event = Event>(eventType: StandardEvents, options?: EventListenerOptions): Stream<Ev>
    * @example
    * const queriedDomSource = domSource.query(`.myCssSelector`)
@@ -56,12 +56,12 @@ export interface DomSource<A = Element, B = Event> {
 
   /**
    * Retrieves a list of all previously queried CSS selectors.
-   * 
+   *
    * @name DomSource.cssSelectors(): ReadonlyArray<CssSelector>
    * @example
    * const queriedDomSource = domSource.query(`.myCssSelector`)
    * const cssSelectors = queriedDomSource.cssSelectors()
-   * 
+   *
    * console.log(cssSelectors[0]) // .myCssSelector
    */
   cssSelectors(): ReadonlyArray<CssSelector>

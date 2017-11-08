@@ -5,11 +5,11 @@ import { curry2 } from '@typed/prelude'
 
 /**
  * Takes an event type and a DomSource and returns a stream of events.
- * 
+ *
  * @name event<A = Element, B = Event>>(type: StandardEvents, dom: DomSource<A, B>): Stream<B>
  * @example
  * import { events } from '@motorcycle/dom'
- * 
+ *
  * const click$ = events('click', dom)
  */
 export const events: Events = curry2(function<A = Element, B = Event>(

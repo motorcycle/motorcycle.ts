@@ -21,13 +21,13 @@
  */
 
 /**
- * Functions for describing your views. 
+ * Functions for describing your views.
  * Re-exported from [`mostly-dom`](https://github.com/TylorS167/mostly-dom)
- * 
+ *
  * @name hyperscript-helpers
  * @example
  * import { VNode, div, h1, button } from '@motorcycle/mostly-dom'
- * 
+ *
  * function view(amount: number): VNode {
  *   return div([
  *     h1(`Clicked ${amount} times!`),

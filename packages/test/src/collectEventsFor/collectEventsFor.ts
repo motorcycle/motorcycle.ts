@@ -11,7 +11,7 @@ import { curry2 } from '@most/prelude'
  * // Mocha style tests
  * it('increasing value by one', () => {
  *   const stream = scan(x => x + 1, skip(1, periodic(10)))
- * 
+ *
  *   return collectEventsFor(30, stream).then(events => assert.deepEqual(events, [0, 1, 2, 3]))
  * })
  */

@@ -2,7 +2,7 @@ import { Disposable, Scheduler, Sink, Stream, Time } from '@motorcycle/types'
 
 /**
  * Returns a stream that will only emit it's last value right before
- * ending. If the stream does not end, then no events will ever occur. 
+ * ending. If the stream does not end, then no events will ever occur.
  * If the stream ends before emitting a value, no value will emit.
  * @name last<A>(stream: Stream<A>): Stream<A>
  */

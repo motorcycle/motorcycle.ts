@@ -3,18 +3,18 @@ import { CssSelector, DomSource, StandardEvents } from '../'
 import { Stream } from '@motorcycle/types'
 
 /**
- * Creates a new DomSource that will default to using 
+ * Creates a new DomSource that will default to using
  * capture when using `events()`.
- * 
+ *
  * @name useCapture<A = Element, B = Event>(dom: DomSource<A, B>): DomSource<A, B>
- * @example 
+ * @example
  * import { useCapture, events } from '@motorcycle/dom'
- * 
+ *
  * export function Component(sources) {
  *   const { dom } = sources
- * 
+ *
  *   const click$ = events('click', useCapture(dom))
- * 
+ *
  *   ...
  * }
  */

@@ -5,21 +5,21 @@ import { switchLatest } from './switchLatest'
 
 /**
  * Flattens a stream of sinks into a single sink.
- * 
+ *
  * @name switchSinkOr<Sinks, K extends keyof Sinks>(or$: Sinks[K], sinkName: K, sinks$: Stream<Sinks>): Sinks[K]
  * @example
  * import { switchSinkOr, map, now, never } from '@motorcycle/stream'
- * 
+ *
  * const switchSinkOrNever = switchSinkOr(never())
- * 
+ *
  * function Component(sources) {
  *   const { listOfItems$ } = sources
- * 
+ *
  *  const sinks$ = map(items => SubComponent({ ...sources, items$: now(items) }), listOfItems$)
- * 
+ *
  *  const history$ = switchSinkOrNever('history$', sinks$)
- * 
- *  return { history$ } 
+ *
+ *  return { history$ }
  * }
  */
 export const switchSinkOr: SwitchSinkOr = curry3<any, any, any, any>(function switchSinkOr<

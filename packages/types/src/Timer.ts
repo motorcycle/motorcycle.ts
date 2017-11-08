@@ -1,5 +1,5 @@
 /**
- * A Timer interface 
+ * A Timer interface
  * @name Timer
  * @example
  * export interface Timer {

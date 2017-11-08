@@ -15,27 +15,27 @@ export function switchCombine<A>(
 /**
  * Flattens an array of streams into an array of values. Particularly useful
  * when dealing with a list of children components.
- * 
+ *
  * @name switchCombine<A>(streamList$: Stream<Array<Stream<A>>): Stream<ReadonlyArray<A>>
  * @example
  * import { switchCombine, mapSinks, map, now } from '@motorcycle/stream'
- * 
+ *
  * function Component(sources) {
  *   const { listOfData$ } = sources
- * 
+ *
  *   const childSinks$ = map(
  *     listOfData => listOfData.map(data => ChildComponent({ ...sources, data$: now(data) }))
  *     listOfData$
  *   )
- * 
- *   const childViews$: Stream<ReadonlyArray<VNode>> = 
+ *
+ *   const childViews$: Stream<ReadonlyArray<VNode>> =
  *     switchCombine(mapSinks(sinks => sinks.view$, childSinks$))
- * 
+ *
  *   const view$ = map(view, childView$)
- * 
+ *
  *   return { view$ }
  * }
- * 
+ *
  * function view(childViews: ReadonlyArray<VNode>): VNode {
  *   // ...
  * }

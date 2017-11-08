@@ -1,5 +1,5 @@
 /**
- * A Scheduler 
+ * A Scheduler
  * @name Scheduler
  * @example
  * export interface Scheduler {

@@ -4,19 +4,19 @@ import { curry2 } from '@typed/prelude'
 
 /**
  * A curried function for building more specific queries for elements.
- * 
+ *
  * @name query<A, B, C>(cssSelector: CssSelector, domSource: DomSource<A, B>): DomSource<C, B>
- * @example 
+ * @example
  * import { DomSource, query, events } from '@motorcycle/dom'
- * 
+ *
  * type Sources = { dom: DomSource }
- * 
+ *
  * function Component(sources: Sources) {
  *   const { dom } = sources
  *
  *   const button: DomSource = query('button', dom)
  *   const event$ = events('click', button)
- * 
+ *
  *   ...
  * }
  */

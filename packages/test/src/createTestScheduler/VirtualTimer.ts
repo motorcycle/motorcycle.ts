@@ -2,15 +2,15 @@ import { Delay, Handle, Time, Timer } from '@motorcycle/types'
 
 /**
  * A Timer instance with control over how time progresses.
- * 
+ *
  * @name VirtualTimer
  * @example
  * import { VirtualTimer } from '@motorcycle/test'
- * 
+ *
  * const timer = new VirtualTimer()
- * 
+ *
  * timer.setTimer(() => console.log('Hello'), 100)
- * 
+ *
  * timer.tick(100)
  */
 export class VirtualTimer implements Timer {

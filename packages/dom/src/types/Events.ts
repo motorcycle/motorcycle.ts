@@ -243,9 +243,9 @@ export type PointerEvents =
 // the events that are in the var browser specifications
 // all browsers should have these implemented the same
 /**
- * Standard event types defined by MDN. All browser should have these 
+ * Standard event types defined by MDN. All browser should have these
  * implemented the same.
- * 
+ *
  * @name StandardEvents
  * @example
  * export type StandardEvents =

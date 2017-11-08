@@ -5,13 +5,13 @@ import { combineArray } from './combineArray'
 
 /**
  * Takes an object of streams and returns a Stream of an object.
- * 
+ *
  * @name combineObj<Obj extends object>(obj: { [K in keyof Obj]: Stream<Obj[K]> }): Stream<Obj>
  * @example
  * import { combineObj, now } from '@motorcycle/stream'
- * 
+ *
  * const obj = { a: now(1), b: now(2), c: now(3) }
- * 
+ *
  * const stream: Stream<{ a: number, b: number, c: number }> = combineObj(obj)
  */
 export function combineObj<Obj extends object>(
