@@ -1,17 +1,19 @@
 /**
- * For each event in a sampler stream, apply a function to combine it with the 
- * most recent event in another stream. The resulting stream will contain the 
- * same number of events as the sampler stream.
- * 
- * @name sample<A, B, C>(f: (a: A, b: B) => C, sampler: Stream<A>, stream: Stream<B>): Stream<C>
- * @example 
- * s1:                       -1--2--3--4--5->
- * sampler:                  -1-----2-----3->
- * sample(sum, sampler, s1): -2-----5-----8->
+ * Given each event occurrence from a sampler stream takes the latest value from
+ * the given stream.
  *
- * s1:                       -1-----2-----3->
- * sampler:                  -1--2--3--4--5->
- * sample(sum, sampler, s1): -2--3--5--6--8->
- * 
+ * @name sample<A>(values: Stream<A>, stream: Stream<any>): Stream<A>
+ * @example
+ * import { sample } from '@motorcycle/stream'
+ *
+ * function submit(dom: DomSource): Stream<string> {
+ *   const button = query('button', dom)
+ *   const input = query('input', dom)
+ *
+ *   const click$ = events('click', button)
+ *   const value$ = map(ev => ev.target.value, events('input', input))
+ *
+ *   return sample(click$, value$)
+ * }
  */
 export { sample } from '@most/core'
