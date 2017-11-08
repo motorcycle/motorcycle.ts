@@ -82,90 +82,90 @@
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/@typed/core/-/core-2.1.0.tgz#9c0c303bbe83a9979464bd41d8e5e49073cde323"
 
-"@typed/either@3.2.0":
-  version "3.2.0"
-  resolved "https://registry.yarnpkg.com/@typed/either/-/either-3.2.0.tgz#567768db8f2a5ec362fd21773007e986e765eb9b"
+"@typed/either@3.3.0":
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/@typed/either/-/either-3.3.0.tgz#070b7ed06b26637e9dd1e96f557120d647f4f3c4"
   dependencies:
     "@typed/core" "2.1.0"
-    "@typed/functions" "2.2.0"
+    "@typed/functions" "2.3.0"
 
-"@typed/functions@2.2.0":
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/@typed/functions/-/functions-2.2.0.tgz#7831c8f2c41a51695b0a119ee26ceb0516bc6734"
+"@typed/functions@2.3.0":
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/@typed/functions/-/functions-2.3.0.tgz#bca73405c5d320af87a1a405a5ef2643c7c3dd56"
   dependencies:
     "@typed/core" "2.1.0"
 
-"@typed/lenses@2.2.0":
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/@typed/lenses/-/lenses-2.2.0.tgz#0d6a9ec97d956f4dd797a9686f7b4bdb569b6af1"
+"@typed/lenses@2.3.0":
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/@typed/lenses/-/lenses-2.3.0.tgz#cd9161e988c2f0cc48a47916ee523cc4d29ad2a7"
   dependencies:
-    "@typed/functions" "2.2.0"
-    "@typed/maybe" "5.0.0"
+    "@typed/functions" "2.3.0"
+    "@typed/maybe" "6.0.0"
 
-"@typed/list@2.2.0":
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/@typed/list/-/list-2.2.0.tgz#683f389c53808881b477184264b247a869f83bb7"
-  dependencies:
-    "@typed/core" "2.1.0"
-    "@typed/functions" "2.2.0"
-    "@typed/lenses" "2.2.0"
-    "@typed/logic" "2.2.0"
-    "@typed/maybe" "5.0.0"
-
-"@typed/logic@2.2.0":
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/@typed/logic/-/logic-2.2.0.tgz#10f87e1bbab32ff34d15fbb4ed23947c442bae1b"
-  dependencies:
-    "@typed/either" "3.2.0"
-    "@typed/functions" "2.2.0"
-    "@typed/maybe" "5.0.0"
-
-"@typed/math@2.2.0":
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/@typed/math/-/math-2.2.0.tgz#746332b7217e10137e5b657f06909350461d3577"
+"@typed/list@2.3.0":
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/@typed/list/-/list-2.3.0.tgz#64a3f6073c3f143e307e9e914ea2f25d3307b4b6"
   dependencies:
     "@typed/core" "2.1.0"
-    "@typed/functions" "2.2.0"
-    "@typed/list" "2.2.0"
-    "@typed/maybe" "5.0.0"
+    "@typed/functions" "2.3.0"
+    "@typed/lenses" "2.3.0"
+    "@typed/logic" "2.3.0"
+    "@typed/maybe" "6.0.0"
 
-"@typed/maybe@5.0.0":
+"@typed/logic@2.3.0":
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/@typed/logic/-/logic-2.3.0.tgz#989a213440036f93e8f2944ececa1b616b21ec46"
+  dependencies:
+    "@typed/either" "3.3.0"
+    "@typed/functions" "2.3.0"
+    "@typed/maybe" "6.0.0"
+
+"@typed/math@2.3.0":
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/@typed/math/-/math-2.3.0.tgz#af3eccaeec2566d42907053e1f1bda78a4796b47"
+  dependencies:
+    "@typed/core" "2.1.0"
+    "@typed/functions" "2.3.0"
+    "@typed/list" "2.3.0"
+    "@typed/maybe" "6.0.0"
+
+"@typed/maybe@6.0.0":
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/@typed/maybe/-/maybe-6.0.0.tgz#47a9c4bed6f488e885f67accaea2ca0b60e498db"
+  dependencies:
+    "@typed/core" "2.1.0"
+    "@typed/functions" "2.3.0"
+
+"@typed/objects@2.3.0":
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/@typed/objects/-/objects-2.3.0.tgz#9c2d97e7244af920ff465a475efdddd24d6111a0"
+  dependencies:
+    "@typed/core" "2.1.0"
+    "@typed/functions" "2.3.0"
+    "@typed/lenses" "2.3.0"
+    "@typed/logic" "2.3.0"
+    "@typed/maybe" "6.0.0"
+
+"@typed/prelude@5.0.0":
   version "5.0.0"
-  resolved "https://registry.yarnpkg.com/@typed/maybe/-/maybe-5.0.0.tgz#381e6801d41ff63a7c1c4e6c5a9c7f7a50e93840"
+  resolved "https://registry.yarnpkg.com/@typed/prelude/-/prelude-5.0.0.tgz#9a4c5784174d5f3a4d47fbf4e3eead9c1bc7818d"
   dependencies:
     "@typed/core" "2.1.0"
-    "@typed/functions" "2.2.0"
+    "@typed/either" "3.3.0"
+    "@typed/functions" "2.3.0"
+    "@typed/lenses" "2.3.0"
+    "@typed/list" "2.3.0"
+    "@typed/logic" "2.3.0"
+    "@typed/math" "2.3.0"
+    "@typed/maybe" "6.0.0"
+    "@typed/objects" "2.3.0"
+    "@typed/strings" "3.2.0"
 
-"@typed/objects@2.2.0":
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/@typed/objects/-/objects-2.2.0.tgz#cc489563767ef99ea63d617d273d8157db42a943"
+"@typed/strings@3.2.0":
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/@typed/strings/-/strings-3.2.0.tgz#b57a93513592c4d13e558cc9e1a6474d3f065af2"
   dependencies:
-    "@typed/core" "2.1.0"
-    "@typed/functions" "2.2.0"
-    "@typed/lenses" "2.2.0"
-    "@typed/logic" "2.2.0"
-    "@typed/maybe" "5.0.0"
-
-"@typed/prelude@4.0.0":
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/@typed/prelude/-/prelude-4.0.0.tgz#68f8ad5418d5c4c737b2fabcce9df343fc9d2bed"
-  dependencies:
-    "@typed/core" "2.1.0"
-    "@typed/either" "3.2.0"
-    "@typed/functions" "2.2.0"
-    "@typed/lenses" "2.2.0"
-    "@typed/list" "2.2.0"
-    "@typed/logic" "2.2.0"
-    "@typed/math" "2.2.0"
-    "@typed/maybe" "5.0.0"
-    "@typed/objects" "2.2.0"
-    "@typed/strings" "3.1.0"
-
-"@typed/strings@3.1.0":
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/@typed/strings/-/strings-3.1.0.tgz#4bb20597993637e91ec1319427daa8cfa2d95b1a"
-  dependencies:
-    "@typed/functions" "2.2.0"
+    "@typed/functions" "2.3.0"
 
 "@types/node@8.0.33":
   version "8.0.33"
