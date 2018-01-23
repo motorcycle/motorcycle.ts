@@ -33,7 +33,7 @@
     "@motorcycle/dom": "17.0.0",
     "@motorcycle/stream": "3.0.0",
     "@motorcycle/types": "3.0.0",
-    "@typed/prelude": "4.0.0",
+    "@typed/prelude": "5.0.0",
     "mostly-dom": "4.3.0"
   },
   "devDependencies": {
