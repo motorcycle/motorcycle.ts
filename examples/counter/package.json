@@ -22,7 +22,7 @@
   },
   "homepage": "https://github.com/motorcyclets/motorcycle#readme",
   "dependencies": {
-    "@motorcycle/dom": "16.0.0",
+    "@motorcycle/dom": "17.0.0",
     "@motorcycle/mostly-dom": "4.0.0",
     "@motorcycle/run": "4.0.0",
     "@motorcycle/stream": "2.0.0"
