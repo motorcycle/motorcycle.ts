@@ -55,12 +55,12 @@
     "@motorcycle/types" "2.0.0"
     mostly-dom "4.3.0"
 
-"@motorcycle/run@4.0.0":
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/@motorcycle/run/-/run-4.0.0.tgz#30034346939ef8c38f3ac182ca28f997acaa31b3"
+"@motorcycle/run@4.1.0":
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/@motorcycle/run/-/run-4.1.0.tgz#80ac799964e4a29233e660446eb70bc4ef50a9f2"
   dependencies:
-    "@motorcycle/stream" "2.0.0"
-    "@motorcycle/types" "2.0.0"
+    "@motorcycle/stream" "2.1.0"
+    "@motorcycle/types" "2.1.0"
 
 "@motorcycle/stream@2.0.0":
   version "2.0.0"
@@ -71,6 +71,16 @@
     "@most/disposable" "0.13.0"
     "@most/scheduler" "0.13.0"
     "@motorcycle/types" "2.0.0"
+
+"@motorcycle/stream@2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@motorcycle/stream/-/stream-2.1.0.tgz#dc4132dd0aaf6145bd6b3faafe065e195cda2cc0"
+  dependencies:
+    "167" "0.39.0"
+    "@most/core" "0.13.0"
+    "@most/disposable" "0.13.0"
+    "@most/scheduler" "0.13.0"
+    "@motorcycle/types" "2.1.0"
 
 "@motorcycle/test@2.0.0":
   version "2.0.0"
@@ -83,6 +93,12 @@
 "@motorcycle/types@2.0.0":
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/@motorcycle/types/-/types-2.0.0.tgz#a4adc8ecff575076312659246786c7ae705006a3"
+  dependencies:
+    "@most/types" "0.11.1"
+
+"@motorcycle/types@2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@motorcycle/types/-/types-2.1.0.tgz#0af595e60bf21bbe55953a04d3801d6223cb66cc"
   dependencies:
     "@most/types" "0.11.1"
 
