@@ -1,25 +1,131 @@
-import { Component, IOComponent, Stream } from '@motorcycle/types'
 import { ProxyStream, createProxy, scheduler } from '@motorcycle/stream'
-import { createDisposableSinks, createProxySinks, replicateSinks } from './sinks'
+import { replicateRequests, toDisposableRequests, toProxyRequests } from './request'
 
-import { disposeSources } from './disposeSources'
+import { Stream } from '@motorcycle/types'
+import { disposeResponse } from './disposeResponse'
+
+/**
+ * Requests is an object of named requests, where a request is a Stream of any type.
+ * 
+ * @name Requests
+ * @example
+ * export type Requests = Readonly<Record<string, Stream<any>>>
+ * @type true
+ */
+export type Requests = Readonly<Record<string, Stream<any>>>
+
+/**
+ * Responses is an object of named responses, where a response is of any type.
+ * 
+ * @name Responses
+ * @example
+ * export type Responses = Readonly<Record<string, any>>
+ * @type true
+ */
+export type Responses = Readonly<Record<string, any>>
+
+/**
+ * Main is a function type that accepts an object of Responses and returns 
+ * an object of Requests.
+ * 
+ * @name Main
+ * @example
+ * export interface Main<TResponses extends Responses, TRequests extends Requests> {
+ *   (rs: TResponses): TRequests
+ * }
+ * @type true
+ */
+export interface Main<TResponses extends Responses, TRequests extends Requests> {
+  (rs: TResponses): TRequests
+}
+
+/**
+ * Dialogue is a function type that accepts an object of Requests and returns 
+ * an object of Responses.
+ * 
+ * @name Dialogue
+ * @example
+ * export interface Dialogue<TRequests extends Requests, TResponses extends Responses> {
+ *   (rs: TRequests): TResponses
+ * }
+ * @type true
+ */
+export interface Dialogue<TRequests extends Requests, TResponses extends Responses> {
+  (rs: TRequests): TResponses
+}
+
+/**
+ * RunSpec is a row-like object that holds a Main function and a Dialogue function.
+ * 
+ * @name RunSpec
+ * @example
+ * export interface RunSpec<TResponses extends Responses, TRequests extends Requests> {
+ *   readonly main: Main<TResponses, TRequests>
+ *   readonly dialogue: Dialogue<TRequests, TResponses>
+ * }
+ * @type true
+ */
+export interface RunSpec<TResponses extends Responses, TRequests extends Requests> {
+  readonly main: Main<TResponses, TRequests>
+  readonly dialogue: Dialogue<TRequests, TResponses>
+}
+
+/**
+ * IODisposable is a row-like object that holds Responses, Requests and a dispose() method.
+ * 
+ * @name IODisposable
+ * @example
+ * export interface IODisposable<TResponses extends Responses, TRequests extends Requests> {
+ *   responses: TResponses
+ *   requests: TRequests
+ *   dispose: () => void
+ * }
+ * @type true
+ */
+export interface IODisposable<TResponses extends Responses, TRequests extends Requests> {
+  responses: TResponses
+  requests: TRequests
+  dispose: () => void
+}
+
+/**
+ * Run is function type that accepts a RunSpec and returns an IODisposable.
+ * 
+ * @name Run
+ * @example
+ * export interface Run {
+ *   <TResponses extends Responses, TRequests extends Requests>(
+ *     a: RunSpec<TResponses, TRequests>
+ *   ): IODisposable<TResponses, TRequests>
+ * }
+ * @type true
+ */
+export interface Run {
+  <TResponses extends Responses, TRequests extends Requests>(
+    a: RunSpec<TResponses, TRequests>
+  ): IODisposable<TResponses, TRequests>
+}
+
+export type ProxyRequests<TRequests> = Record<keyof TRequests, ProxyStream<any>>
+
+export type EndSignal = Stream<void>
 
 /**
  * Gets the Motorcycle engine roaring! This is the core of Motorcycle. It
  * creates an application loop between your purely functional `Main` function, and your
- * side-effectful `IO` function using [`@most/core`](https://github.com/mostjs/core).
+ * side-effectful `Dialogue` function using [`@most/core`](https://github.com/mostjs/core).
  *
  * This is made possible by the use of the ES2015 Proxy. This means that Motorcycle
  * will only support modern browsers with this feature. All major browsers, still
  * supported by their vendors(Google, Microsoft, Apple), support this feature.
  *
- * @name run<Sources, Sinks>(Main: Component<Sources, Sinks>, IO: IOComponent<Sinks, Sources>)
+ * @name run<TResponses extends Responses, TRequests extends Requests>({ main, dialogue }: RunSpec<TResponses, TRequests>): IODisposable<TResponses, TRequests> {
  * @example
  * import { run } from '@motorcycle/run'
  * import { makeDomComponent, div, button, h2, query, clickEvent } from '@motorcycle/dom'
  *
- * function Main(sources) {
- *   const { dom } = sources
+ * function main(rs) {
+ *   const { dom } = rs
  *
  *   const click$ = clickEvent(query('button', dom))
  *
@@ -36,27 +142,29 @@ import { disposeSources } from './disposeSources'
  *     button('Click Me'),
  *   ])
  * }
+ * 
+ * const dialogue = makeDomComponent(document.querySelector('#app'))
  *
- * run(Main, makeDomComponent(document.querySelector('#app')))
+ * run({ main, dialogue })
  */
-export function run<
-  Sources extends Readonly<Record<string, any>>,
-  Sinks extends Readonly<Record<string, Stream<any>>>
->(Main: Component<Sources, Sinks>, IO: IOComponent<Sinks, Sources>) {
+export const run: Run = function<TResponses extends Responses, TRequests extends Requests>({
+  main,
+  dialogue,
+}: RunSpec<TResponses, TRequests>): IODisposable<TResponses, TRequests> {
   const { stream: endSignal } = createProxy<void>()
 
-  const sinkProxies = {} as Record<keyof Sinks, ProxyStream<any>>
-  const proxySinks: Sinks = createProxySinks(sinkProxies, endSignal)
-  const sources: Sources = IO(proxySinks)
-  const sinks: Sinks = createDisposableSinks(Main(sources), endSignal)
+  const proxyRequestsTarget = {} as ProxyRequests<TRequests>
+  const proxyRequests: TRequests = toProxyRequests(proxyRequestsTarget, endSignal)
+  const responses: TResponses = dialogue(proxyRequests)
+  const requests: TRequests = toDisposableRequests(main(responses), endSignal)
 
-  const disposable = replicateSinks(sinks, sinkProxies)
+  const disposable = replicateRequests(requests, proxyRequestsTarget)
 
   function dispose() {
     endSignal.event(scheduler.currentTime(), void 0)
     disposable.dispose()
-    disposeSources(sources)
+    disposeResponse(responses)
   }
 
-  return { sinks, sources, dispose }
+  return { responses, requests, dispose }
 }
