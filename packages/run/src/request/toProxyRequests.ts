@@ -1,5 +1,7 @@
-import { EndSignal, ProxyRequests, Requests } from '..'
+import { EndSignal, ProxyRequests } from '..'
 import { ProxyStream, createProxy, until } from '@motorcycle/stream'
+
+import { Requests } from '@motorcycle/types'
 
 export interface toProxyRequestFn {
   <TRequests extends Requests>(

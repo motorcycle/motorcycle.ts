@@ -1,9 +1,9 @@
+import { DataFlowComponent, Stream } from '@motorcycle/types'
 import { DomRequests, DomResponses } from './'
-import { curry3, join } from '@typed/prelude'
 
-import { DataFlowComponent } from '@motorcycle/run'
-import { Stream } from '@motorcycle/types'
 import { VNode } from 'mostly-dom'
+import { curry3 } from '@typed/functions'
+import { join } from '@typed/list'
 import { tap } from '@motorcycle/stream'
 
 export interface Isolate {

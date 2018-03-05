@@ -3,7 +3,7 @@ import { Test, describe, given, it } from '@typed/test'
 import { collectEventsFor } from '@motorcycle/test'
 import { div } from 'mostly-dom'
 import { domDialogueOver } from './domDialogueOver'
-import { length } from '@typed/prelude'
+import { length } from '@typed/list'
 import { now } from '@motorcycle/stream'
 
 export const test: Test = describe(`domDialogueOver`, [

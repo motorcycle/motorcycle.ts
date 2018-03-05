@@ -1,9 +1,8 @@
+import { Dialogue, Stream } from '@motorcycle/types'
 import { DomRequests, DomResponses } from '@motorcycle/mostly-dom'
 import { hold, map } from '@motorcycle/stream'
 
-import { Dialogue } from '@motorcycle/run'
 import { HtmlDom } from './HtmlDom'
-import { Stream } from '@motorcycle/types'
 import { toHtml } from 'mostly-html'
 
 /**

@@ -1,5 +1,5 @@
-import { EndSignal, Requests } from '..'
-
+import { EndSignal } from '..'
+import { Requests } from '@motorcycle/types'
 import { until } from '@motorcycle/stream'
 
 export interface toDisposableRequestsFn {

@@ -1,32 +1,8 @@
+import { DataFlowComponent, Dialogue, Requests, Responses, Stream } from '@motorcycle/types'
 import { ProxyStream, createProxy, scheduler } from '@motorcycle/stream'
 import { replicateRequests, toDisposableRequests, toProxyRequests } from './request'
 
-import { Stream } from '@motorcycle/types'
 import { disposeResponse } from './disposeResponse'
-
-/**
- * Requests is an object of named requests, where a request is a Stream of any type.
- * 
- * @name Requests
- * @example
- * export type Requests = Readonly<Record<string, Stream<any>>>
- * @type true
- */
-export type Requests = Readonly<Record<string, Stream<any>>>
-
-/**
- * Responses is an object of named responses, where a response is of any type.
- * 
- * @name Responses
- * @example
- * export type Responses = Readonly<Record<string, any>>
- * @type true
- */
-export type Responses = Readonly<Record<string, any>>
-
-export interface DataFlowComponent<TInputs extends Responses, TOutputs extends Requests> {
-  (xs: TInputs): TOutputs
-}
 
 /**
  * Main is a function type that accepts an object of Responses and returns 
@@ -42,21 +18,6 @@ export interface DataFlowComponent<TInputs extends Responses, TOutputs extends R
 export interface Main<TResponses extends Responses, TRequests extends Requests>
   extends DataFlowComponent<TResponses, TRequests> {
   (rs: TResponses): TRequests
-}
-
-/**
- * Dialogue is a function type that accepts an object of Requests and returns 
- * an object of Responses.
- * 
- * @name Dialogue
- * @example
- * export interface Dialogue<TRequests extends Requests, TResponses extends Responses> {
- *   (rs: TRequests): TResponses
- * }
- * @type true
- */
-export interface Dialogue<TRequests extends Requests, TResponses extends Responses> {
-  (rs: TRequests): TResponses
 }
 
 /**

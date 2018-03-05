@@ -1,7 +1,7 @@
 import { Dom, StandardEventTypes } from '../'
 
 import { Stream } from '@motorcycle/types'
-import { curry2 } from '@typed/prelude'
+import { curry2 } from '@typed/functions'
 
 /**
  * Takes an event type and a DomSource and returns a stream of events.

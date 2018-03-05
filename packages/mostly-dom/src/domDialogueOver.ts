@@ -1,10 +1,9 @@
-import { Dialogue, Requests, Responses } from '@motorcycle/run'
+import { Dialogue, Requests, Responses, Stream } from '@motorcycle/types'
 import { Dom, eventDelegationDomFrom } from '@motorcycle/dom'
 import { ElementVNode, VNode, elementToVNode, init } from 'mostly-dom'
 import { drain, hold, map, scan } from '@motorcycle/stream'
 
-import { Stream } from '@motorcycle/types'
-import { prop } from '@typed/prelude'
+import { prop } from '@typed/objects'
 import { vNodeWrapper } from './vNodeWrapper'
 
 /**

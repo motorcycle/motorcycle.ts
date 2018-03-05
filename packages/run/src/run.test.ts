@@ -1,8 +1,7 @@
-import { Dialogue, Main, run } from './run'
+import { Dialogue, Stream } from '@motorcycle/types'
+import { Main, run } from './run'
 import { Test, describe, given, it } from '@typed/test'
 import { createProxy, observe, periodic, scan, skip, take, tap, until } from '@motorcycle/stream'
-
-import { Stream } from '@motorcycle/types'
 
 export const test: Test = describe(`run`, [
   given(`a RunSpec`, [

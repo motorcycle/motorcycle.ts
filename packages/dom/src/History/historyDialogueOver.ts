@@ -1,4 +1,4 @@
-import { Dialogue, Requests, Responses } from '@motorcycle/run'
+import { Dialogue, Requests, Responses, Stream } from '@motorcycle/types'
 import {
   constant,
   drain,
@@ -12,7 +12,6 @@ import {
 } from '@motorcycle/stream'
 
 import { EventStream } from '../common'
-import { Stream } from '@motorcycle/types'
 
 /**
  * @name HistoryEffect

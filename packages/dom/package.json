@@ -36,7 +36,6 @@
   },
   "homepage": "https://github.com/motorcyclets/motorcycle#readme",
   "dependencies": {
-    "@motorcycle/run": "5.0.0",
     "@motorcycle/stream": "3.0.0",
     "@motorcycle/types": "3.0.0",
     "@typed/functions": "2.3.0",

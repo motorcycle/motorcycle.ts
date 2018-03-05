@@ -1,6 +1,6 @@
-import { ProxyRequests, Requests } from '..'
+import { Disposable, Requests } from '@motorcycle/types'
 
-import { Disposable } from '@motorcycle/types'
+import { ProxyRequests } from '..'
 import { disposeAll } from '@most/disposable'
 import { scheduler } from '@motorcycle/stream'
 

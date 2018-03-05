@@ -1,7 +1,7 @@
 {
   "name": "@motorcycle/types",
   "version": "3.0.0",
-  "description": "A shared-kernel of types for Motorcycle",
+  "description": "A shared kernel of types for Motorcycle",
   "main": "lib/index.js",
   "module": "lib.es2015/index.js",
   "jsnext:main": "lib.es2015/index.js",
@@ -30,6 +30,6 @@
   },
   "homepage": "https://github.com/motorcyclets/motorcycle#readme",
   "dependencies": {
-    "@most/types": "0.11.1"
+    "@most/types": "1.0.0"
   }
 }

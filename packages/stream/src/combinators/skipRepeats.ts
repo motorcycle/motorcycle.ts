@@ -1,5 +1,5 @@
 import { Stream } from '@motorcycle/types'
-import { equals } from '@typed/prelude'
+import { equals } from '@typed/logic'
 import { skipRepeatsWith } from './skipRepeatsWith'
 
 /**

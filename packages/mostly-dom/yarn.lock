@@ -45,13 +45,6 @@
     "@motorcycle/types" "3.0.0"
     "@typed/prelude" "4.0.0"
 
-"@motorcycle/run@5.0.0":
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/@motorcycle/run/-/run-5.0.0.tgz#a8af4251c8ab77d830a5ccc816ff51a2b66d4505"
-  dependencies:
-    "@motorcycle/stream" "3.0.0"
-    "@motorcycle/types" "3.0.0"
-
 "@motorcycle/stream@3.0.0":
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/@motorcycle/stream/-/stream-3.0.0.tgz#86f3cdb41ce699b0d463915830d446a3cf575d0d"
@@ -88,9 +81,22 @@
     "@typed/core" "2.1.0"
     "@typed/functions" "2.2.0"
 
+"@typed/either@3.3.0":
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/@typed/either/-/either-3.3.0.tgz#070b7ed06b26637e9dd1e96f557120d647f4f3c4"
+  dependencies:
+    "@typed/core" "2.1.0"
+    "@typed/functions" "2.3.0"
+
 "@typed/functions@2.2.0":
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/@typed/functions/-/functions-2.2.0.tgz#7831c8f2c41a51695b0a119ee26ceb0516bc6734"
+  dependencies:
+    "@typed/core" "2.1.0"
+
+"@typed/functions@2.3.0":
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/@typed/functions/-/functions-2.3.0.tgz#bca73405c5d320af87a1a405a5ef2643c7c3dd56"
   dependencies:
     "@typed/core" "2.1.0"
 
@@ -100,6 +106,13 @@
   dependencies:
     "@typed/functions" "2.2.0"
     "@typed/maybe" "5.0.0"
+
+"@typed/lenses@2.3.0":
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/@typed/lenses/-/lenses-2.3.0.tgz#cd9161e988c2f0cc48a47916ee523cc4d29ad2a7"
+  dependencies:
+    "@typed/functions" "2.3.0"
+    "@typed/maybe" "6.0.0"
 
 "@typed/list@2.2.0":
   version "2.2.0"
@@ -111,6 +124,16 @@
     "@typed/logic" "2.2.0"
     "@typed/maybe" "5.0.0"
 
+"@typed/list@2.3.0":
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/@typed/list/-/list-2.3.0.tgz#64a3f6073c3f143e307e9e914ea2f25d3307b4b6"
+  dependencies:
+    "@typed/core" "2.1.0"
+    "@typed/functions" "2.3.0"
+    "@typed/lenses" "2.3.0"
+    "@typed/logic" "2.3.0"
+    "@typed/maybe" "6.0.0"
+
 "@typed/logic@2.2.0":
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/@typed/logic/-/logic-2.2.0.tgz#10f87e1bbab32ff34d15fbb4ed23947c442bae1b"
@@ -118,6 +141,14 @@
     "@typed/either" "3.2.0"
     "@typed/functions" "2.2.0"
     "@typed/maybe" "5.0.0"
+
+"@typed/logic@2.3.0":
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/@typed/logic/-/logic-2.3.0.tgz#989a213440036f93e8f2944ececa1b616b21ec46"
+  dependencies:
+    "@typed/either" "3.3.0"
+    "@typed/functions" "2.3.0"
+    "@typed/maybe" "6.0.0"
 
 "@typed/math@2.2.0":
   version "2.2.0"
@@ -135,6 +166,13 @@
     "@typed/core" "2.1.0"
     "@typed/functions" "2.2.0"
 
+"@typed/maybe@6.0.0":
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/@typed/maybe/-/maybe-6.0.0.tgz#47a9c4bed6f488e885f67accaea2ca0b60e498db"
+  dependencies:
+    "@typed/core" "2.1.0"
+    "@typed/functions" "2.3.0"
+
 "@typed/objects@2.2.0":
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/@typed/objects/-/objects-2.2.0.tgz#cc489563767ef99ea63d617d273d8157db42a943"
@@ -144,6 +182,16 @@
     "@typed/lenses" "2.2.0"
     "@typed/logic" "2.2.0"
     "@typed/maybe" "5.0.0"
+
+"@typed/objects@2.3.0":
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/@typed/objects/-/objects-2.3.0.tgz#9c2d97e7244af920ff465a475efdddd24d6111a0"
+  dependencies:
+    "@typed/core" "2.1.0"
+    "@typed/functions" "2.3.0"
+    "@typed/lenses" "2.3.0"
+    "@typed/logic" "2.3.0"
+    "@typed/maybe" "6.0.0"
 
 "@typed/prelude@4.0.0":
   version "4.0.0"

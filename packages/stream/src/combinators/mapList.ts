@@ -1,5 +1,5 @@
 import { Stream } from '@motorcycle/types'
-import { curry2 } from '@typed/prelude'
+import { curry2 } from '@typed/functions'
 import { map } from './map'
 import { map as mapArray } from '@typed/list'
 

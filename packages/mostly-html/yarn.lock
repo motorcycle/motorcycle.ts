@@ -51,13 +51,6 @@
     "@typed/prelude" "4.0.0"
     mostly-dom "4.3.0"
 
-"@motorcycle/run@5.0.0":
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/@motorcycle/run/-/run-5.0.0.tgz#a8af4251c8ab77d830a5ccc816ff51a2b66d4505"
-  dependencies:
-    "@motorcycle/stream" "3.0.0"
-    "@motorcycle/types" "3.0.0"
-
 "@motorcycle/stream@3.0.0":
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/@motorcycle/stream/-/stream-3.0.0.tgz#86f3cdb41ce699b0d463915830d446a3cf575d0d"
