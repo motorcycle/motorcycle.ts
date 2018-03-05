@@ -1,34 +1,32 @@
-import { CssSelector, DomSource, StandardEvents } from '../'
+import { CssSelector, Dom, StandardEventTypes } from '../'
 import { Test, describe, given, it } from '@typed/test'
 import { drain, empty, mergeArray, now, observe, take } from '@motorcycle/stream'
-import { length, pipe } from '@typed/prelude'
 
-import { EventDelegationDomSource } from './'
+import { EventDelegationDom } from './EventDelegationDom'
 import { collectEventsFor } from '@motorcycle/test'
+import { length } from '@typed/list'
+import { pipe } from '@typed/functions'
 
-export const test: Test = describe(`EventDelegationDomSource`, [
-  given(`a stream of element and a CSS selectors`, [
-    it(`returns a DomSource`, ({ equal }) => {
-      const { query, elements, events, cssSelectors }: DomSource = new EventDelegationDomSource(
-        empty(),
-        []
-      )
+export const test: Test = describe(`EventDelegationDom`, [
+  given(`a stream of element and CSS selectors`, [
+    it(`returns a Dom`, ({ equal }) => {
+      const { query, elements, event, cssSelectors }: Dom = new EventDelegationDom(empty(), [])
       const isFunction = equal(`function`)
 
       isFunction(typeof query)
       isFunction(typeof elements)
-      isFunction(typeof events)
+      isFunction(typeof event)
       isFunction(typeof cssSelectors)
     }),
   ]),
 ])
 
-export const methodsTest: Test = describe(`EventDelegationDomSource methods`, [
+export const methodsTest: Test = describe(`EventDelegationDom methods`, [
   describe(`query`, [
     given(`a CSS selector`, [
       it(`appends it to a list of CSS selectors`, ({ equal }) => {
         const existingSelector = `.foo`
-        const sut: DomSource = new EventDelegationDomSource(empty(), [existingSelector])
+        const sut: Dom = new EventDelegationDom(empty(), [existingSelector])
         const querySelector = `.bar`
         const cssSelectors: ReadonlyArray<CssSelector> = sut.query(querySelector).cssSelectors()
 
@@ -40,7 +38,7 @@ export const methodsTest: Test = describe(`EventDelegationDomSource methods`, [
     given(`':root' as CSS selector`, [
       it(`does not append to the list of CSS selectors`, ({ equal }) => {
         const existingSelector = `.bar`
-        const sut: DomSource = new EventDelegationDomSource(empty(), [existingSelector])
+        const sut: Dom = new EventDelegationDom(empty(), [existingSelector])
         const querySelector = `:root`
         const cssSelectors: ReadonlyArray<CssSelector> = sut.query(querySelector).cssSelectors()
 
@@ -51,17 +49,17 @@ export const methodsTest: Test = describe(`EventDelegationDomSource methods`, [
   ]),
 
   describe(`elements`, [
-    given(`a DomSource with a stream of element and empty CSS selectors`, [
+    given(`a Dom with a stream of element and empty CSS selectors`, [
       it(`returns a stream of elements with only the root element`, ({ equal }) => {
         const rootEl = document.createElement('div')
-        const sut: DomSource = new EventDelegationDomSource(now(rootEl), [])
+        const sut: Dom = new EventDelegationDom(now(rootEl), [])
         const elements$ = sut.elements()
 
         return collectEventsFor(1, elements$).then(equal([[rootEl]]))
       }),
     ]),
 
-    given(`a DomSource with a stream of element with queried CSS selectors`, [
+    given(`a Dom with a stream of element with queried CSS selectors`, [
       it(`returns a stream of elements with only the most specific elements`, ({ equal }) => {
         const rootEl = document.createElement('div')
         const childEl = document.createElement('div')
@@ -70,14 +68,14 @@ export const methodsTest: Test = describe(`EventDelegationDomSource methods`, [
         childEl.classList.add(`foo`)
         rootEl.appendChild(childEl)
 
-        const sut: DomSource = new EventDelegationDomSource(now(rootEl), [`.foo`])
+        const sut: Dom = new EventDelegationDom(now(rootEl), [`.foo`])
         const elements$ = sut.elements()
 
         return collectEventsFor(1, elements$).then(equal([[rootEl, childEl]]))
       }),
     ]),
 
-    given(`a DomSource with a stream of element with children matching CSS selectors`, [
+    given(`a Dom with a stream of element with children matching CSS selectors`, [
       it(`returns a stream of elements with only the most specific elements`, ({ equal }) => {
         const rootEl = document.createElement('div')
         const childEl = document.createElement('div')
@@ -85,14 +83,14 @@ export const methodsTest: Test = describe(`EventDelegationDomSource methods`, [
         childEl.classList.add(`foo`)
         rootEl.appendChild(childEl)
 
-        const sut: DomSource = new EventDelegationDomSource(now(rootEl), [`.foo`])
+        const sut: Dom = new EventDelegationDom(now(rootEl), [`.foo`])
         const elements$ = sut.elements()
 
         return collectEventsFor(1, elements$).then(equal([[childEl]]))
       }),
     ]),
 
-    given(`a DomSource with a stream of element with non-matching CSS selectors`, [
+    given(`a Dom with a stream of element with non-matching CSS selectors`, [
       it(`returns a stream of elements with only the most specific elements`, ({ equal }) => {
         const rootEl = document.createElement('div')
         const childEl = document.createElement('div')
@@ -100,14 +98,14 @@ export const methodsTest: Test = describe(`EventDelegationDomSource methods`, [
         childEl.classList.add(`foo`)
         rootEl.appendChild(childEl)
 
-        const sut: DomSource = new EventDelegationDomSource(now(rootEl), [`.bar`])
+        const sut: Dom = new EventDelegationDom(now(rootEl), [`.bar`])
         const elements$ = sut.elements()
 
         return collectEventsFor(1, elements$).then(equal([]))
       }),
     ]),
 
-    given(`a DomSource with a repeating stream of element of matching CSS selectors`, [
+    given(`a Dom with a repeating stream of element of matching CSS selectors`, [
       it(`returns a repeating stream of elements`, ({ equal }) => {
         const rootEl = document.createElement('div')
         const childEl = document.createElement('div')
@@ -115,10 +113,7 @@ export const methodsTest: Test = describe(`EventDelegationDomSource methods`, [
         childEl.classList.add(`foo`)
         rootEl.appendChild(childEl)
 
-        const sut: DomSource = new EventDelegationDomSource(
-          mergeArray([now(rootEl), now(rootEl)]),
-          [`.foo`]
-        )
+        const sut: Dom = new EventDelegationDom(mergeArray([now(rootEl), now(rootEl)]), [`.foo`])
         const elements$ = sut.elements()
 
         return collectEventsFor(1, elements$).then(equal([[childEl], [childEl]]))
@@ -126,13 +121,13 @@ export const methodsTest: Test = describe(`EventDelegationDomSource methods`, [
     ]),
   ]),
 
-  describe(`events`, [
+  describe(`event`, [
     given(`an event type`, [
       it(`returns a stream of events of same event type`, ({ equal }, done) => {
         const rootEl = document.createElement('div')
-        const sut: DomSource = new EventDelegationDomSource(now(rootEl), [])
+        const sut: Dom = new EventDelegationDom(now(rootEl), [])
         const eventType = 'click'
-        const event$ = sut.events(eventType)
+        const event$ = sut.event(eventType)
         const event = new Event(eventType)
 
         collectEventsFor(1, event$)
@@ -154,12 +149,12 @@ export const methodsTest: Test = describe(`EventDelegationDomSource methods`, [
           ++called
         }
 
-        const sut: DomSource = new EventDelegationDomSource(now(rootEl), [])
+        const sut: Dom = new EventDelegationDom(now(rootEl), [])
         const eventType = 'click'
 
-        drain(sut.events(eventType))
-        drain(sut.events(eventType))
-        drain(sut.events(eventType))
+        drain(sut.event(eventType))
+        drain(sut.event(eventType))
+        drain(sut.event(eventType))
 
         return drain(sut.elements()).then(() => equal(1, called))
       }),
@@ -172,13 +167,13 @@ export const methodsTest: Test = describe(`EventDelegationDomSource methods`, [
           ++called
         }
 
-        const sut: DomSource = new EventDelegationDomSource(now(rootEl), [])
+        const sut: Dom = new EventDelegationDom(now(rootEl), [])
         const eventType = 'click'
         const event = new Event(eventType)
 
         setTimeout(() => rootEl.dispatchEvent(event))
 
-        return drain(take(1, sut.events(eventType))).then(() => equal(1, called))
+        return drain(take(1, sut.event(eventType))).then(() => equal(1, called))
       }),
 
       it(`does not emit events to incorrect listener`, ({ ok }, done) => {
@@ -193,11 +188,11 @@ export const methodsTest: Test = describe(`EventDelegationDomSource methods`, [
         rootEl.appendChild(firstChildEl)
         rootEl.appendChild(secondChildEl)
 
-        const sut: DomSource = new EventDelegationDomSource(now(rootEl), [])
+        const sut: Dom = new EventDelegationDom(now(rootEl), [])
         const eventType = 'click'
 
-        const event$ = sut.query(`.${className}`).events(eventType)
-        const wrongEvent$ = sut.query(`:root`).events(eventType)
+        const event$ = sut.query(`.${className}`).event(eventType)
+        const wrongEvent$ = sut.query(`:root`).event(eventType)
 
         observe(() => done(new Error('should not be called')), wrongEvent$)
 
@@ -220,9 +215,9 @@ export const methodsTest: Test = describe(`EventDelegationDomSource methods`, [
         child.className = 'foo bar'
         root.appendChild(child)
 
-        const sut: DomSource = new EventDelegationDomSource(now(root), ['.foo', '.bar'])
+        const sut: Dom = new EventDelegationDom(now(root), ['.foo', '.bar'])
 
-        const event$ = sut.events('click')
+        const event$ = sut.event('click')
 
         observe(event => equal('click', event.type), take(1, event$))
           .then(() => done())
@@ -243,9 +238,9 @@ export const methodsTest: Test = describe(`EventDelegationDomSource methods`, [
         rootEl.appendChild(firstChildEl)
         rootEl.appendChild(secondChildEl)
 
-        const sut: DomSource = new EventDelegationDomSource(now(rootEl), [])
+        const sut: Dom = new EventDelegationDom(now(rootEl), [])
         const eventType = 'click'
-        const event$ = sut.events(eventType, { capture: true })
+        const event$ = sut.event(eventType, { capture: true })
         const event = new Event(eventType)
 
         collectEventsFor(1, event$)
@@ -265,7 +260,7 @@ export const methodsTest: Test = describe(`EventDelegationDomSource methods`, [
         const eventOptions: EventListenerOptions = { capture: true }
 
         rootEl.addEventListener = (
-          _: StandardEvents,
+          _: StandardEventTypes,
           __?: EventListenerOrEventListenerObject,
           useCapture?: boolean
         ) => {
@@ -273,10 +268,10 @@ export const methodsTest: Test = describe(`EventDelegationDomSource methods`, [
           done()
         }
 
-        const sut: DomSource = new EventDelegationDomSource(now(rootEl), [])
+        const sut: Dom = new EventDelegationDom(now(rootEl), [])
         const eventType = 'click'
 
-        drain(sut.events(eventType, eventOptions))
+        drain(sut.event(eventType, eventOptions))
       }),
 
       it(`calls element.removeEventListener with event options`, ({ equal }, done) => {
@@ -284,7 +279,7 @@ export const methodsTest: Test = describe(`EventDelegationDomSource methods`, [
         const eventOptions: EventListenerOptions = { capture: true }
 
         rootEl.removeEventListener = (
-          _: StandardEvents,
+          _: StandardEventTypes,
           __?: EventListenerOrEventListenerObject,
           useCapture?: boolean
         ) => {
@@ -292,13 +287,13 @@ export const methodsTest: Test = describe(`EventDelegationDomSource methods`, [
           done()
         }
 
-        const sut: DomSource = new EventDelegationDomSource(now(rootEl), [])
+        const sut: Dom = new EventDelegationDom(now(rootEl), [])
         const eventType = 'click'
         const event = new Event(eventType)
 
         setTimeout(() => rootEl.dispatchEvent(event))
 
-        drain(take(1, sut.events(eventType, eventOptions)))
+        drain(take(1, sut.event(eventType, eventOptions)))
       }),
 
       it(`sets correct currentTarget when capturing non-bubbling events`, ({ equal }, done) => {
@@ -309,11 +304,11 @@ export const methodsTest: Test = describe(`EventDelegationDomSource methods`, [
         form.appendChild(input)
         rootEl.appendChild(form)
 
-        const sut: DomSource = new EventDelegationDomSource(now(rootEl), ['form'])
+        const sut: Dom = new EventDelegationDom(now(rootEl), ['form'])
 
         const eventType = 'reset'
 
-        collectEventsFor<Event>(1, sut.events(eventType, { capture: true }))
+        collectEventsFor<Event>(1, sut.event(eventType, { capture: true }))
           .then(([event]) => {
             equal(form, event.currentTarget)
             done()

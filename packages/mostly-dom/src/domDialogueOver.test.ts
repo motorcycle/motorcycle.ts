@@ -2,25 +2,25 @@ import { Test, describe, given, it } from '@typed/test'
 
 import { collectEventsFor } from '@motorcycle/test'
 import { div } from 'mostly-dom'
+import { domDialogueOver } from './domDialogueOver'
 import { length } from '@typed/prelude'
-import { makeDomComponent } from './makeDomComponent'
 import { now } from '@motorcycle/stream'
 
-export const test: Test = describe(`makeDomComponent`, [
+export const test: Test = describe(`domDialogueOver`, [
   given(`an Element and Stream<VNode>`, [
-    it(`returns a DomSource`, ({ equal }) => {
+    it(`returns a Dom`, ({ equal }) => {
       const element = document.createElement('div')
       const view$ = now(div())
 
-      const Dom = makeDomComponent(element)
+      const domDialogue = domDialogueOver(element)
 
-      const { dom } = Dom({ view$ })
+      const { dom } = domDialogue({ view$ })
 
       const isFunction = equal(`function`)
 
       isFunction(typeof dom.query)
       isFunction(typeof dom.elements)
-      isFunction(typeof dom.events)
+      isFunction(typeof dom.event)
       isFunction(typeof dom.cssSelectors)
     }),
 
@@ -28,9 +28,9 @@ export const test: Test = describe(`makeDomComponent`, [
       const element = document.createElement('div')
       const view$ = now(div({ className: 'foo' }))
 
-      const Dom = makeDomComponent(element)
+      const domDialogue = domDialogueOver(element)
 
-      const { dom } = Dom({ view$ })
+      const { dom } = domDialogue({ view$ })
 
       return collectEventsFor(Infinity, dom.elements()).then(([[element]]) => {
         equal(1, length(element.querySelectorAll('.foo')))

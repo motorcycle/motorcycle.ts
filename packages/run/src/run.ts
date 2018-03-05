@@ -24,6 +24,10 @@ export type Requests = Readonly<Record<string, Stream<any>>>
  */
 export type Responses = Readonly<Record<string, any>>
 
+export interface DataFlowComponent<TInputs extends Responses, TOutputs extends Requests> {
+  (xs: TInputs): TOutputs
+}
+
 /**
  * Main is a function type that accepts an object of Responses and returns 
  * an object of Requests.
@@ -35,7 +39,8 @@ export type Responses = Readonly<Record<string, any>>
  * }
  * @type true
  */
-export interface Main<TResponses extends Responses, TRequests extends Requests> {
+export interface Main<TResponses extends Responses, TRequests extends Requests>
+  extends DataFlowComponent<TResponses, TRequests> {
   (rs: TResponses): TRequests
 }
 
@@ -121,8 +126,8 @@ export type EndSignal = Stream<void>
  *
  * @name run<TResponses extends Responses, TRequests extends Requests>({ main, dialogue }: RunSpec<TResponses, TRequests>): IODisposable<TResponses, TRequests> {
  * @example
- * import { run } from '@motorcycle/run'
- * import { makeDomComponent, div, button, h2, query, clickEvent } from '@motorcycle/dom'
+ * import { run } from '@motorcycle/test'
+ * import { domDialogueOver, div, button, h2, query, clickEvent } from '@motorcycle/dom'
  *
  * function main(rs) {
  *   const { dom } = rs
@@ -143,9 +148,9 @@ export type EndSignal = Stream<void>
  *   ])
  * }
  * 
- * const dialogue = makeDomComponent(document.querySelector('#app'))
+ * const domDialogue = domDialogueOver(document.querySelector('#app'))
  *
- * run({ main, dialogue })
+ * run({ main, domDialogue })
  */
 export const run: Run = function<TResponses extends Responses, TRequests extends Requests>({
   main,

@@ -1,27 +1,27 @@
-import { HistorySinks, HistorySources, makeHistoryComponent } from './'
+import { HistoryRequests, HistoryResponses, historyDialogueOver } from './historyDialogueOver'
 import { Test, describe, given, it } from '@typed/test'
 import { empty, now, observe, skip, take } from '@motorcycle/stream'
 
-export const test: Test = describe(`makeHistoryComponent`, [
+export const test: Test = describe(`historyDialogueOver`, [
   given(`Location and History`, [
-    it(`returns an History Component function`, ({ equal }) => {
-      const History = makeHistoryComponent(location, history)
+    it(`returns a History Dialogue function`, ({ equal }) => {
+      const sut = historyDialogueOver(location, history)
 
-      equal('function', typeof History)
+      equal('function', typeof sut)
     }),
   ]),
 
-  describe(`History Component`, [
+  describe(`History Dialogue function`, [
     given(`history$ that never emits`, [
       it(`startsWith initial location`, ({ same }) => {
         const location = Object.create(null) as Location
         const history = Object.create(null) as History
 
-        const History = makeHistoryComponent(location, history)
+        const sut = historyDialogueOver(location, history)
 
-        const sinks: HistorySinks = { history$: empty() }
+        const requests: HistoryRequests = { historyEffect$: empty() }
 
-        const { location$ }: HistorySources = History(sinks)
+        const { location$ }: HistoryResponses = sut(requests)
 
         return observe(same(location), take(1, location$))
       }),
@@ -31,11 +31,11 @@ export const test: Test = describe(`makeHistoryComponent`, [
         const state = { hello: 'world' }
         const history = { state } as History
 
-        const History = makeHistoryComponent(location, history)
+        const sut = historyDialogueOver(location, history)
 
-        const sinks: HistorySinks = { history$: empty() }
+        const requests: HistoryRequests = { historyEffect$: empty() }
 
-        const { location$ }: HistorySources = History(sinks)
+        const { location$ }: HistoryResponses = sut(requests)
 
         observe(same(location), take(1, skip(1, location$)))
           .then(() => done())
@@ -51,11 +51,11 @@ export const test: Test = describe(`makeHistoryComponent`, [
         const state = { hello: 'world' }
         const history = { state } as History
 
-        const History = makeHistoryComponent(location, history)
+        const sut = historyDialogueOver(location, history)
 
-        const sinks: HistorySinks = { history$: empty() }
+        const requests: HistoryRequests = { historyEffect$: empty() }
 
-        const { state$ }: HistorySources = History(sinks)
+        const { state$ }: HistoryResponses = sut(requests)
 
         return observe(equal(state), take(1, state$))
       }),
@@ -66,11 +66,11 @@ export const test: Test = describe(`makeHistoryComponent`, [
         const state = { hello: 'world' }
         const history = { state } as History
 
-        const History = makeHistoryComponent(location, history)
+        const sut = historyDialogueOver(location, history)
 
-        const sinks: HistorySinks = { history$: empty() }
+        const requests: HistoryRequests = { historyEffect$: empty() }
 
-        const { state$ }: HistorySources = History(sinks)
+        const { state$ }: HistoryResponses = sut(requests)
 
         observe(equal(state), take(1, skip(1, state$)))
           .then(() => done())
@@ -92,9 +92,9 @@ export const test: Test = describe(`makeHistoryComponent`, [
           done()
         }
 
-        const History = makeHistoryComponent(location, history)
+        const sut = historyDialogueOver(location, history)
 
-        History({ history$: now(historyEffect) })
+        sut({ historyEffect$: now(historyEffect) })
       }),
 
       it(`updates location$`, ({ equal }) => {
@@ -104,8 +104,8 @@ export const test: Test = describe(`makeHistoryComponent`, [
           actual.pushState(null, '', expected)
         }
 
-        const { location$ } = makeHistoryComponent(location, history)({
-          history$: now(historyEffect),
+        const { location$ } = historyDialogueOver(location, history)({
+          historyEffect$: now(historyEffect),
         })
 
         return observe(({ pathname }) => equal(expected, pathname), take(1, skip(1, location$)))
@@ -126,9 +126,9 @@ export const test: Test = describe(`makeHistoryComponent`, [
           actual.replaceState(expected, '')
         }
 
-        const History = makeHistoryComponent(location, history)
+        const sut = historyDialogueOver(location, history)
 
-        const { state$ } = History({ history$: now(historyEffect) })
+        const { state$ } = sut({ historyEffect$: now(historyEffect) })
 
         return observe(equal(expected), take(1, skip(1, state$)))
       }),

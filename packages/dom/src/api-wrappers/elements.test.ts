@@ -1,6 +1,6 @@
 import { Test, describe, given, it } from '@typed/test'
 
-import { EventDelegationDomSource } from '../DomSources'
+import { EventDelegationDom } from '../Doms'
 import { collectEventsFor } from '@motorcycle/test'
 import { elements } from './elements'
 import { now } from '@motorcycle/stream'
@@ -10,10 +10,10 @@ export const test: Test = describe(`elements`, [
     equal(`function`, typeof elements)
   }),
 
-  given(`a DomSource`, [
+  given(`a Dom`, [
     it(`returns a stream of elements`, ({ equal }) => {
       const element = document.createElement('div')
-      const dom = new EventDelegationDomSource(now(element), [])
+      const dom = new EventDelegationDom(now(element), [])
 
       const elements$ = elements<Element, Event>(dom)
 

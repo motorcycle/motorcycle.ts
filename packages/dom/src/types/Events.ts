@@ -1,29 +1,29 @@
 // All events types described at
 // https://developer.mozilla.org/en-US/docs/Web/Events
 
-export type ResourceEvents = 'cached' | 'error' | 'abort' | 'load' | 'beforeunload' | 'unload'
+export type ResourceEventTypes = 'cached' | 'error' | 'abort' | 'load' | 'beforeunload' | 'unload'
 
-export type NetworkEvents = 'online' | 'offline'
+export type NetworkEventTypes = 'online' | 'offline'
 
-export type FocusEvents = 'focus' | 'blur'
+export type FocusEventTypes = 'focus' | 'blur'
 
-export type WebsocketEvents = 'open' | 'message' | 'error' | 'close'
+export type WebsocketEventTypes = 'open' | 'message' | 'error' | 'close'
 
-export type SessionHistoryEvents = 'pagehide' | 'pageshow' | 'popstate'
+export type SessionHistoryEventTypes = 'pagehide' | 'pageshow' | 'popstate'
 
-export type CssAnimationEvents = 'animationstart' | 'animationend' | 'animationiteration'
+export type CssAnimationEventTypes = 'animationstart' | 'animationend' | 'animationiteration'
 
-export type FormEvents = 'reset' | 'submit' | 'invalid'
+export type FormEventTypes = 'reset' | 'submit' | 'invalid'
 
-export type PrintingEvents = 'beforeprint' | 'afterprint'
+export type PrintingEventTypes = 'beforeprint' | 'afterprint'
 
-export type TextCompositionEvents = 'compositionstart' | 'compositionupdate' | 'compositionend'
+export type TextCompositionEventTypes = 'compositionstart' | 'compositionupdate' | 'compositionend'
 
-export type ViewEvents = 'fullscreenchange' | 'fullscreenerror' | 'resize' | 'scroll'
+export type ViewEventTypes = 'fullscreenchange' | 'fullscreenerror' | 'resize' | 'scroll'
 
-export type KeyboardEvents = 'keydown' | 'keypress' | 'keyup'
+export type KeyboardEventTypes = 'keydown' | 'keypress' | 'keyup'
 
-export type MouseEvents =
+export type MouseEventTypes =
   | 'mouseenter'
   | 'mouseover'
   | 'mousemove'
@@ -39,7 +39,7 @@ export type MouseEvents =
   | 'pointerlockchange'
   | 'pointerlockerror'
 
-export type DragAndDropEvents =
+export type DragAndDropEventTypes =
   | 'dragstart'
   | 'drag'
   | 'dragend'
@@ -49,7 +49,7 @@ export type DragAndDropEvents =
   | 'dragleave'
   | 'drop'
 
-export type MediaEvents =
+export type MediaEventTypes =
   | 'durationchange'
   | 'loadedmetadata'
   | 'loadeddata'
@@ -71,7 +71,7 @@ export type MediaEvents =
   | 'ended'
   | 'audioprocess'
 
-export type ProgressEvents =
+export type ProgressEventTypes =
   | 'loadstart'
   | 'progress'
   | 'error'
@@ -80,9 +80,9 @@ export type ProgressEvents =
   | 'load'
   | 'loaded'
 
-export type StorageEvents = 'change' | 'storage'
+export type StorageEventTypes = 'change' | 'storage'
 
-export type UpdateEvents =
+export type UpdateEventTypes =
   | 'checking'
   | 'downloading'
   | 'error'
@@ -90,7 +90,7 @@ export type UpdateEvents =
   | 'obsolete'
   | 'updateready'
 
-export type ValueChangeEvents =
+export type ValueChangeEventTypes =
   | 'broadcast'
   | 'CheckboxStateChange'
   | 'hashchange'
@@ -99,13 +99,13 @@ export type ValueChangeEvents =
   | 'readystatechange'
   | 'ValueChange'
 
-export type LocalizationEvents = 'localized'
+export type LocalizationEventTypes = 'localized'
 
-export type WebWorkerEvents = 'message'
+export type WebWorkerEventTypes = 'message'
 
-export type ContextMenuEvents = 'show'
+export type ContextMenuEventTypes = 'show'
 
-export type SvgEvents =
+export type SvgEventTypes =
   | 'SVGAbort'
   | 'SVGError'
   | 'SVGLoad'
@@ -114,7 +114,7 @@ export type SvgEvents =
   | 'SVGUnload'
   | 'SVGZoom'
 
-export type DatabaseEvents =
+export type DatabaseEventTypes =
   | 'abort'
   | 'blocked'
   | 'complete'
@@ -123,19 +123,19 @@ export type DatabaseEvents =
   | 'upgradeneeded'
   | 'versionchange'
 
-export type NotificationEvents = 'AlertActive' | 'AlertClose'
+export type NotificationEventTypes = 'AlertActive' | 'AlertClose'
 
-export type CSSEvents =
+export type CssEventTypes =
   | 'CssRuleViewRefreshed'
   | 'CssRuleViewChanged'
   | 'CssRuleViewCSSLinkClicked'
   | 'transitionend'
 
-export type ScriptEvents = 'afterscriptexecute' | 'beforescriptexecute'
+export type ScriptEventTypes = 'afterscriptexecute' | 'beforescriptexecute'
 
-export type MenuEvents = 'DOMMenutItemActive' | 'DOMMenutItemInactive'
+export type MenuEventTypes = 'DOMMenutItemActive' | 'DOMMenutItemInactive'
 
-export type WindowEvents =
+export type WindowEventTypes =
   | 'DOMWindowCreated'
   | 'DOMTitleChanged'
   | 'DOMWindowClose'
@@ -144,7 +144,7 @@ export type WindowEvents =
   | 'SSWindowStateBusy'
   | 'close'
 
-export type DocumentEvents =
+export type DocumentEventTypes =
   | 'DOMLinkAdded'
   | 'DOMLinkRemoved'
   | 'DOMMetaAdded'
@@ -152,14 +152,14 @@ export type DocumentEvents =
   | 'DOMWillOpenModalDialog'
   | 'DOMModalDialogClosed'
 
-export type PopupEvents =
+export type PopupEventTypes =
   | 'popuphidden'
   | 'popuphiding'
   | 'popupshowing'
   | 'popupshown'
   | 'DOMPopupBlocked'
 
-export type TabEvents =
+export type TabEventTypes =
   | 'TabOpen'
   | 'TabClose'
   | 'TabSelect'
@@ -172,13 +172,13 @@ export type TabEvents =
   | 'SSTabRestored'
   | 'visibilitychange'
 
-export type BatteryEvents =
+export type BatteryEventTypes =
   | 'chargingchange'
   | 'chargingtimechange'
   | 'dischargingtimechange'
   | 'levelchange'
 
-export type CallEvents =
+export type CallEventTypes =
   | 'alerting'
   | 'busy'
   | 'callschanged'
@@ -194,7 +194,7 @@ export type CallEvents =
   | 'resuming'
   | 'statechange'
 
-export type SensorEvents =
+export type SensorEventTypes =
   | 'devicelight'
   | 'devicemotion'
   | 'deviceorientation'
@@ -202,13 +202,13 @@ export type SensorEvents =
   | 'orientationchange'
   | 'userproximity'
 
-export type SmartcardEvents = 'smartcard-insert' | 'smartcard-remove'
+export type SmartcardEventTypes = 'smartcard-insert' | 'smartcard-remove'
 
-export type SMSAndUSSDEvents = 'delivered' | 'received' | 'sent'
+export type SmsAndUssdEventTypes = 'delivered' | 'received' | 'sent'
 
-export type FrameEvents = 'DOMFrameContentLoaded'
+export type FrameEventTypes = 'DOMFrameContentLoaded'
 
-export type DOMMutationEvents =
+export type DomMutationEventTypes =
   | 'DOMAttributeNameChanged'
   | 'DOMAttrModified'
   | 'DOMCharacterDataModified'
@@ -220,7 +220,7 @@ export type DOMMutationEvents =
   | 'DOMNodeRemovedFromDocument'
   | 'DOMSubtreeModified'
 
-export type TouchEvents =
+export type TouchEventTypes =
   | 'touchcancel'
   | 'touchend'
   | 'touchenter'
@@ -228,7 +228,7 @@ export type TouchEvents =
   | 'touchmove'
   | 'touchstart'
 
-export type PointerEvents =
+export type PointerEventTypes =
   | 'pointerover'
   | 'pointerenter'
   | 'pointerdown'
@@ -240,15 +240,16 @@ export type PointerEvents =
   | 'gotpointercapture'
   | 'lostpointercapture'
 
-// the events that are in the var browser specifications
-// all browsers should have these implemented the same
+// The events that are in the various browser specifications.
+// All browsers should have these implemented the same.
+
 /**
  * Standard event types defined by MDN. All browser should have these 
  * implemented the same.
  * 
- * @name StandardEvents
+ * @name StandardEventTypes
  * @example
- * export type StandardEvents =
+ * export type StandardEventTypes =
  * // name -    Event Types
  *  | 'abort' // UIEvent, ProgressEvent, Event
  *  | 'afterprint' // Event;
@@ -424,7 +425,7 @@ export type PointerEvents =
  *  | 'wheel' // WheelEvent
  * @type
  */
-export type StandardEvents =
+export type StandardEventTypes =
   // name -    Event Types
   | 'abort' // UIEvent, ProgressEvent, Event
   | 'afterprint' // Event;

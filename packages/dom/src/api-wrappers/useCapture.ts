@@ -1,44 +1,47 @@
-import { CssSelector, DomSource, StandardEvents } from '../'
+import { CssSelector, Dom, StandardEventTypes } from '../'
 
 import { Stream } from '@motorcycle/types'
 
+export interface UseCaptureFn {
+  <A = Element, B = Event>(d: Dom<A, B>): Dom<A, B>
+}
+
 /**
- * Creates a new DomSource that will default to using 
- * capture when using `events()`.
+ * Creates a new Dom that will default to using capture when using `event()`.
  * 
- * @name useCapture<A = Element, B = Event>(dom: DomSource<A, B>): DomSource<A, B>
+ * @name useCapture<A = Element, B = Event>(d: Dom<A, B>): Dom<A, B>
  * @example 
- * import { useCapture, events } from '@motorcycle/dom'
+ * import { useCapture, event } from '@motorcycle/dom'
  * 
- * export function Component(sources) {
- *   const { dom } = sources
+ * export function component(ss) {
+ *   const { dom } = ss
  * 
  *   const click$ = events('click', useCapture(dom))
  * 
  *   ...
  * }
  */
-export function useCapture<A = Element, B = Event>(dom: DomSource<A, B>): DomSource<A, B> {
-  const useCaptureDomSource: DomSource<A, B> = {
-    query(cssSelector: CssSelector): DomSource<A, B> {
-      return dom.query(cssSelector)
+export const useCapture: UseCaptureFn = function<A = Element, B = Event>(d: Dom<A, B>) {
+  const useCaptureDom: Dom<A, B> = {
+    query(cssSelector: CssSelector): Dom<A, B> {
+      return d.query(cssSelector)
     },
 
     elements(): Stream<ReadonlyArray<A>> {
-      return dom.elements()
+      return d.elements()
     },
 
-    events<Ev extends B = B>(
-      eventType: StandardEvents,
-      options: EventListenerOptions = { capture: true }
+    event<Ev extends B = B>(
+      et: StandardEventTypes,
+      o: EventListenerOptions = { capture: true }
     ): Stream<Ev> {
-      return dom.events(eventType, options)
+      return d.event(et, o)
     },
 
     cssSelectors(): ReadonlyArray<CssSelector> {
-      return dom.cssSelectors()
+      return d.cssSelectors()
     },
   }
 
-  return useCaptureDomSource
+  return useCaptureDom
 }

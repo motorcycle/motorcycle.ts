@@ -1,24 +1,25 @@
-import { DomSource } from '../'
+import { Dom } from '../'
 import { Stream } from '@motorcycle/types'
 
+export interface ElementsFn {
+  <A = Element, B = Event>(d: Dom<A, B>): Stream<ReadonlyArray<A>>
+}
+
 /**
- * Takes a DomSource and returns a stream of Array of elements matches 
- * previous queries.
+ * Takes a Dom and returns a stream of Array of elements matches previous queries.
  * 
- * @name elements<A = Element, B = Event>>(dom: DomSource<A, B>): Stream<ReadonlyArray<A>>
+ * @name elements<A = Element, B = Event>>(d: Dom<A, B>): Stream<ReadonlyArray<A>>
  * @example
- * import { DomSource, elements } from '@motorcycle/dom'
+ * import { Dom, elements } from '@motorcycle/dom'
  * 
- * type Sources = { dom: DomSource } 
+ * type Sources = { dom: Dom } 
  * 
- * function Component(sources: Sources) {
- *   const { dom } = sources
+ * function component(ss: Sources) {
+ *   const { dom } = ss
  * 
  *   const elements$ = elements(dom)
  * 
  *   ...
  * }
  */
-export function elements<A = Element, B = Event>(dom: DomSource<A, B>): Stream<ReadonlyArray<A>> {
-  return dom.elements()
-}
+export const elements: ElementsFn = <A = Element, B = Event>(d: Dom<A, B>) => d.elements()

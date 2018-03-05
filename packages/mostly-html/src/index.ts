@@ -1,2 +1,1 @@
-export * from './types'
-export * from './Html'
+export * from './html'

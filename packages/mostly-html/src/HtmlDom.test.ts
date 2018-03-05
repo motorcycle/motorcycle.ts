@@ -1,17 +1,17 @@
 import { Test, describe, given, it } from '@typed/test'
 
-import { HtmlDomSource } from './HtmlDomSource'
+import { HtmlDom } from './HtmlDom'
 import { collectEventsFor } from '@motorcycle/test'
 
-export const test: Test = describe(`HtmlDomSource`, [
-  given(`an array of css selectors`, [
-    it(`returns a DomSource`, ({ equal }) => {
-      const { query, elements, events, cssSelectors } = new HtmlDomSource([])
+export const test: Test = describe(`HtmlDom`, [
+  given(`an array of CSS selectors`, [
+    it(`returns a Dom`, ({ equal }) => {
+      const { query, elements, event, cssSelectors } = new HtmlDom([])
       const isFunction = equal(`function`)
 
       isFunction(typeof query)
       isFunction(typeof elements)
-      isFunction(typeof events)
+      isFunction(typeof event)
       isFunction(typeof cssSelectors)
     }),
   ]),
@@ -20,7 +20,7 @@ export const test: Test = describe(`HtmlDomSource`, [
     given(`a CSS selector`, [
       it(`appends it to a list of CSS selectors`, ({ equal }) => {
         const existingSelector = `.foo`
-        const sut = new HtmlDomSource([existingSelector])
+        const sut = new HtmlDom([existingSelector])
         const querySelector = `.bar`
         const cssSelectors = sut.query(querySelector).cssSelectors()
 
@@ -32,7 +32,7 @@ export const test: Test = describe(`HtmlDomSource`, [
     given(`':root' as CSS selector`, [
       it(`does not append to the list of CSS selectors`, ({ equal }) => {
         const existingSelector = `.bar`
-        const sut = new HtmlDomSource([existingSelector])
+        const sut = new HtmlDom([existingSelector])
         const querySelector = `:root`
         const cssSelectors = sut.query(querySelector).cssSelectors()
 
@@ -44,7 +44,7 @@ export const test: Test = describe(`HtmlDomSource`, [
 
   describe(`elements`, [
     it(`returns a stream that ends without events`, ({ equal }) => {
-      const sut = new HtmlDomSource([])
+      const sut = new HtmlDom([])
 
       return collectEventsFor(Infinity, sut.elements()).then(equal([]))
     }),
@@ -52,9 +52,9 @@ export const test: Test = describe(`HtmlDomSource`, [
 
   describe(`events`, [
     it(`returns a stream that ends without events`, ({ equal }) => {
-      const sut = new HtmlDomSource([])
+      const sut = new HtmlDom([])
 
-      return collectEventsFor(Infinity, sut.events()).then(equal([]))
+      return collectEventsFor(Infinity, sut.event()).then(equal([]))
     }),
   ]),
 ])

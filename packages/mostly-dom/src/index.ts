@@ -38,4 +38,4 @@
 export * from 'mostly-dom'
 
 export * from './isolate'
-export * from './makeDomComponent'
+export * from './domDialogueOver'

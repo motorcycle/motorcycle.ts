@@ -1,9 +1,10 @@
-export * from './createDocumentDomSource'
-export * from './createDomSource'
-export * from './fakeDomSource'
+export * from './documentDomFrom'
+export * from './eventDelegationDomFrom'
+export * from './fakeDomFrom'
+export * from './windowDomFrom'
 export * from './types'
 
-export { DocumentDomSource } from './DomSources'
+export { DocumentDom } from './Doms'
 
 export * from './api-wrappers'
 export * from './History'

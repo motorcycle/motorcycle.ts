@@ -1,27 +1,53 @@
-import { HtmlSinks, HtmlSources } from './types'
+import { DomRequests, DomResponses } from '@motorcycle/mostly-dom'
 import { hold, map } from '@motorcycle/stream'
 
-import { HtmlDomSource } from './HtmlDomSource'
+import { Dialogue } from '@motorcycle/run'
+import { HtmlDom } from './HtmlDom'
+import { Stream } from '@motorcycle/types'
 import { toHtml } from 'mostly-html'
 
 /**
- * Renders mostly-dom VNodes into HTML for server-side rendering.
- * @name Html<A = Element, B = Event>(sinks: HtmlSinks): HtmlSources<A, B>
+ * @name HtmlRequests
+ * @example
+ * export interface HtmlRequests extends DomRequests {
+ *   readonly view$: Stream<VNode>
+ * }
+ * @type
+ */
+export interface HtmlRequests extends DomRequests {}
+
+/**
+ * @name
+ * @example
+ * export type HtmlSources<A = Element, B = Event> = {
+ *   readonly html$: Stream<string>
+ *   readonly dom: Dom<A, B>
+ * }
+ * @type
+ */
+export interface HtmlResponses<A = Element, B = Event> extends DomResponses<A, B> {
+  readonly html$: Stream<string>
+}
+
+/**
+ * Renders mostly-dom `VNode`s into HTML for server-side rendering.
+ * @name html<A = Element, B = Event>(sinks: HtmlSinks): HtmlSources<A, B>
  * @example
  * import { run } from '@motorcycle/run'
- * import { Html, HtmlSources, HtmlSinks } from '@motorcycle/mostly-html'
- * import { UI } from './UI'
+ * import { html, HtmlResponses, HtmlRequests } from '@motorcycle/mostly-html'
+ * import { main } from './main'
  * import { observe } from '@motorcycle/stream'
  *
- * const { sources: { html$ } } = run<HtmlSources, HtmlSinks>(UI, Html)
+ * const { responses: { html$ } } = run<HtmlResponses, HtmlRequests>(main, Html)
  *
- * observe((html: string) => { /* Do something with html *\/ }, html$)
+ * observe(html => { /* Do something with html *\/ }, html$)
  */
-export function Html<A = Element, B = Event>(sinks: HtmlSinks): HtmlSources<A, B> {
-  const { view$ } = sinks
-
+export const html: Dialogue<HtmlRequests, HtmlResponses> = function<A = Element, B = Event>(
+  rs: HtmlRequests
+) {
+  const { view$ } = rs
   const html$ = hold(map(toHtml, view$))
-  const dom = new HtmlDomSource<A, B>([])
+  const dom = new HtmlDom<A, B>([])
 
   return { dom, html$ }
 }

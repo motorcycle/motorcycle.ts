@@ -36,6 +36,7 @@
   "dependencies": {
     "@motorcycle/dom": "17.0.0",
     "@motorcycle/mostly-dom": "5.0.0",
+    "@motorcycle/run": "5.0.0",
     "@motorcycle/stream": "3.0.0",
     "@motorcycle/types": "3.0.0",
     "mostly-html": "2.0.0"
