@@ -39,10 +39,10 @@
     "@most/disposable": "0.13.1",
     "@most/prelude": "1.6.4",
     "@most/scheduler": "0.13.1",
-    "@motorcycle/types": "3.0.0",
-    "@typed/prelude": "4.0.0"
+    "@motorcycle/types": "3.0.0"
   },
   "devDependencies": {
-    "@typed/assertions": "1.1.0"
+    "@typed/assertions": "1.1.0",
+    "@typed/math": "2.3.0"
   }
 }

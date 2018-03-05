@@ -10,13 +10,15 @@ import { disposeSources } from './disposeSources'
  * application's event loop. An additional property is returned with the `tick`
  * that allows you to control how time progresses.
  *
+ * @name run<TResponses extends Responses, TRequests extends Requests>({ main, dialogue }: RunSpec<TResponses, TRequests>): IODisposable<TResponses, TRequests> {
+ * 
  * @name run<Sources, Sinks>(Main: Component<Sources, Sinks>, IO: IOComponent<Sinks, Sources>)
  * @example
  * import { run } from '@motorcycle/test'
- * import { makeDomComponent, div, button, h2, query, clickEvent } from '@motorcycle/dom'
+ * import { div, button, h2, query, clickEvent } from '@motorcycle/dom'
  *
- * function Main(sources) {
- *   const { dom } = sources
+ * function main(rs) {
+ *   const { dom } = rs
  *
  *   const click$ = clickEvent(query('button', dom))
  *
@@ -34,13 +36,13 @@ import { disposeSources } from './disposeSources'
  *   ])
  * }
  *
- * const Dom = fakeDomComponent({
+ * const fakeDomDialogue = fakeDomDialogueOver({
  *   'button': {
  *     click: now(fakeEvent())
  *   }
  * })
  *
- * const { tick, dispose } = run(UI, Dom)
+ * const { tick, dispose } = run(main, fakeDomDialogue)
  *
  * tick(500).then(dispose)
  */

@@ -1,13 +1,13 @@
 import { Disposable, Scheduler, Sink, Stream } from '@motorcycle/types'
 
-import { StandardEvents } from '../'
+import { StandardEventTypes } from '../'
 
 export class EventStream<Ev extends Event> implements Stream<Ev> {
-  private eventType: StandardEvents
+  private eventType: StandardEventTypes
   private element: EventTarget
   private options: EventListenerOptions
 
-  constructor(eventType: StandardEvents, element: EventTarget, options: EventListenerOptions) {
+  constructor(eventType: StandardEventTypes, element: EventTarget, options: EventListenerOptions) {
     this.eventType = eventType
     this.element = element
     this.options = options

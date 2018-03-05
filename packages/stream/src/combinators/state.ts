@@ -1,5 +1,5 @@
 import { Stream } from '@motorcycle/types'
-import { curry3 } from '@typed/prelude'
+import { curry3 } from '@typed/functions'
 import { hold } from './hold'
 import { scan } from './scan'
 import { skipRepeats } from './skipRepeats'
@@ -13,7 +13,7 @@ import { switchMap } from './switchMap'
  * import { Stream } from '@motorcycle/types'
  * import { query, dragOverEvent, dragStartEvent, dropEvent } from '@motorcycle/dom'
  * import { sample, map, state, mapList } from '@motorcycle/stream'
- * import { move } from '@typed/prelude'
+ * import { move } from '@typed/list'
  *
  * export function ReorderableList(sources) {
  *   const { list$, dom } = sources

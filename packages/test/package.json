@@ -34,11 +34,12 @@
   },
   "homepage": "https://github.com/motorcyclets/motorcycle#readme",
   "dependencies": {
-    "@most/scheduler": "0.13.1",
+    "@most/scheduler": "1.1.0",
     "@motorcycle/stream": "3.0.0",
-    "@motorcycle/types": "3.0.0"
+    "@motorcycle/types": "3.0.0",
+    "@typed/functions": "2.3.0"
   },
   "devDependencies": {
-    "@most/core": "0.14.0"
+    "@most/core": "1.2.3"
   }
 }

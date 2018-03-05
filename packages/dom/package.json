@@ -38,7 +38,9 @@
   "dependencies": {
     "@motorcycle/stream": "3.0.0",
     "@motorcycle/types": "3.0.0",
-    "@typed/prelude": "4.0.0"
+    "@typed/functions": "2.3.0",
+    "@typed/list": "2.3.0",
+    "@typed/logic": "2.3.0"
   },
   "devDependencies": {
     "@motorcycle/test": "3.0.0"

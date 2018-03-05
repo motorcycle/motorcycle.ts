@@ -1,2 +1,1 @@
-export * from './types'
-export * from './makeHistoryComponent'
+export * from './historyDialogueOver'
