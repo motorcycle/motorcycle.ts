@@ -8,15 +8,18 @@
   "author": "Tylor Steinberger <tlsteinberger167@gmail.com>",
   "license": "MIT",
   "devDependencies": {
-    "@typed/test": "3.6.0",
+    "@typed/test": "6.5.0",
     "dox": "0.9.0",
     "glob-expand": "0.2.1",
     "husky": "0.14.3",
-    "lerna": "2.4.0",
-    "lint-staged": "4.2.3",
-    "prettier": "1.7.4",
-    "typescript": "2.5.3"
+    "lerna": "2.9.0",
+    "lint-staged": "7.0.0",
+    "prettier": "1.11.1",
+    "typescript": "2.7.2"
   },
+  "workspaces": [
+    "packages/*"
+  ],
   "lint-staged": {
     "*.ts": [
       "prettier --write --print-width 100 --tab-width 2 --no-semi --single-quote --trailing-comma es5 --parser typescript",
@@ -25,7 +28,7 @@
   },
   "scripts": {
     "precommit": "lint-staged",
-    "postinstall": "lerna bootstrap --hoist -- --pure-lockfile && yarn build",
+    "postinstall": "yarn build",
     "test": "yarn test:lint && yarn test:unit",
     "test:unit": "lerna run test:unit",
     "test:lint": "lerna exec -- ../../node_modules/.bin/prettier --write --print-width 100 --tab-width 2 --no-semi --single-quote --trailing-comma es5 --parser typescript src/**/*.ts",

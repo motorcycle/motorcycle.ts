@@ -39,6 +39,6 @@
   "dependencies": {
     "@motorcycle/stream": "3.0.0",
     "@motorcycle/types": "3.0.0",
-    "@typed/functions": "^2.3.0"
+    "@typed/functions": "2.3.0"
   }
 }
