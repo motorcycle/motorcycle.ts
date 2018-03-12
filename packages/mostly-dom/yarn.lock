@@ -2,10 +2,6 @@
 # yarn lockfile v1
 
 
-"@most/prelude@^1.6.0":
-  version "1.6.4"
-  resolved "https://registry.yarnpkg.com/@most/prelude/-/prelude-1.6.4.tgz#254ab6e22c0d4e7cb19e6ec1c966b75f57317f25"
-
 "@typed/core@2.1.0":
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/@typed/core/-/core-2.1.0.tgz#9c0c303bbe83a9979464bd41d8e5e49073cde323"
@@ -95,8 +91,6 @@
   dependencies:
     "@typed/functions" "2.2.0"
 
-mostly-dom@4.3.0:
-  version "4.3.0"
-  resolved "https://registry.yarnpkg.com/mostly-dom/-/mostly-dom-4.3.0.tgz#6ff3188240923ae4112b68768b7b7d11661d718a"
-  dependencies:
-    "@most/prelude" "^1.6.0"
+mostly-dom@5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/mostly-dom/-/mostly-dom-5.0.0.tgz#818be849e80655275d59d97d87dd0bd439076ced"
