@@ -26,7 +26,7 @@
     "@motorcycle/mostly-dom": "4.1.0",
     "@motorcycle/run": "4.1.0",
     "@motorcycle/stream": "2.1.0",
-    "@typed/prelude": "4.0.0"
+    "@typed/prelude": "5.0.0"
   },
   "devDependencies": {
     "@types/node": "8.0.33",
