@@ -24,7 +24,7 @@
   "dependencies": {
     "@motorcycle/dom": "16.1.0",
     "@motorcycle/mostly-dom": "4.1.0",
-    "@motorcycle/run": "4.1.0",
+    "@motorcycle/run": "5.0.0",
     "@motorcycle/stream": "2.1.0",
     "@typed/prelude": "4.0.0"
   },
