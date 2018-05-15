@@ -26,7 +26,11 @@
     "@most/prelude" "^1.6.4"
     "@most/types" "^0.11.1"
 
-"@most/prelude@1.6.4", "@most/prelude@^1.6.4":
+"@most/prelude@1.7.1":
+  version "1.7.1"
+  resolved "https://registry.yarnpkg.com/@most/prelude/-/prelude-1.7.1.tgz#7c70ab6a68bb20481db51ebfbba23fceb502d239"
+
+"@most/prelude@^1.6.4":
   version "1.6.4"
   resolved "https://registry.yarnpkg.com/@most/prelude/-/prelude-1.6.4.tgz#254ab6e22c0d4e7cb19e6ec1c966b75f57317f25"
 
