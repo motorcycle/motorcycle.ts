@@ -19,7 +19,14 @@
     "@most/scheduler" "^0.13.1"
     "@most/types" "^0.11.1"
 
-"@most/disposable@0.13.1", "@most/disposable@^0.13.1":
+"@most/disposable@1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@most/disposable/-/disposable-1.2.0.tgz#cd71368be72cac45420b4ed71f654e5699fd1af0"
+  dependencies:
+    "@most/prelude" "^1.7.1"
+    "@most/types" "^1.0.0"
+
+"@most/disposable@^0.13.1":
   version "0.13.1"
   resolved "https://registry.yarnpkg.com/@most/disposable/-/disposable-0.13.1.tgz#9bfa07ebff9392c72afd0fc647dcd89a42d1d40c"
   dependencies:
@@ -29,6 +36,10 @@
 "@most/prelude@1.6.4", "@most/prelude@^1.6.4":
   version "1.6.4"
   resolved "https://registry.yarnpkg.com/@most/prelude/-/prelude-1.6.4.tgz#254ab6e22c0d4e7cb19e6ec1c966b75f57317f25"
+
+"@most/prelude@^1.7.1":
+  version "1.7.1"
+  resolved "https://registry.yarnpkg.com/@most/prelude/-/prelude-1.7.1.tgz#7c70ab6a68bb20481db51ebfbba23fceb502d239"
 
 "@most/scheduler@0.13.1", "@most/scheduler@^0.13.1":
   version "0.13.1"
@@ -40,6 +51,10 @@
 "@most/types@^0.11.1":
   version "0.11.1"
   resolved "https://registry.yarnpkg.com/@most/types/-/types-0.11.1.tgz#5e305e0e346c5b01f1ebdeec4c1dfa5b189b5f9d"
+
+"@most/types@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@most/types/-/types-1.0.0.tgz#5c301d2437342a1b82e38463fdb94e1bafe2c6d9"
 
 "@typed/assertions@1.1.0":
   version "1.1.0"
