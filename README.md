@@ -13,6 +13,7 @@
 [![ComVer](https://img.shields.io/badge/ComVer-compliant-brightgreen.svg)](https://github.com/staltz/comver)
 [![Join the chat at https://gitter.im/motorcyclets/motorcycle](https://badges.gitter.im/motorcyclets/motorcycle.svg)](https://gitter.im/motorcyclets/motorcycle?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Build Status](https://travis-ci.org/motorcyclets/motorcycle.svg?branch=master)](https://travis-ci.org/motorcyclets/motorcycle)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fmotorcycle%2Fmotorcycle.ts.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fmotorcycle%2Fmotorcycle.ts?ref=badge_shield)
 
 </div>
 
@@ -66,3 +67,7 @@ export CHANGELOG_GITHUB_TOKEN=$GITHUB_PERSONAL_ACCESS_TOKEN_GENERATED_ABOVE
 
 In a new terminal, you should now be able to successfully run `yarn changelog`
 to generate an up-to-date `CHANGELOG.md`.
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fmotorcycle%2Fmotorcycle.ts.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fmotorcycle%2Fmotorcycle.ts?ref=badge_large)
